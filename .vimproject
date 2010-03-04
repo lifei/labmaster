@@ -1,12 +1,6 @@
-labmaster=D:\Workspace\labmaster CD=. {
- application.properties
+labmaster=/home/lifei/env/grails/labmaster CD=. {
  grails-app=grails-app {
   conf=conf {
-   BootStrap.groovy
-   BuildConfig.groovy
-   Config.groovy
-   DataSource.groovy
-   UrlMappings.groovy
    hibernate=hibernate {
    }
    spring=spring {
@@ -15,6 +9,9 @@ labmaster=D:\Workspace\labmaster CD=. {
   }
   controllers=controllers {
    labmaster=labmaster {
+    device=device {
+     MaintenanceController.groovy
+    }
     acl=acl {
      GroupController.groovy
      UserController.groovy
@@ -23,6 +20,10 @@ labmaster=D:\Workspace\labmaster CD=. {
   }
   domain=domain {
    labmaster=labmaster {
+    device=device {
+     Apparatus.groovy
+     Maintenance.groovy
+    }
     acl=acl {
      Group.groovy
      User.groovy
