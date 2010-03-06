@@ -1,6 +1,13 @@
 labmaster=/home/lifei/env/grails/labmaster CD=. {
+ application.properties
  grails-app=grails-app {
   conf=conf {
+   BootStrap.groovy
+   BuildConfig.groovy
+   Config.groovy
+   DataSource.groovy
+   SecurityConfig.groovy
+   UrlMappings.groovy
    hibernate=hibernate {
    }
    spring=spring {
@@ -8,8 +15,16 @@ labmaster=/home/lifei/env/grails/labmaster CD=. {
    }
   }
   controllers=controllers {
+   CaptchaController.groovy
+   LoginController.groovy
+   LogoutController.groovy
+   MemberController.groovy
+   RegisterController.groovy
+   RequestMapController.groovy
+   RoleController.groovy
    labmaster=labmaster {
     device=device {
+     ApparatusController.groovy
      MaintenanceController.groovy
     }
     acl=acl {
@@ -20,6 +35,11 @@ labmaster=/home/lifei/env/grails/labmaster CD=. {
   }
   domain=domain {
    labmaster=labmaster {
+    auth=auth {
+     Member.groovy
+     RequestMap.groovy
+     Role.groovy
+    }
     device=device {
      Apparatus.groovy
      Maintenance.groovy
@@ -46,6 +66,7 @@ labmaster=/home/lifei/env/grails/labmaster CD=. {
    messages_zh_CN.properties
   }
   services=services {
+   EmailerService.groovy
   }
   taglib=taglib {
   }
@@ -68,6 +89,8 @@ labmaster=/home/lifei/env/grails/labmaster CD=. {
   }
  }
  lib=lib {
+  activation-1.1.jar
+  mail-1.4.jar
   mysql-connector-java-5.1.10-bin.jar
  }
  scripts=scripts {
@@ -81,6 +104,102 @@ labmaster=/home/lifei/env/grails/labmaster CD=. {
  target=target {
   stacktrace.log
   classes=classes {
+   AcegiGrailsPlugin$_addControllerMethods_closure23.class
+   AcegiGrailsPlugin$_addControllerMethods_closure24.class
+   AcegiGrailsPlugin$_addControllerMethods_closure25.class
+   AcegiGrailsPlugin$_closure1.class
+   AcegiGrailsPlugin$_closure10.class
+   AcegiGrailsPlugin$_closure10_closure66.class
+   AcegiGrailsPlugin$_closure10_closure67.class
+   AcegiGrailsPlugin$_closure10_closure68.class
+   AcegiGrailsPlugin$_closure10_closure69.class
+   AcegiGrailsPlugin$_closure10_closure70.class
+   AcegiGrailsPlugin$_closure10_closure71.class
+   AcegiGrailsPlugin$_closure10_closure72.class
+   AcegiGrailsPlugin$_closure11.class
+   AcegiGrailsPlugin$_closure11_closure73.class
+   AcegiGrailsPlugin$_closure12.class
+   AcegiGrailsPlugin$_closure12_closure74.class
+   AcegiGrailsPlugin$_closure12_closure75.class
+   AcegiGrailsPlugin$_closure13.class
+   AcegiGrailsPlugin$_closure13_closure76.class
+   AcegiGrailsPlugin$_closure13_closure77.class
+   AcegiGrailsPlugin$_closure14.class
+   AcegiGrailsPlugin$_closure14_closure78.class
+   AcegiGrailsPlugin$_closure14_closure79.class
+   AcegiGrailsPlugin$_closure14_closure80.class
+   AcegiGrailsPlugin$_closure14_closure81.class
+   AcegiGrailsPlugin$_closure14_closure82.class
+   AcegiGrailsPlugin$_closure14_closure83.class
+   AcegiGrailsPlugin$_closure14_closure84.class
+   AcegiGrailsPlugin$_closure14_closure85.class
+   AcegiGrailsPlugin$_closure15.class
+   AcegiGrailsPlugin$_closure15_closure86.class
+   AcegiGrailsPlugin$_closure16.class
+   AcegiGrailsPlugin$_closure17.class
+   AcegiGrailsPlugin$_closure17_closure87.class
+   AcegiGrailsPlugin$_closure17_closure87_closure90.class
+   AcegiGrailsPlugin$_closure17_closure88.class
+   AcegiGrailsPlugin$_closure17_closure88_closure91.class
+   AcegiGrailsPlugin$_closure17_closure89.class
+   AcegiGrailsPlugin$_closure17_closure89_closure92.class
+   AcegiGrailsPlugin$_closure18.class
+   AcegiGrailsPlugin$_closure18_closure93.class
+   AcegiGrailsPlugin$_closure18_closure94.class
+   AcegiGrailsPlugin$_closure19.class
+   AcegiGrailsPlugin$_closure1_closure26.class
+   AcegiGrailsPlugin$_closure1_closure27.class
+   AcegiGrailsPlugin$_closure1_closure28.class
+   AcegiGrailsPlugin$_closure1_closure29.class
+   AcegiGrailsPlugin$_closure1_closure30.class
+   AcegiGrailsPlugin$_closure1_closure31.class
+   AcegiGrailsPlugin$_closure1_closure32.class
+   AcegiGrailsPlugin$_closure1_closure33.class
+   AcegiGrailsPlugin$_closure1_closure34.class
+   AcegiGrailsPlugin$_closure1_closure35.class
+   AcegiGrailsPlugin$_closure1_closure36.class
+   AcegiGrailsPlugin$_closure1_closure37.class
+   AcegiGrailsPlugin$_closure1_closure38.class
+   AcegiGrailsPlugin$_closure1_closure39.class
+   AcegiGrailsPlugin$_closure1_closure40.class
+   AcegiGrailsPlugin$_closure1_closure41.class
+   AcegiGrailsPlugin$_closure1_closure42.class
+   AcegiGrailsPlugin$_closure1_closure43.class
+   AcegiGrailsPlugin$_closure1_closure44.class
+   AcegiGrailsPlugin$_closure1_closure45.class
+   AcegiGrailsPlugin$_closure1_closure46.class
+   AcegiGrailsPlugin$_closure1_closure47.class
+   AcegiGrailsPlugin$_closure2.class
+   AcegiGrailsPlugin$_closure20.class
+   AcegiGrailsPlugin$_closure21.class
+   AcegiGrailsPlugin$_closure22.class
+   AcegiGrailsPlugin$_closure22_closure95.class
+   AcegiGrailsPlugin$_closure2_closure48.class
+   AcegiGrailsPlugin$_closure2_closure49.class
+   AcegiGrailsPlugin$_closure2_closure50.class
+   AcegiGrailsPlugin$_closure3.class
+   AcegiGrailsPlugin$_closure3_closure51.class
+   AcegiGrailsPlugin$_closure3_closure52.class
+   AcegiGrailsPlugin$_closure3_closure53.class
+   AcegiGrailsPlugin$_closure4.class
+   AcegiGrailsPlugin$_closure4_closure54.class
+   AcegiGrailsPlugin$_closure4_closure55.class
+   AcegiGrailsPlugin$_closure4_closure56.class
+   AcegiGrailsPlugin$_closure4_closure57.class
+   AcegiGrailsPlugin$_closure4_closure58.class
+   AcegiGrailsPlugin$_closure5.class
+   AcegiGrailsPlugin$_closure5_closure59.class
+   AcegiGrailsPlugin$_closure6.class
+   AcegiGrailsPlugin$_closure6_closure60.class
+   AcegiGrailsPlugin$_closure6_closure61.class
+   AcegiGrailsPlugin$_closure7.class
+   AcegiGrailsPlugin$_closure7_closure62.class
+   AcegiGrailsPlugin$_closure8.class
+   AcegiGrailsPlugin$_closure8_closure63.class
+   AcegiGrailsPlugin$_closure9.class
+   AcegiGrailsPlugin$_closure9_closure64.class
+   AcegiGrailsPlugin$_closure9_closure65.class
+   AcegiGrailsPlugin.class
    BootStrap$_closure1.class
    BootStrap$_closure2.class
    BootStrap.class
@@ -89,6 +208,9 @@ labmaster=/home/lifei/env/grails/labmaster CD=. {
    BuildConfig$_run_closure1_closure3.class
    BuildConfig$_run_closure1_closure4.class
    BuildConfig.class
+   CaptchaController$_closure1.class
+   CaptchaController$_closure1_closure2.class
+   CaptchaController.class
    Config$_run_closure1.class
    Config$_run_closure1_closure3.class
    Config$_run_closure1_closure4.class
@@ -105,9 +227,82 @@ labmaster=/home/lifei/env/grails/labmaster CD=. {
    DataSource$_run_closure3_closure6.class
    DataSource$_run_closure3_closure6_closure9.class
    DataSource.class
+   DefaultSecurityConfig$_run_closure1.class
+   DefaultSecurityConfig.class
+   EmailerService.class
    HibernateGrailsPlugin$_closure1.class
    HibernateGrailsPlugin$_closure2.class
    HibernateGrailsPlugin.class
+   LoginController$_closure1.class
+   LoginController$_closure2.class
+   LoginController$_closure3.class
+   LoginController$_closure4.class
+   LoginController$_closure5.class
+   LoginController$_closure6.class
+   LoginController$_closure7.class
+   LoginController$_closure8.class
+   LoginController$_closure9.class
+   LoginController.class
+   LogoutController$_closure1.class
+   LogoutController.class
+   MemberController$_buildPersonModel_closure9.class
+   MemberController$_closure1.class
+   MemberController$_closure2.class
+   MemberController$_closure3.class
+   MemberController$_closure3_closure10.class
+   MemberController$_closure4.class
+   MemberController$_closure4_closure11.class
+   MemberController$_closure5.class
+   MemberController$_closure6.class
+   MemberController$_closure6_closure12.class
+   MemberController$_closure7.class
+   MemberController$_closure8.class
+   MemberController.class
+   RegisterController$_closure1.class
+   RegisterController$_closure2.class
+   RegisterController$_closure3.class
+   RegisterController$_closure4.class
+   RegisterController$_closure5.class
+   RegisterController.class
+   RequestMapController$_closure1.class
+   RequestMapController$_closure2.class
+   RequestMapController$_closure3.class
+   RequestMapController$_closure4.class
+   RequestMapController$_closure5.class
+   RequestMapController$_closure6.class
+   RequestMapController$_closure7.class
+   RequestMapController$_closure8.class
+   RequestMapController.class
+   RoleController$_closure1.class
+   RoleController$_closure2.class
+   RoleController$_closure3.class
+   RoleController$_closure4.class
+   RoleController$_closure5.class
+   RoleController$_closure6.class
+   RoleController$_closure7.class
+   RoleController$_closure8.class
+   RoleController.class
+   SearchableController$_closure1.class
+   SearchableController$_closure2.class
+   SearchableController$_closure2_closure4.class
+   SearchableController$_closure3.class
+   SearchableController.class
+   SearchableGrailsPlugin$_closure1.class
+   SearchableGrailsPlugin$_closure2.class
+   SearchableGrailsPlugin$_closure2_closure4.class
+   SearchableGrailsPlugin$_closure2_closure5.class
+   SearchableGrailsPlugin$_closure2_closure6.class
+   SearchableGrailsPlugin$_closure2_closure7.class
+   SearchableGrailsPlugin$_closure3.class
+   SearchableGrailsPlugin$_closure3_closure8.class
+   SearchableGrailsPlugin.class
+   SearchableService.class
+   SearchableUrlMappings$__clinit__closure1.class
+   SearchableUrlMappings$__clinit__closure1_closure2.class
+   SearchableUrlMappings$__clinit__closure1_closure3.class
+   SearchableUrlMappings.class
+   SecurityConfig$_run_closure1.class
+   SecurityConfig.class
    TomcatGrailsPlugin.class
    UrlMappings$__clinit__closure1.class
    UrlMappings$__clinit__closure1_closure2.class
@@ -121,10 +316,17 @@ labmaster=/home/lifei/env/grails/labmaster CD=. {
      Group$__clinit__closure1.class
      Group$__clinit__closure2.class
      Group.class
-     GroupController$_closure1.class
      GroupController.class
      User$__clinit__closure1.class
      User.class
+     UserController$_closure1.class
+     UserController$_closure2.class
+     UserController$_closure3.class
+     UserController$_closure4.class
+     UserController$_closure5.class
+     UserController$_closure6.class
+     UserController$_closure7.class
+     UserController$_closure8.class
      UserController.class
     }
    }
@@ -162,47 +364,10 @@ labmaster=/home/lifei/env/grails/labmaster CD=. {
    applicationContext.xml
    sitemesh.xml
    classes=classes {
-    BootStrap$_closure1.class
-    BootStrap$_closure2.class
-    BootStrap.class
-    BuildConfig$_run_closure1.class
-    BuildConfig$_run_closure1_closure2.class
-    BuildConfig$_run_closure1_closure3.class
-    BuildConfig$_run_closure1_closure4.class
-    BuildConfig.class
-    Config$_run_closure1.class
-    Config$_run_closure1_closure3.class
-    Config$_run_closure1_closure4.class
-    Config$_run_closure1_closure5.class
-    Config$_run_closure2.class
-    Config.class
-    DataSource$_run_closure1.class
-    DataSource$_run_closure2.class
-    DataSource$_run_closure3.class
-    DataSource$_run_closure3_closure4.class
-    DataSource$_run_closure3_closure4_closure7.class
-    DataSource$_run_closure3_closure5.class
-    DataSource$_run_closure3_closure5_closure8.class
-    DataSource$_run_closure3_closure6.class
-    DataSource$_run_closure3_closure6_closure9.class
-    DataSource.class
-    UrlMappings$__clinit__closure1.class
-    UrlMappings$__clinit__closure1_closure2.class
-    UrlMappings$__clinit__closure1_closure2_closure3.class
-    UrlMappings.class
-    resources$_run_closure1.class
-    resources.class
     hibernate=hibernate {
     }
     labmaster=labmaster {
      acl=acl {
-      Group$__clinit__closure1.class
-      Group$__clinit__closure2.class
-      Group.class
-      GroupController.class
-      User$__clinit__closure1.class
-      User.class
-      UserController.class
      }
     }
     spring=spring {
