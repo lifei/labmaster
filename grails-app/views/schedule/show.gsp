@@ -1,10 +1,10 @@
 
-<%@ page import="labmaster.device.Maintenance" %>
+<%@ page import="labmaster.device.Schedule" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'maintenance.label', default: 'Maintenance')}" />
+        <g:set var="entityName" value="${message(code: 'schedule.label', default: 'Schedule')}" />
         <title><g:message code="default.show.label" args="[entityName]" /></title>
     </head>
     <body>
@@ -23,44 +23,51 @@
                     <tbody>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="maintenance.id.label" default="Id" /></td>
+                            <td valign="top" class="name"><g:message code="schedule.id.label" default="Id" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: maintenanceInstance, field: "id")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="maintenance.description.label" default="Description" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: maintenanceInstance, field: "description")}</td>
+                            <td valign="top" class="value">${fieldValue(bean: scheduleInstance, field: "id")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="maintenance.apparatus.label" default="Apparatus" /></td>
+                            <td valign="top" class="name"><g:message code="schedule.beginTime.label" default="Begin Time" /></td>
                             
-                            <td valign="top" class="value"><g:link controller="apparatus" action="show" id="${maintenanceInstance?.apparatus?.id}">${maintenanceInstance?.apparatus?.encodeAsHTML()}</g:link></td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="maintenance.modifyDate.label" default="Modify Date" /></td>
-                            
-                            <td valign="top" class="value"><g:formatDate date="${maintenanceInstance?.modifyDate}" /></td>
+                            <td valign="top" class="value">${fieldValue(bean: scheduleInstance, field: "beginTime")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="maintenance.createDate.label" default="Create Date" /></td>
+                            <td valign="top" class="name"><g:message code="schedule.endTime.label" default="End Time" /></td>
                             
-                            <td valign="top" class="value"><g:formatDate date="${maintenanceInstance?.createDate}" /></td>
+                            <td valign="top" class="value">${fieldValue(bean: scheduleInstance, field: "endTime")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="maintenance.user.label" default="User" /></td>
+                            <td valign="top" class="name"><g:message code="schedule.date.label" default="Date" /></td>
                             
-                            <td valign="top" class="value"><g:link controller="user" action="show" id="${maintenanceInstance?.user?.id}">${maintenanceInstance?.user?.encodeAsHTML()}</g:link></td>
+                            <td valign="top" class="value"><g:formatDate date="${scheduleInstance?.date}" /></td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="schedule.createTime.label" default="Create Time" /></td>
+                            
+                            <td valign="top" class="value"><g:formatDate date="${scheduleInstance?.createTime}" /></td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="schedule.apparatus.label" default="Apparatus" /></td>
+                            
+                            <td valign="top" class="value"><g:link controller="apparatus" action="show" id="${scheduleInstance?.apparatus?.id}">${scheduleInstance?.apparatus?.encodeAsHTML()}</g:link></td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="schedule.user.label" default="User" /></td>
+                            
+                            <td valign="top" class="value"><g:link controller="member" action="show" id="${scheduleInstance?.user?.id}">${scheduleInstance?.user?.encodeAsHTML()}</g:link></td>
                             
                         </tr>
                     
@@ -69,7 +76,7 @@
             </div>
             <div class="buttons">
                 <g:form>
-                    <g:hiddenField name="id" value="${maintenanceInstance?.id}" />
+                    <g:hiddenField name="id" value="${scheduleInstance?.id}" />
                     <span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
                     <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
                 </g:form>

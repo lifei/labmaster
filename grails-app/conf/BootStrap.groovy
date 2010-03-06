@@ -6,7 +6,7 @@ class BootStrap {
 
     def init = { servletContext ->    
     
-    
+    	/*
 	    // 预设分组
 	    Group adminGroup = Group.findByAuthority("ROLE_ADMIN");
 	    User admin = User.findByUsername("admin");
@@ -104,10 +104,16 @@ class BootStrap {
         } 
         
         if(!Group.findByAuthority("ROLE_STUDENT")){        	
-        	println "增加学生组组"
+        	println "增加学生组"
             new Group(name:"学生", authority: "ROLE_STUDENT",
             		description: "学生组，拥有与学生人员相关的操作的权限").save()
         } 
+        
+        if(!Group.findByAuthority("ROLE_MEMBER")){        	
+        	println "增加用户组"
+            new Group(name:"用户", authority: "ROLE_MEMBER",
+            		description: "用户组，拥有与用户人员相关的操作的权限").save()
+        }
         
         // 增加权限
         try {
@@ -132,6 +138,8 @@ class BootStrap {
     	            
         } catch(e) {
         }
+        
+        */
     }
     
     def destroy = {
