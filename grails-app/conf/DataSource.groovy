@@ -18,9 +18,9 @@ environments {
             pooled = true
             driverClassName = "com.mysql.jdbc.Driver"
             username = "root"
-            password = "kooxoo"
+            password = ""
             dbCreate = "update"
-            url = "jdbc:mysql://localhost/crawler?useUnicode=true&characterEncoding=UTF-8"
+            url = "jdbc:mysql://localhost/labmaster?useUnicode=true&characterEncoding=UTF-8"
         }
     }
     test {

@@ -34,4 +34,8 @@ class Member {
 		passwd(blank: false)
 		enabled()
 	}
+	
+	String toString() {
+		"${userRealName} (${username})"
+	}
 }
