@@ -23,6 +23,15 @@ labmaster=/home/lifei/env/grails/labmaster CD=. {
    RequestMapController.groovy
    RoleController.groovy
    labmaster=labmaster {
+    task=task {
+     PlanController.groovy
+     ProjectController.groovy
+     TaskController.groovy
+    }
+    sample=sample {
+     CommentController.groovy
+     TestController.groovy
+    }
     book=book{
      BookController.groovy
      CommentController.groovy
@@ -39,6 +48,14 @@ labmaster=/home/lifei/env/grails/labmaster CD=. {
   }
   domain=domain {
    labmaster=labmaster {
+    task=task {
+     Plan.groovy
+     Project.groovy
+     Task.groovy
+    }
+    sample=sample {
+     Test.groovy
+    }
     finance=finance{
      Purchase.groovy
      Reimbursement.groovy
