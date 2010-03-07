@@ -6,8 +6,8 @@ class Purchase {
 	float money
 	Date createTime = new Date()
 	Date buyTime 
-	int howToPay
-	int status
+	Integer howToPay
+	Integer status
 	String cardSerial
 	
 	static belongsTo = [user:labmaster.auth.Member]

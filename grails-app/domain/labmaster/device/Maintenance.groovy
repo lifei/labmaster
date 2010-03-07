@@ -22,7 +22,7 @@ class Maintenance {
     Date modifyDate
     
     /** 状态 */
-    int status
+    Integer status
     
     /** 问题描述 */
     String description

@@ -30,10 +30,10 @@ class Apparatus {
     String description 
     
     /** 状态 */
-    int status
+    Integer status
     
     /** 性质 */
-    int type
+    Integer type
     
     /** 历史 */
     String history

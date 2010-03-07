@@ -3,8 +3,8 @@ package labmaster.device
 class Schedule {
 	
 	Date date
-	int beginTime
-	int endTime
+	Integer beginTime
+	Integer endTime
 	Date createTime = new Date()
 	
 	static belongsTo = [apparatus:Apparatus, user:labmaster.auth.Member]

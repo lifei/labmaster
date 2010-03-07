@@ -7,8 +7,8 @@ class Book {
 	String press
 	Date createTime = new Date()
 	Date updateTime
-	int type
-	int status
+	Integer type
+	Integer status
 	String location
 	
 	/** 支持全文检索 */

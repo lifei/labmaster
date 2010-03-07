@@ -23,18 +23,26 @@ labmaster=/home/lifei/env/grails/labmaster CD=. {
    RequestMapController.groovy
    RoleController.groovy
    labmaster=labmaster {
+    book=book{
+     BookController.groovy
+     CommentController.groovy
+    }
+    finance=finance{
+     PurchaseController.groovy
+     ReimbursementController.groovy
+    }
     device=device {
      ApparatusController.groovy
      MaintenanceController.groovy
-    }
-    acl=acl {
-     GroupController.groovy
-     UserController.groovy
     }
    }
   }
   domain=domain {
    labmaster=labmaster {
+    finance=finance{
+     Purchase.groovy
+     Reimbursement.groovy
+    }
     auth=auth {
      Member.groovy
      RequestMap.groovy
@@ -43,10 +51,7 @@ labmaster=/home/lifei/env/grails/labmaster CD=. {
     device=device {
      Apparatus.groovy
      Maintenance.groovy
-    }
-    acl=acl {
-     Group.groovy
-     User.groovy
+     Schedule.groovy
     }
    }
   }
