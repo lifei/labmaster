@@ -2,9 +2,9 @@ dataSource {
     pooled = true
     driverClassName = "com.mysql.jdbc.Driver"
     username = "root"
-    password = ""
+    password = "kooxoo"
     dbCreate = "create-drop"
-    url = "jdbc:mysql://localhost/labmaster"
+    url = "jdbc:mysql://localhost/crawler"
 }
 hibernate {
     cache.use_second_level_cache=true
@@ -18,9 +18,9 @@ environments {
             pooled = true
             driverClassName = "com.mysql.jdbc.Driver"
             username = "root"
-            password = ""
+            password = "kooxoo"
             dbCreate = "update"
-            url = "jdbc:mysql://localhost/labmaster?useUnicode=true&characterEncoding=UTF-8"
+            url = "jdbc:mysql://localhost/crawler?useUnicode=true&characterEncoding=UTF-8"
         }
     }
     test {
