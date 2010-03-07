@@ -1,7 +1,6 @@
-#Sun Mar 07 03:07:17 CST 2010
+#Sun Mar 07 23:26:59 CST 2010
 eclipse.preferences.version=1
 encoding//grails-app/conf/BootStrap.groovy=UTF-8
-encoding//grails-app/controllers/labmaster/book/CommentController.groovy=UTF-8
 encoding//grails-app/controllers/labmaster/device/ScheduleController.groovy=UTF-8
 encoding//grails-app/domain/labmaster/book/Book.groovy=UTF-8
 encoding//grails-app/domain/labmaster/book/Comment.groovy=UTF-8

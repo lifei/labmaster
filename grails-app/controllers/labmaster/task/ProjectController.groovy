@@ -2,5 +2,5 @@ package labmaster.task
 
 class ProjectController {
 
-    def index = { }
+    def scaffold = Project
 }

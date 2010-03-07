@@ -2,5 +2,5 @@ package labmaster.task
 
 class PlanController {
 
-    def index = { }
+    def scaffold = Plan
 }
