@@ -38,4 +38,16 @@ class Member {
 	String toString() {
 		"${userRealName} (${username})"
 	}
+
+        static def getLoginedUser() {
+            org.grails.plugins.springsecurity.service.AuthenticateService authenticateService = new org.grails.plugins.springsecurity.service.AuthenticateService()
+
+            def user = authenticateService.userDomain()
+            if (user) {
+                return Member.get(user.id)
+            }
+            else {
+                return null
+            }
+        }
 }
