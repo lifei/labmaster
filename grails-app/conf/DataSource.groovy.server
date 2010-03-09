@@ -4,7 +4,7 @@ dataSource {
     username = "root"
     password = "kooxoo"
     dbCreate = "create-drop"
-    url = "jdbc:mysql://localhost/crawler"
+    url = "jdbc:mysql://192.168.0.240/crawler"
 }
 hibernate {
     cache.use_second_level_cache=true
@@ -20,7 +20,7 @@ environments {
             username = "root"
             password = "kooxoo"
             dbCreate = "update"
-            url = "jdbc:mysql://localhost/crawler?useUnicode=true&characterEncoding=UTF-8"
+            url = "jdbc:mysql://192.168.0.240/crawler?useUnicode=true&characterEncoding=UTF-8"
         }
     }
     test {
@@ -30,7 +30,7 @@ environments {
             username = "root"
             password = ""
             dbCreate = "update"
-            url = "jdbc:mysql://localhost/labmaster?useUnicode=true&characterEncoding=UTF-8"
+            url = "jdbc:mysql://192.168.0.240/crawler?useUnicode=true&characterEncoding=UTF-8"
         }
     }
     product {
@@ -40,7 +40,7 @@ environments {
             username = "root"
             password = ""
             dbCreate = "update"
-            url = "jdbc:mysql://localhost/labmaster?useUnicode=true&characterEncoding=UTF-8"
+            url = "jdbc:mysql://192.168.0.240/crawler?useUnicode=true&characterEncoding=UTF-8"
         }
     }
 }
