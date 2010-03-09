@@ -1,6 +1,5 @@
-labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
+labmaster.linux=/home/lifei/.labmaster/labmaster CD=. {
  application.properties
- vimproject
  grails-app=grails-app {
   conf=conf {
    BootStrap.groovy
@@ -37,7 +36,8 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
       WorkController.groovy
      }
      sample=sample {
-      TestController.groovy
+     TestController.groovy
+     TestTypeController.groovy
      }
      book=book{
       BookCommentController.groovy
@@ -64,6 +64,7 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
     }
     sample=sample {
      Test.groovy
+     TestType.groovy
     }
     finance=finance{
      Purchase.groovy
@@ -106,12 +107,20 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
   views=views {
    error.gsp
     index.gsp
+    task=task {
+    }
     group=group {
     }
    layouts=layouts {
     main.gsp
    }
    user=user {
+   }
+   member=member {
+    create.gsp
+    edit.gsp
+    list.gsp
+    show.gsp
    }
   }
  }

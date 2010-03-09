@@ -25,24 +25,24 @@ class Task {
 	Integer complete
 	
 	/** 更新时间 */
-	Date updateTime = new Date()
+	Date lastUpdate
+        Date dateCreate
 	
 	/** 更新历史 */
 	String history
 	
-	static belongsTo = [assignFrom: labmaster.auth.Member, assignTo: labmaster.auth.Member]
+        static belongsTo = [assignFrom: labmaster.auth.Member, assignTo: labmaster.auth.Member]
 
-    static constraints = {
-		name(length: 2..20)
-		content(length:2..200, widget:"textarea")
-		object(length:2..100, widget:"textarea")
-		complete(range:0..100)
-		assignFrom()
-		assignTo()
-		startDate()
-		endDate()
-		deadline()	
-		updateTime()
-		history()
-    }
+        static constraints = {
+            name(length: 2..20)
+            content(length:2..200, widget:"textarea")
+            object(length:2..100, widget:"textarea")
+            complete(range:0..100)
+            assignFrom()
+            assignTo()
+            startDate()
+            endDate()
+            deadline()	
+            history()
+        }
 }

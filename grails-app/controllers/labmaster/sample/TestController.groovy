@@ -2,5 +2,5 @@ package labmaster.sample
 
 class TestController {
 
-    def index = { }
+    def scaffold = Test
 }

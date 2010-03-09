@@ -49,13 +49,6 @@
 					</tr>
 
 					<tr class="prop">
-						<td valign="top" class="name"><label for="passwd">Password:</label></td>
-						<td valign="top" class="value ${hasErrors(bean:person,field:'passwd','errors')}">
-							<input type="password" id="passwd" name="passwd" value="${person.passwd?.encodeAsHTML()}"/>
-						</td>
-					</tr>
-
-					<tr class="prop">
 						<td valign="top" class="name"><label for="enabled">Enabled:</label></td>
 						<td valign="top" class="value ${hasErrors(bean:person,field:'enabled','errors')}">
 							<g:checkBox name="enabled" value="${person.enabled}"/>
@@ -88,8 +81,9 @@
 						<td valign="top" class="value ${hasErrors(bean:person,field:'authorities','errors')}">
 							<ul>
 							<g:each var="entry" in="${roleMap}">
-								<li>${entry.key.authority.encodeAsHTML()}
-									<g:checkBox name="${entry.key.authority}" value="${entry.value}"/>
+								<li>
+                                                                <g:checkBox name="${entry.key.authority}" value="${entry.value}"/>
+                                                                ${entry.key.description.encodeAsHTML()}
 								</li>
 							</g:each>
 							</ul>

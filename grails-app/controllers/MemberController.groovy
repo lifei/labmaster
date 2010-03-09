@@ -31,7 +31,7 @@ class MemberController {
 		}
 		List roleNames = []
 		for (role in person.authorities) {
-			roleNames << role.authority
+			roleNames << role.description
 		}
 		roleNames.sort { n1, n2 ->
 			n1 <=> n2
@@ -49,7 +49,7 @@ class MemberController {
 		if (person) {
 			def authPrincipal = authenticateService.principal()
 			//avoid self-delete if the logged-in user is an admin
-			if (!(authPrincipal instanceof String) && authPrincipal.username == person.username) {
+			if (authPrincipal && !(authPrincipal instanceof String) && authPrincipal.username == person.username) {
 				flash.message = "You can not delete yourself, please login as another admin and try again"
 			}
 			else {
@@ -100,7 +100,7 @@ class MemberController {
 
 		def oldPassword = person.passwd
 		person.properties = params
-		if (!params.passwd.equals(oldPassword)) {
+		if (params.passwd && !params.passwd.equals(oldPassword)) {
 			person.passwd = authenticateService.encodePassword(params.passwd)
 		}
 		if (person.save()) {

@@ -8,10 +8,8 @@ import labmaster.auth.Member
 class Role {
 
 	static hasMany = [people: Member]
-
-	                  
 	/** name */
-    String name
+        String name
 	/** description */
 	String description
 	/** ROLE String */
@@ -24,6 +22,6 @@ class Role {
 	}
 	
 	String toString() {
-		"${name}"
+		"${description}"
 	}
 }
