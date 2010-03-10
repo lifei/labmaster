@@ -145,6 +145,7 @@ class MemberController {
 		def person = new Member()
 		person.properties = params
 		person.passwd = authenticateService.encodePassword(params.passwd)
+		
 		if (person.save()) {
 			addRoles(person)
 			redirect action: show, id: person.id

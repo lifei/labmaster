@@ -5,8 +5,8 @@ class Book {
 	String name
 	String author
 	String press
-	Date createTime = new Date()
-	Date updateTime
+	Date dateCreate = new Date()
+	Date lastUpdate
 	Integer type
 	Integer status
 	String location

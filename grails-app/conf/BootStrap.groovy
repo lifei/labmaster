@@ -120,6 +120,7 @@ class BootStrap {
                 new Group(name:"未激活用户", authority: "ROLE_UNAVAILABLE",
                             description: "未激活用户组，拥有与未激活用户人员相关的操作的权限").save()
             }
+            
             // 增加权限
             try {
                 
@@ -140,6 +141,19 @@ class BootStrap {
                 } catch (e) {
                         println e
                 }
+                
+                // 未注册用户可以注册
+                try {
+                	new RequestMap(url:"/register/**", configAttribute:'IS_AUTHENTICATED_ANONYMOUSLY').save()
+                	new RequestMap(url:"/login/**", configAttribute:'IS_AUTHENTICATED_ANONYMOUSLY').save()
+                	new RequestMap(url:"/captcha/**", configAttribute:'IS_AUTHENTICATED_ANONYMOUSLY').save()
+                	new RequestMap(url:"/", configAttribute:'IS_AUTHENTICATED_FULLY').save()
+                }
+                catch (e) {
+                	println e
+                }
+                
+               
             } catch(e) {
             }
             // }}}*/

@@ -141,10 +141,10 @@ class LoginController {
 		def exception = session[AbstractProcessingFilter.SPRING_SECURITY_LAST_EXCEPTION_KEY]
 		if (exception) {
 			if (exception instanceof DisabledException) {
-				msg = "[$username] is disabled."
+				msg = "[$username] 已经被禁用，请联系相关人员."
 			}
 			else {
-				msg = "[$username] wrong username/password."
+				msg = "[$username] 的用户名或密码错误."
 			}
 		}
 
