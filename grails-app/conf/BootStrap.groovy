@@ -14,7 +14,7 @@ class BootStrap {
             if(!adminGroup) {
                 
                 println "增加系统管理员组"
-                adminGroup = new Group(name:"系统管理员", authority: "ROLE_ADMIN",
+                adminGroup = new Group(id:1,name:"系统管理员", authority: "ROLE_ADMIN",
                                 description: "系统管理员组")
                 adminGroup.save()
             } 

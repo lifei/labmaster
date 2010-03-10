@@ -2,6 +2,7 @@ package labmaster.task
 
 class Project {
 	
+        /** 名称 */
 	String name
 	String description
 	
