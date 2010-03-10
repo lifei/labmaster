@@ -25,7 +25,7 @@ class MemberController {
 	def show = {
 		def person = Member.get(params.id)
 		if (!person) {
-			flash.message = "Member not found with id $params.id"
+			flash.message = "没有找到对应的用户"
 			redirect action: list
 			return
 		}
@@ -40,11 +40,10 @@ class MemberController {
 	}
 
 	/**
-	 * Person delete action. Before removing an existing person,
-	 * he should be removed from those authorities which he is involved.
+	 * 删除用户--禁止删除用户，改为禁用
 	 */
-	def delete = {
-
+	def delete = {	
+		/*
 		def person = Member.get(params.id)
 		if (person) {
 			def authPrincipal = authenticateService.principal()
@@ -62,7 +61,26 @@ class MemberController {
 		else {
 			flash.message = "Member not found with id $params.id"
 		}
-
+		*/
+		
+		def person = Member.get(params.id)
+		if (person) {
+			def authPrincipal = authenticateService.principal()
+			//avoid self-delete if the logged-in user is an admin
+			if (authPrincipal && !(authPrincipal instanceof String) && authPrincipal.username == person.username) {
+				flash.message = "You can not delete yourself, please login as another admin and try again"
+			}
+			else {
+				//first, delete this person from People_Authorities table.
+				person.enabled = 0
+				person.save()
+				flash.message = "为了保证数据的完整性，系统不允许删除用户，但是该用户已被禁用!"
+			}
+		}
+		else {
+			flash.message = "找不到序号是$params.id的用户！"
+		}
+		
 		redirect action: list
 	}
 
@@ -70,7 +88,7 @@ class MemberController {
 
 		def person = Member.get(params.id)
 		if (!person) {
-			flash.message = "Member not found with id $params.id"
+			flash.message = "没有找到对应的用户"
 			redirect action: list
 			return
 		}
@@ -100,6 +118,8 @@ class MemberController {
 
 		def oldPassword = person.passwd
 		person.properties = params
+		
+		// 密码不在update里面处理
 		if (params.passwd && !params.passwd.equals(oldPassword)) {
 			person.passwd = authenticateService.encodePassword(params.passwd)
 		}

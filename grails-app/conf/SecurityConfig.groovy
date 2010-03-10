@@ -8,5 +8,6 @@ security {
 	authorityDomainClass = "labmaster.auth.Role"
 	requestMapClass = "labmaster.auth.RequestMap"
 
-        defaultRole = "ROLE_UNAVAILABLE"
+    defaultRole = "ROLE_UNAVAILABLE"
+    cacheUsers = false
 }
