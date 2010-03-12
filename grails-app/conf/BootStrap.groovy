@@ -147,6 +147,9 @@ class BootStrap {
                 	new RequestMap(url:"/register/**", configAttribute:'IS_AUTHENTICATED_ANONYMOUSLY').save()
                 	new RequestMap(url:"/login/**", configAttribute:'IS_AUTHENTICATED_ANONYMOUSLY').save()
                 	new RequestMap(url:"/captcha/**", configAttribute:'IS_AUTHENTICATED_ANONYMOUSLY').save()
+                	new RequestMap(url:"/images/**", configAttribute:'IS_AUTHENTICATED_ANONYMOUSLY').save()
+                	new RequestMap(url:"/js/**", configAttribute:'IS_AUTHENTICATED_ANONYMOUSLY').save()
+                	new RequestMap(url:"/css/**", configAttribute:'IS_AUTHENTICATED_ANONYMOUSLY').save()
                 	new RequestMap(url:"/", configAttribute:'IS_AUTHENTICATED_FULLY').save()
                 }
                 catch (e) {
