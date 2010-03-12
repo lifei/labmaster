@@ -10,8 +10,8 @@ class Project {
 	static hasMany = [members: labmaster.auth.Member, plans: Plan]
 
 	/** 更新时间 */
-	Date dateCreated
-	Date lastUpdated
+	Date dateCreate = new Date()
+	Date lastUpdate = new Date()
 
 	/** 更新历史 */
 	String history
@@ -25,6 +25,6 @@ class Project {
 	}
 	
 	String toString() {
-	  "${name} ${leader}"
+	  "${name}"
 	}
 }
