@@ -13,5 +13,6 @@ class History {
 		user()
 		dateCreate()
 		content(widget:"textarea")
+		type(range:0..5)
     }
 }
