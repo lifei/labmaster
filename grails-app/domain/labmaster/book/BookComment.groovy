@@ -1,6 +1,6 @@
 package labmaster.book
 
-class Comment {
+class BookComment {
 	
 	Date time = new Date()
 	String comment
