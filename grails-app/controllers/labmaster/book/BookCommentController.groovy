@@ -2,5 +2,5 @@ package labmaster.book
 
 class BookCommentController {
 
-    def scaffold = Comment
+    def scaffold = BookComment
 }
