@@ -121,6 +121,12 @@ class BootStrap {
                             description: "未激活用户组，拥有与未激活用户人员相关的操作的权限").save()
             }
             
+            if(!Group.findByAuthority("ROLE_FORBID")){        	
+                println "禁用组"
+            new Group(name:"禁用组", authority: "ROLE_FORBID",
+                        description: "禁用组，拥有与禁用人员相关的操作的权限").save()
+        }
+            
             // 增加权限
             try {
                 
@@ -151,6 +157,9 @@ class BootStrap {
                 	new RequestMap(url:"/js/**", configAttribute:'IS_AUTHENTICATED_ANONYMOUSLY').save()
                 	new RequestMap(url:"/css/**", configAttribute:'IS_AUTHENTICATED_ANONYMOUSLY').save()
                 	new RequestMap(url:"/", configAttribute:'IS_AUTHENTICATED_FULLY').save()
+                	new RequestMap(url:"/history/create", configAttribute:'ROLE_FORBID').save()
+                	new RequestMap(url:"/history/delete", configAttribute:'ROLE_FORBID').save()
+                	new RequestMap(url:"/history/edit", configAttribute:'ROLE_FORBID').save()
                 }
                 catch (e) {
                 	println e
