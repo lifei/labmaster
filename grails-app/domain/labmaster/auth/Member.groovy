@@ -39,15 +39,19 @@ class Member {
 		"${userRealName} (${username})"
 	}
 
-        static def getLoginedUser() {
-            org.grails.plugins.springsecurity.service.AuthenticateService authenticateService = new org.grails.plugins.springsecurity.service.AuthenticateService()
+    static def getLoginedUser() {
+        org.grails.plugins.springsecurity.service.AuthenticateService authenticateService = new org.grails.plugins.springsecurity.service.AuthenticateService()
 
-            def user = authenticateService.userDomain()
-            if (user) {
-                return Member.get(user.id)
-            }
-            else {
-                return null
-            }
+        def user = authenticateService.userDomain()
+        if (user) {
+            return Member.get(user.id)
         }
+        else {
+            return null
+        }
+    }
+    
+    boolean equals(Member m) {
+    	m.id == this.id
+    }
 }

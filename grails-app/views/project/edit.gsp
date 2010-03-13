@@ -71,41 +71,14 @@
                                   <label for="plans"><g:message code="project.plans.label" default="Plans" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: projectInstance, field: 'plans', 'errors')}">
+<g:link controller="plan" action="create" params="['project.id': projectInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'plan.label', default: 'Plan')])}</g:link>
                                     
 <ul>
 <g:each in="${projectInstance?.plans?}" var="p">
     <li><g:link controller="plan" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link></li>
 </g:each>
 </ul>
-<g:link controller="plan" action="create" params="['project.id': projectInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'plan.label', default: 'Plan')])}</g:link>
 
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="history"><g:message code="project.history.label" default="History" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: projectInstance, field: 'history', 'errors')}">
-                                    <g:textField name="history" value="${projectInstance?.history}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="lastUpdate"><g:message code="project.lastUpdate.label" default="Last Updated" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: projectInstance, field: 'lastUpdate', 'errors')}">
-                                    <g:datePicker name="lastUpdate" precision="day" value="${projectInstance?.lastUpdate}"  />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="dateCreate"><g:message code="project.dateCreate.label" default="Date Created" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: projectInstance, field: 'dateCreate', 'errors')}">
-                                    <g:datePicker name="dateCreate" precision="day" value="${projectInstance?.dateCreate}"  />
                                 </td>
                             </tr>
                         

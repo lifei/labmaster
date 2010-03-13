@@ -68,6 +68,7 @@
                             
                             <td valign="top" style="text-align: left;" class="value">
                                 <ul>
+                                <g:link controller="plan" action="create" params="['project.id': projectInstance?.id]"> 添加计划 </g:link>
                                 <g:each in="${projectInstance.plans}" var="p">
                                     <li><g:link controller="plan" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link></li>
                                 </g:each>
@@ -77,23 +78,16 @@
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="project.history.label" default="History" /></td>
+                            <td valign="top" class="name"><g:message code="project.lastUpdated.label" default="Last Updated" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: projectInstance, field: "history")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="project.lastUpdate.label" default="Last Updated" /></td>
-                            
-                            <td valign="top" class="value"><g:formatDate date="${projectInstance?.lastUpdate}" /></td>
+                            <td valign="top" class="value"><g:formatDate date="${projectInstance?.lastUpdated}" /></td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="project.dateCreated.label" default="Date Created" /></td>
+                            <td valign="top" class="name"><g:message code="project.dateCreated.label" default="Date Create" /></td>
                             
-                            <td valign="top" class="value"><g:formatDate date="${projectInstance?.dateCreate}" /></td>
+                            <td valign="top" class="value"><g:formatDate date="${projectInstance?.dateCreated}" /></td>
                             
                         </tr>
                     

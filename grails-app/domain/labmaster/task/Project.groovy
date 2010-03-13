@@ -10,11 +10,8 @@ class Project {
 	static hasMany = [members: labmaster.auth.Member, plans: Plan]
 
 	/** 更新时间 */
-	Date dateCreate = new Date()
-	Date lastUpdate = new Date()
-
-	/** 更新历史 */
-	String history
+	Date dateCreated
+	Date lastUpdated
 
 	static constraints = {
 	      name(length:2..20)
@@ -22,6 +19,8 @@ class Project {
 	      leader()
 	      members()
 	      plans()
+	      dateCreated(nullable:true)	
+	      lastUpdated(nullable:true)
 	}
 	
 	String toString() {
