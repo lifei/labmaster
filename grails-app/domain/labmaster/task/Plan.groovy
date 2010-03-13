@@ -34,7 +34,7 @@ class Plan {
         
         static belongsTo = [user:labmaster.auth.Member, project:Project]
                             
-        static hasMany = [works:Work, members: labmaster.auth.Member]
+        static hasMany = [works:Work]
 
         static constraints = {
                 name(length:2..20)
