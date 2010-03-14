@@ -7,7 +7,7 @@ import labmaster.sample.TestType;
 class BootStrap {
 
     def init = { servletContext ->    
-        if(GrailsUtil.environment == 'test') {
+        if(GrailsUtil.environment == 'production') {
             //* 初始化管理员, 用户组的数据 {{{
             // 预设分组
             Group adminGroup = Group.findByAuthority("ROLE_ADMIN");
@@ -122,11 +122,17 @@ class BootStrap {
                             description: "未激活用户组，拥有与未激活用户人员相关的操作的权限").save()
             }
             
-            if(!Group.findByAuthority("ROLE_FORBID")){        	
-                println "禁用组"
-            new Group(name:"禁用组", authority: "ROLE_FORBID",
-                        description: "禁用组，拥有与禁用人员相关的操作的权限").save()
-        }
+            if(!Group.findByAuthority("ROLE_BOOKADMIN")){        	
+                println "图书管理员组"
+                new Group(name:"图书管理员", authority: "ROLE_BOOKADMIN",
+                        description: "图书管理员组，拥有与图书管理相关的操作的权限").save()
+            }            
+
+            if(!Group.findByAuthority("ROLE_FINANCEADMIN")){        	
+                println "财务组"
+                new Group(name:"财务管理员", authority: "ROLE_FINANCEADMIN",
+                        description: "财务管理员，拥有与财务管理相关的操作的权限").save()
+            }
             
             // 增加权限
             try {
@@ -142,7 +148,7 @@ class BootStrap {
                 
                 // 会员修改        	
                 try {
-                        def list = ['ADMIN', 'LEADER', 'PROF', 'ASS_PROF', 'TEACHER']
+                        def list = ['ADMIN', 'LEADER', 'PROF', 'ASS_PROF', 'TEACHER', 'LECTURER']
                         def map = list.collect {"ROLE_$it"}.join(',')				
                         new RequestMap(url:"/member/edit/**", configAttribute:map).save()
                 } catch (e) {
@@ -158,12 +164,11 @@ class BootStrap {
                 	new RequestMap(url:"/js/**", configAttribute:'IS_AUTHENTICATED_ANONYMOUSLY').save()
                 	new RequestMap(url:"/css/**", configAttribute:'IS_AUTHENTICATED_ANONYMOUSLY').save()
                 	new RequestMap(url:"/", configAttribute:'IS_AUTHENTICATED_FULLY').save()
-                	new RequestMap(url:"/history/create", configAttribute:'ROLE_FORBID').save()
-                	new RequestMap(url:"/history/delete", configAttribute:'ROLE_FORBID').save()
-                	new RequestMap(url:"/history/edit", configAttribute:'ROLE_FORBID').save()
-                	new RequestMap(url:"/testType/edit/**",   configAttribute:'ROLE_ADMIN').save()
-                	new RequestMap(url:"/testType/delete/**", configAttribute:'ROLE_ADMIN').save()
-                	new RequestMap(url:"/testType/create/**", configAttribute:'ROLE_ADMIN').save()
+
+                	new RequestMap(url:"/testType/create/**",   configAttribute:'ROLE_ADMIN').save()
+                	
+                    // 只有图书管理员有增删改图书的权限
+                	new RequestMap(url:"/book/create/**", configAttribute:'ROLE_BOOKADMIN').save()
                 }
                 catch (e) {
                 	println e
