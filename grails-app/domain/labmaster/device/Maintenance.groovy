@@ -12,14 +12,13 @@ package labmaster.device
  ********************************/
 
 class Maintenance {
-
-    Date createDate = new Date()
     
     /** 损坏时间 */
     Date badDay
     
     /** 更新时间 */
-    Date modifyDate
+    Date lastUpdated
+    Date dateCreated
     
     /** 状态 */
     Integer status
@@ -32,15 +31,14 @@ class Maintenance {
     
     /** 解决方法 */
     String solution
-    
-    /** 历史 */
-    String history
 
     /** 设备以及报修人 */
     static belongsTo = [apparatus:Apparatus, user:labmaster.auth.Member]
 
     static constraints = {
     	status(range:0..5)
+        dateCreated(nullable:true)
+        lastUpdated(nullable:true)
     }
 
     static searchable = true

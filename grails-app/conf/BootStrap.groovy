@@ -161,6 +161,9 @@ class BootStrap {
                 	new RequestMap(url:"/history/create", configAttribute:'ROLE_FORBID').save()
                 	new RequestMap(url:"/history/delete", configAttribute:'ROLE_FORBID').save()
                 	new RequestMap(url:"/history/edit", configAttribute:'ROLE_FORBID').save()
+                	new RequestMap(url:"/testType/edit/**",   configAttribute:'ROLE_ADMIN').save()
+                	new RequestMap(url:"/testType/delete/**", configAttribute:'ROLE_ADMIN').save()
+                	new RequestMap(url:"/testType/create/**", configAttribute:'ROLE_ADMIN').save()
                 }
                 catch (e) {
                 	println e

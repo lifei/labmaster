@@ -5,7 +5,8 @@ class Schedule {
 	Date date
 	Integer beginTime
 	Integer endTime
-	Date createTime = new Date()
+	Date dateCreated
+	Date lastUpdated
 	
 	static belongsTo = [apparatus:Apparatus, user:labmaster.auth.Member]
 
@@ -13,6 +14,8 @@ class Schedule {
 		beginTime(range:0..24)
 		endTime(range:0..24)
 		date(blank:false)
+        dateCreated(nullable:true)
+        lastUpdated(nullable:true)
     }
 	
 	
@@ -22,7 +25,7 @@ class Schedule {
 			return [ret:false, msg: 'schedule.wrongtime.message']
 		}
 		
-		// ÁÐ³ö±¾Ì¨ÒÇÆ÷µ±ÌìËùÓÐÔ¤¶¨µÄ¼ÇÂ¼
+		// æŸ¥æ‰¾æ‰€æœ‰ä»ªå™¨å’Œæ—¥æœŸç›¸ä»˜çš„è®°å½•
         def schedules = Schedule.findAll("from Schedule as b where b.apparatus=:apparatus and date=:date",
         		[apparatus:apparatus, date:date])
         		
@@ -31,15 +34,15 @@ class Schedule {
         endTime = (endTime as int)
         
         try {
-	        // ËµÃ÷ÒÑ¾­´æÔÚÓÐÔ¤¶¨¼ÇÂ¼£¬ÞðÆú´æÔÚµÄ³åÍ»        
+	        // éªŒè¯æ¯æ¡è®°å½•
 	    	schedules.each {
-	        	// ÓÐ½»²æµÄÇé¿ö
-	    		if((beginTime >= it.beginTime && beginTime < it.endTime) // ¿ªÊ¼Ê±¼ä³åÍ»
-					|| ( endTime > it.beginTime && endTime <= it.endTime)) {// ½áÊøÊ±¼ä³åÍ»
+	        	// äº¤å‰
+	    		if((beginTime >= it.beginTime && beginTime < it.endTime)  
+					|| ( endTime > it.beginTime && endTime <= it.endTime)) {
 	    			throw new Exception()
 	    		}
 	    		
-	    		// °üº¬µÄÇé¿ö
+	    		// åŒ…å«
 	    		if(beginTime <= it.beginTime && endTime >= it.endTime) {
 	    			throw new Exception()
 	    		}

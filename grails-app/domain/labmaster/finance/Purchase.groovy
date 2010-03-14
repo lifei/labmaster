@@ -4,7 +4,8 @@ class Purchase {
 	
 	String name
 	float money
-	Date createTime = new Date()
+	Date dateCreated
+	Date lastUpdated
 	Date buyTime 
 	Integer howToPay
 	Integer status
@@ -20,6 +21,8 @@ class Purchase {
 		howToPay(range:0..5)
 		status(range:0..5)
 		cardSerial(length:0..20, blank:true)
+        dateCreated(nullable:true)
+        lastUpdated(nullable:true)
     }
 	
 	String toString() {

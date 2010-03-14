@@ -2,10 +2,13 @@ package labmaster.finance
 
 class Reimbursement {
 	
+	/** 报账金额 */
 	float money	
 	
-	Date createTime = new Date()
+	Date dateCreated
+	Date lastUpdated
 	
+	/** 报账日期 */
 	Date date
 	
 	static hasMany = [purchase: Purchase]
@@ -18,7 +21,8 @@ class Reimbursement {
 		money(min:(0.0 as float))
 		date()
 		purchase()
-		createTime()
+        dateCreated(nullable:true)
+        lastUpdated(nullable:true)
     }
 	
 	String toString() {

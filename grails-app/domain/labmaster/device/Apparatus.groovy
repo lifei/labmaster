@@ -11,40 +11,40 @@ package labmaster.device
   */
 class Apparatus {
 
-	/** Éè±¸Ãû³Æ */
+	/** è®¾å¤‡åç§° */
     String name
     
-    /** ĞòÁĞºÅ */
+    /** åºåˆ—å· */
     String serial
     
-    /** ¹ºÂòÈÕÆÚ */
+    /** è´­ä¹°æ—¥æœŸ */
     Date buyDate
     
-    /** µÇ¼ÇÊ±¼ä */
-    Date createDate = new Date()
+    /** ç™»è®°æ—¶é—´ */
+    Date dateCreated
+    Date lastUpdated
     
-    /** ¹©Ó¦ÉÌ */
+    /** ä¾›åº”å•† */
     String factory
     
-    /** ÒÇÆ÷ÃèÊö */
+    /** ä»ªå™¨æè¿° */
     String description 
     
-    /** ×´Ì¬ */
+    /** çŠ¶æ€ */
     Integer status
     
-    /** ĞÔÖÊ */
+    /** æ€§è´¨ */
     Integer type
     
-    /** ÀúÊ· */
-    String history
-    
-    /** ¹ÜÀíÔ± */
+    /** ç®¡ç†å‘˜ */
     static hasMany = [administrator: labmaster.auth.Member]
 
     static constraints = {
         serial(unique:true, blank:false)
         status(range:0..10)
         type(range:0..10)
+        dateCreated(nullable:true)
+        lastUpdated(nullable:true)
     }
 
     String toString() {
