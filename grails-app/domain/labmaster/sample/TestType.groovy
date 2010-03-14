@@ -24,4 +24,8 @@ class TestType {
         price(range:0..1000)
         lastUpdated(nullable:true)
     }
+    
+    String toString() {
+    	name
+    }
 }

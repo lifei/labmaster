@@ -5,8 +5,8 @@ class Book {
 	String name
 	String author
 	String press
-	Date dateCreate = new Date()
-	Date lastUpdate
+	Date dateCreated
+	Date lastUpdated
 	Integer type
 	Integer status
 	String location
@@ -25,6 +25,8 @@ class Book {
 		status(range:0..5)
 		location(length:0..40)
 		user()
+		dateCreated(nullable:true)
+		lastUpdated(nullable:true)
     }
 	
 	String toString() {
