@@ -21,14 +21,11 @@ class Plan {
         Date deadline
         
         /** 完成度 */
-        Integer complete
+        Integer complete = 0
         
         /** 更新时间 */
         Date dateCreated
         Date lastUpdated
-        
-        /** 更新历史 */
-        String history
 
         labmaster.auth.Member user = labmaster.auth.Member.getLoginedUser()
         

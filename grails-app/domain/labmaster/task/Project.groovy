@@ -26,4 +26,10 @@ class Project {
 	String toString() {
 	  "${name}"
 	}
+
+        static def getProjectBelongsToUser(def user) {
+            return Project.executeQuery(
+                    "select a from Project as a inner join a.members as b where :user=b or a.leader=:user group by a",
+                    [user:user])
+        }
 }

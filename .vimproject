@@ -215,7 +215,7 @@ labmaster.linux=/home/lifei/.labmaster/labmaster CD=. {
 }
 labmaster.windows=D:\Workspace\labmaster CD=. {
  application.properties
- vimproject
+ init.sh
  grails-app=grails-app {
   conf=conf {
    BootStrap.groovy
@@ -224,7 +224,9 @@ labmaster.windows=D:\Workspace\labmaster CD=. {
    DataSource.groovy
    DataSource.groovy.local
    DataSource.groovy.server
+   InformationHistoryFilters.groovy
    SecurityConfig.groovy
+   TaskProjectFilters.groovy
    UrlMappings.groovy
    hibernate=hibernate {
    }
@@ -242,30 +244,28 @@ labmaster.windows=D:\Workspace\labmaster CD=. {
    RoleController.groovy
    labmaster=labmaster {
      auth=auth {
-     MemberController.groovy
+     AccessControlController.groovy
+     AcessControlController.groovy
      SecureController.groovy
      }
      task=task {
-      PlanController.groovy
-      ProjectController.groovy
-      TaskController.groovy
-      WorkController.groovy
+     PlanController.groovy
+     ProjectController.groovy
+     TaskController.groovy
+     WorkController.groovy
      }
      sample=sample {
-      TestController.groovy
+     TestController.groovy
+     TestTypeController.groovy
      }
      book=book{
-      BookCommentController.groovy
-      BookController.groovy
      }
      finance=finance{
-      PurchaseController.groovy
-      ReimbursementController.groovy
      }
      device=device {
-      ApparatusController.groovy
-      MaintenanceController.groovy
-      ScheduleController.groovy
+     ApparatusController.groovy
+     MaintenanceController.groovy
+     ScheduleController.groovy
      }
     }
   }
@@ -279,37 +279,38 @@ labmaster.windows=D:\Workspace\labmaster CD=. {
     }
     sample=sample {
      Test.groovy
+     TestType.groovy
     }
-    finance=finance{
+    finance=finance {
      Purchase.groovy
-      Reimbursement.groovy
+     Reimbursement.groovy
     }
     auth=auth {
      Member.groovy
-      RequestMap.groovy
-      Role.groovy
+     RequestMap.groovy
+     Role.groovy
     }
     device=device {
      Apparatus.groovy
-      Maintenance.groovy
-      Schedule.groovy
+     Maintenance.groovy
+     Schedule.groovy
     }
    }
   }
   i18n=i18n {
    messages.properties
-    messages_da.properties
-    messages_de.properties
-    messages_es.properties
-    messages_fr.properties
-    messages_it.properties
-    messages_ja.properties
-    messages_nl.properties
-    messages_pt_BR.properties
-    messages_pt_PT.properties
-    messages_ru.properties
-    messages_th.properties
-    messages_zh_CN.properties
+   messages_da.properties
+   messages_de.properties
+   messages_es.properties
+   messages_fr.properties
+   messages_it.properties
+   messages_ja.properties
+   messages_nl.properties
+   messages_pt_BR.properties
+   messages_pt_PT.properties
+   messages_ru.properties
+   messages_th.properties
+   messages_zh_CN.properties
   }
   services=services {
    EmailerService.groovy
@@ -320,20 +321,28 @@ labmaster.windows=D:\Workspace\labmaster CD=. {
   }
   views=views {
    error.gsp
-    index.gsp
-    group=group {
-    }
+   index.gsp
    layouts=layouts {
     main.gsp
    }
-   user=user {
+   plan=plan {
+    create.gsp
+    edit.gsp
+    list.gsp
+    show.gsp
+   }
+   project=project {
+    create.gsp
+    edit.gsp
+    list.gsp
+    show.gsp
    }
   }
  }
  lib=lib {
   activation-1.1.jar
-   mail-1.4.jar
-   mysql-connector-java-5.1.10-bin.jar
+  mail-1.4.jar
+  mysql-connector-java-5.1.10-bin.jar
  }
  scripts=scripts {
  }
@@ -344,6 +353,7 @@ labmaster.windows=D:\Workspace\labmaster CD=. {
   }
  }
  target=target {
+  labmaster-0.1.war
   stacktrace.log
  }
  test=test {
@@ -359,7 +369,7 @@ labmaster.windows=D:\Workspace\labmaster CD=. {
   }
   WEB-INF=WEB-INF {
    applicationContext.xml
-    sitemesh.xml
+   sitemesh.xml
     classes=classes {
      hibernate=hibernate {
      }
@@ -370,52 +380,16 @@ labmaster.windows=D:\Workspace\labmaster CD=. {
    }
   }
   tld=tld {
-   c.tld
-    fmt.tld
-    grails.tld
-    spring.tld
   }
  }
  css=css {
-  main.css
  }
  images=images {
-  favicon.ico
-   grails_logo.jpg
-   grails_logo.png
-   leftnav_btm.png
-   leftnav_midstretch.png
-   leftnav_top.png
-   spinner.gif
-   springsource.png
    skin=skin {
-    database_add.png
-     database_delete.png
-     database_edit.png
-     database_save.png
-     database_table.png
-     exclamation.png
-     house.png
-     information.png
-     shadow.jpg
-     sorted_asc.gif
-     sorted_desc.gif
    }
  }
  js=js {
-  application.js
    prototype=prototype {
-    animation.js
-     builder.js
-     controls.js
-     dragdrop.js
-     effects.js
-     prototype.js
-     rico.js
-     scriptaculous.js
-     slider.js
-     sound.js
-     unittest.js
    }
  }
 }
