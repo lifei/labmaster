@@ -2,6 +2,7 @@ import grails.util.GrailsUtil
 import labmaster.auth.Role as Group;
 import labmaster.auth.Member as User;
 import labmaster.auth.RequestMap;
+import labmaster.sample.TestType;
 
 class BootStrap {
 
@@ -169,6 +170,17 @@ class BootStrap {
             } catch(e) {
             }
             // }}}*/
+
+            /*{{{*/
+            def testList = ['液体核磁','XRD','高效液相(HPLC)','气相色谱','元素分析','液体紫外','ICP','氮气吸附介孔全分析','N2吸附比表面','N2吸附微孔','FI-IR','热重','吡啶IR','羟基IR','固体核磁','SEM','TEM','TPD','XPS','磁性测试','GC-MS','PDI','固体紫外']
+            testList.each {
+                if(!TestType.findByName(it)) {
+                    println it
+                    new TestType(name: it, description: '需要添加', note:
+                            '无', price: 50.0, lastUpdated: new Date()).save()
+                }
+            }
+            /*}}}*/
         }
     }
     
@@ -176,4 +188,4 @@ class BootStrap {
     }
 } 
 
-// vim: fdm=marker enc=utf8 ts=8 sw=8
+// vim: fdm=marker enc=utf8 ts=4 sw=4

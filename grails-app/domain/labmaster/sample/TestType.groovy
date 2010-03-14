@@ -15,12 +15,13 @@ class TestType {
     Float price
 
     /** 更新时间 */
-    Date lastUpdate
+    Date lastUpdated
 
     static constraints = {
         name(length:0..20, blank:false)
         description(blank:true, widget:"textarea")
         note(blank:true, widget:"textarea")
         price(range:0..1000)
+        lastUpdated(nullable:true)
     }
 }
