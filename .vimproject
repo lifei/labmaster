@@ -216,6 +216,7 @@ labmaster.linux=/home/lifei/.labmaster/labmaster CD=. {
 labmaster.windows=D:\Workspace\labmaster CD=. {
  application.properties
  init.sh
+ stacktrace.log
  grails-app=grails-app {
   conf=conf {
    BootStrap.groovy
@@ -224,6 +225,7 @@ labmaster.windows=D:\Workspace\labmaster CD=. {
    DataSource.groovy
    DataSource.groovy.local
    DataSource.groovy.server
+   ForbidFilters.groovy
    InformationHistoryFilters.groovy
    SecurityConfig.groovy
    TaskProjectFilters.groovy
@@ -258,9 +260,13 @@ labmaster.windows=D:\Workspace\labmaster CD=. {
      TestController.groovy
      TestTypeController.groovy
      }
-     book=book{
+     book=book {
+     BookCommentController.groovy
+     BookController.groovy
      }
-     finance=finance{
+     finance=finance {
+     PurchaseController.groovy
+     ReimbursementController.groovy
      }
      device=device {
      ApparatusController.groovy
@@ -332,6 +338,12 @@ labmaster.windows=D:\Workspace\labmaster CD=. {
     show.gsp
    }
    project=project {
+    create.gsp
+    edit.gsp
+    list.gsp
+    show.gsp
+   }
+   test=test {
     create.gsp
     edit.gsp
     list.gsp
