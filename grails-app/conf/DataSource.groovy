@@ -3,8 +3,17 @@ dataSource {
     driverClassName = "com.mysql.jdbc.Driver"
     username = "root"
     password = ""
-    dbCreate = "create-drop"
-    url = "jdbc:mysql://localhost/labmaster"
+    dbCreate = "update"
+    url = "jdbc:mysql://localhost/labmaster?useUnicode=true&characterEncoding=UTF-8"
+    properties {
+		maxActive = 50
+		maxIdle = 25
+		minIdle = 5
+		initialSize = 5
+		minEvictableIdleTimeMillis = 100000
+		timeBetweenEvictionRunsMillis = 100000
+		maxWait = 100000		
+	}	
 }
 hibernate {
     cache.use_second_level_cache=true
@@ -21,6 +30,15 @@ environments {
             password = ""
             dbCreate = "update"
             url = "jdbc:mysql://localhost/labmaster?useUnicode=true&characterEncoding=UTF-8"
+            properties {
+        		maxActive = 50
+        		maxIdle = 25
+        		minIdle = 5
+        		initialSize = 5
+        		minEvictableIdleTimeMillis = 100000
+        		timeBetweenEvictionRunsMillis = 100000
+        		maxWait = 100000		
+        	}	
         }
     }
     test {
@@ -31,9 +49,18 @@ environments {
             password = ""
             dbCreate = "update"
             url = "jdbc:mysql://localhost/labmaster?useUnicode=true&characterEncoding=UTF-8"
+            properties {
+        		maxActive = 50
+        		maxIdle = 25
+        		minIdle = 5
+        		initialSize = 5
+        		minEvictableIdleTimeMillis = 100000
+        		timeBetweenEvictionRunsMillis = 100000
+        		maxWait = 100000		
+        	}	
         }
     }
-    product {
+    production {
         dataSource {
             pooled = true
             driverClassName = "com.mysql.jdbc.Driver"
@@ -41,6 +68,15 @@ environments {
             password = ""
             dbCreate = "update"
             url = "jdbc:mysql://localhost/labmaster?useUnicode=true&characterEncoding=UTF-8"
+            properties {
+        		maxActive = 50
+        		maxIdle = 25
+        		minIdle = 5
+        		initialSize = 5
+        		minEvictableIdleTimeMillis = 100000
+        		timeBetweenEvictionRunsMillis = 100000
+        		maxWait = 100000		
+        	}	
         }
     }
 }
