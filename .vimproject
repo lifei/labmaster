@@ -1,13 +1,13 @@
-labmaster.linux=/home/lifei/Env/labmaster CD=. {
+labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
  application.properties
  init.sh
+ stacktrace.log
  grails-app=grails-app {
   conf=conf {
    BootStrap.groovy
    BuildConfig.groovy
    Config.groovy
-   DataSource.groovy.local
-   DataSource.groovy.server
+   DataSource.groovy
    ForbidFilters.groovy
    InformationHistoryFilters.groovy
    SecurityConfig.groovy
@@ -34,10 +34,10 @@ labmaster.linux=/home/lifei/Env/labmaster CD=. {
      SecureController.groovy
      }
      task=task {
-     PlanController.groovy
-     ProjectController.groovy
-     TaskController.groovy
-     WorkController.groovy
+      PlanController.groovy
+      ProjectController.groovy
+      TaskController.groovy
+      WorkController.groovy
      }
      sample=sample {
      TestController.groovy
@@ -60,6 +60,10 @@ labmaster.linux=/home/lifei/Env/labmaster CD=. {
   }
   domain=domain {
    labmaster=labmaster {
+    book=book {
+     Book.groovy
+     BookComment.groovy
+    }
     task=task {
      Plan.groovy
      Project.groovy
@@ -142,6 +146,7 @@ labmaster.linux=/home/lifei/Env/labmaster CD=. {
   }
  }
  target=target {
+  labmaster-0.1.war
   stacktrace.log
  }
  test=test {
