@@ -1,14 +1,17 @@
-labmaster.linux=/home/lifei/.labmaster/labmaster CD=. {
+labmaster.linux=/home/lifei/Env/labmaster CD=. {
  application.properties
+ init.sh
  grails-app=grails-app {
   conf=conf {
    BootStrap.groovy
    BuildConfig.groovy
    Config.groovy
-   DataSource.groovy
    DataSource.groovy.local
    DataSource.groovy.server
+   ForbidFilters.groovy
+   InformationHistoryFilters.groovy
    SecurityConfig.groovy
+   TaskProjectFilters.groovy
    UrlMappings.groovy
    hibernate=hibernate {
    }
@@ -26,31 +29,32 @@ labmaster.linux=/home/lifei/.labmaster/labmaster CD=. {
    RoleController.groovy
    labmaster=labmaster {
      auth=auth {
-     MemberController.groovy
+     AccessControlController.groovy
+     AcessControlController.groovy
      SecureController.groovy
      }
      task=task {
-      PlanController.groovy
-      ProjectController.groovy
-      TaskController.groovy
-      WorkController.groovy
+     PlanController.groovy
+     ProjectController.groovy
+     TaskController.groovy
+     WorkController.groovy
      }
      sample=sample {
      TestController.groovy
      TestTypeController.groovy
      }
      book=book{
-      BookCommentController.groovy
-      BookController.groovy
+     BookCommentController.groovy
+     BookController.groovy
      }
      finance=finance{
-      PurchaseController.groovy
-      ReimbursementController.groovy
+     PurchaseController.groovy
+     ReimbursementController.groovy
      }
      device=device {
-      ApparatusController.groovy
-      MaintenanceController.groovy
-      ScheduleController.groovy
+     ApparatusController.groovy
+     MaintenanceController.groovy
+     ScheduleController.groovy
      }
     }
   }
@@ -68,34 +72,34 @@ labmaster.linux=/home/lifei/.labmaster/labmaster CD=. {
     }
     finance=finance{
      Purchase.groovy
-      Reimbursement.groovy
+     Reimbursement.groovy
     }
     auth=auth {
      Member.groovy
-      RequestMap.groovy
-      Role.groovy
+     RequestMap.groovy
+     Role.groovy
     }
     device=device {
      Apparatus.groovy
-      Maintenance.groovy
-      Schedule.groovy
+     Maintenance.groovy
+     Schedule.groovy
     }
    }
   }
   i18n=i18n {
    messages.properties
-    messages_da.properties
-    messages_de.properties
-    messages_es.properties
-    messages_fr.properties
-    messages_it.properties
-    messages_ja.properties
-    messages_nl.properties
-    messages_pt_BR.properties
-    messages_pt_PT.properties
-    messages_ru.properties
-    messages_th.properties
-    messages_zh_CN.properties
+   messages_da.properties
+   messages_de.properties
+   messages_es.properties
+   messages_fr.properties
+   messages_it.properties
+   messages_ja.properties
+   messages_nl.properties
+   messages_pt_BR.properties
+   messages_pt_PT.properties
+   messages_ru.properties
+   messages_th.properties
+   messages_zh_CN.properties
   }
   services=services {
    EmailerService.groovy
@@ -106,7 +110,7 @@ labmaster.linux=/home/lifei/.labmaster/labmaster CD=. {
   }
   views=views {
    error.gsp
-    index.gsp
+   index.gsp
     task=task {
     }
     group=group {
@@ -126,8 +130,8 @@ labmaster.linux=/home/lifei/.labmaster/labmaster CD=. {
  }
  lib=lib {
   activation-1.1.jar
-   mail-1.4.jar
-   mysql-connector-java-5.1.10-bin.jar
+  mail-1.4.jar
+  mysql-connector-java-5.1.10-bin.jar
  }
  scripts=scripts {
  }
@@ -153,7 +157,7 @@ labmaster.linux=/home/lifei/.labmaster/labmaster CD=. {
   }
   WEB-INF=WEB-INF {
    applicationContext.xml
-    sitemesh.xml
+   sitemesh.xml
     classes=classes {
      hibernate=hibernate {
      }
@@ -164,52 +168,16 @@ labmaster.linux=/home/lifei/.labmaster/labmaster CD=. {
    }
   }
   tld=tld {
-   c.tld
-    fmt.tld
-    grails.tld
-    spring.tld
   }
  }
  css=css {
-  main.css
  }
  images=images {
-  favicon.ico
-   grails_logo.jpg
-   grails_logo.png
-   leftnav_btm.png
-   leftnav_midstretch.png
-   leftnav_top.png
-   spinner.gif
-   springsource.png
    skin=skin {
-    database_add.png
-     database_delete.png
-     database_edit.png
-     database_save.png
-     database_table.png
-     exclamation.png
-     house.png
-     information.png
-     shadow.jpg
-     sorted_asc.gif
-     sorted_desc.gif
    }
  }
  js=js {
-  application.js
    prototype=prototype {
-    animation.js
-     builder.js
-     controls.js
-     dragdrop.js
-     effects.js
-     prototype.js
-     rico.js
-     scriptaculous.js
-     slider.js
-     sound.js
-     unittest.js
    }
  }
 }

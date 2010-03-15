@@ -7,7 +7,7 @@ import labmaster.sample.TestType;
 class BootStrap {
 
     def init = { servletContext ->    
-        if(GrailsUtil.environment == 'production') {
+        if(GrailsUtil.environment != 'development') {
             //* 初始化管理员, 用户组的数据 {{{
             // 预设分组
             Group adminGroup = Group.findByAuthority("ROLE_ADMIN");
