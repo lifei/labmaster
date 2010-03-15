@@ -14,7 +14,7 @@ class ProjectController {
 		def user = authenticateService.userDomain()
 		
 		if(!user) {
-			rediect controller:'login'
+			redirect controller:'login'
 			return
 		}
 				
@@ -74,7 +74,7 @@ class ProjectController {
 		def user = authenticateService.userDomain()
 		
 		if(!user) {
-			rediect controller:'login'	
+			redirect controller:'login'	
 			return
 		}
 		
@@ -101,7 +101,7 @@ class ProjectController {
 		def user = authenticateService.userDomain()
 		
 		if(!user) {
-			rediect controller:'login'	
+			redirect controller:'login'	
 			return
 		}
 		
@@ -127,7 +127,7 @@ class ProjectController {
 		def user = authenticateService.userDomain()
 		
 		if(!user) {
-			rediect controller:'login'			
+			redirect controller:'login'			
 			return 
 		}
 				
@@ -170,7 +170,7 @@ class ProjectController {
 		def user = authenticateService.userDomain()
 		
 		if(!user) {
-			rediect controller:'login'	  
+			redirect controller:'login'	  
 			return 
 		}
 	
