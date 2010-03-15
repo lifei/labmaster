@@ -51,9 +51,16 @@
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="schedule.createTime.label" default="Create Time" /></td>
+                            <td valign="top" class="name"><g:message code="schedule.dateCreated.label" default="Date Created" /></td>
                             
-                            <td valign="top" class="value"><g:formatDate date="${scheduleInstance?.createTime}" /></td>
+                            <td valign="top" class="value"><g:formatDate date="${scheduleInstance?.dateCreated}" /></td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="schedule.lastUpdated.label" default="Last Updated" /></td>
+                            
+                            <td valign="top" class="value"><g:formatDate date="${scheduleInstance?.lastUpdated}" /></td>
                             
                         </tr>
                     

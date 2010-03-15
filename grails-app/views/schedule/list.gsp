@@ -30,10 +30,10 @@
                         
                             <g:sortableColumn property="date" title="${message(code: 'schedule.date.label', default: 'Date')}" />
                         
-                            <g:sortableColumn property="createTime" title="${message(code: 'schedule.createTime.label', default: 'Create Time')}" />
+                            <g:sortableColumn property="dateCreated" title="${message(code: 'schedule.dateCreated.label', default: 'Date Created')}" />
                         
-                            <th><g:message code="schedule.apparatus.label" default="Apparatus" /></th>
-                   	    
+                            <g:sortableColumn property="lastUpdated" title="${message(code: 'schedule.lastUpdated.label', default: 'Last Updated')}" />
+                        
                         </tr>
                     </thead>
                     <tbody>
@@ -48,9 +48,9 @@
                         
                             <td><g:formatDate date="${scheduleInstance.date}" /></td>
                         
-                            <td><g:formatDate date="${scheduleInstance.createTime}" /></td>
+                            <td><g:formatDate date="${scheduleInstance.dateCreated}" /></td>
                         
-                            <td>${fieldValue(bean: scheduleInstance, field: "apparatus")}</td>
+                            <td><g:formatDate date="${scheduleInstance.lastUpdated}" /></td>
                         
                         </tr>
                     </g:each>

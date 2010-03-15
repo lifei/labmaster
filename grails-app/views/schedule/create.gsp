@@ -56,10 +56,19 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="createTime"><g:message code="schedule.createTime.label" default="Create Time" /></label>
+                                    <label for="dateCreated"><g:message code="schedule.dateCreated.label" default="Date Created" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: scheduleInstance, field: 'createTime', 'errors')}">
-                                    <g:datePicker name="createTime" precision="day" value="${scheduleInstance?.createTime}"  />
+                                <td valign="top" class="value ${hasErrors(bean: scheduleInstance, field: 'dateCreated', 'errors')}">
+                                    <g:datePicker name="dateCreated" precision="day" value="${scheduleInstance?.dateCreated}" noSelection="['': '']" />
+                                </td>
+                            </tr>
+                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="lastUpdated"><g:message code="schedule.lastUpdated.label" default="Last Updated" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: scheduleInstance, field: 'lastUpdated', 'errors')}">
+                                    <g:datePicker name="lastUpdated" precision="day" value="${scheduleInstance?.lastUpdated}" noSelection="['': '']" />
                                 </td>
                             </tr>
                         
