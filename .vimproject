@@ -60,6 +60,9 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
   }
   domain=domain {
    labmaster=labmaster {
+    record=record {
+     Attendance.groovy
+    }
     book=book {
      Book.groovy
      BookComment.groovy
