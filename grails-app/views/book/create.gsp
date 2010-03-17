@@ -59,7 +59,7 @@
                                     <label for="type"><g:message code="book.type.label" default="Type" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: bookInstance, field: 'type', 'errors')}">
-                                    <g:select name="type" from="${0..5}" value="${fieldValue(bean: bookInstance, field: 'type')}"  />
+                                    <g:select name="type" from="${Book.typeMap}" optionKey='key' value="${fieldValue(bean: bookInstance, field: 'type')}"  />
                                 </td>
                             </tr>
                         
@@ -68,7 +68,7 @@
                                     <label for="status"><g:message code="book.status.label" default="Status" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: bookInstance, field: 'status', 'errors')}">
-                                    <g:select name="status" from="${0..5}" value="${fieldValue(bean: bookInstance, field: 'status')}"  />
+                                    <g:select name="status" from="${Book.statusMap}" optionKey='key' optionText='value' value="${fieldValue(bean: bookInstance, field: 'status')}"  />
                                 </td>
                             </tr>
                         

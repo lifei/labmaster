@@ -118,10 +118,14 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
   views=views {
    error.gsp
    index.gsp
-    task=task {
-    }
-    group=group {
-    }
+   task=task {
+   }
+   book=book {
+    create.gsp
+    edit.gsp
+    list.gsp
+    show.gsp
+   }
    layouts=layouts {
     main.gsp
    }

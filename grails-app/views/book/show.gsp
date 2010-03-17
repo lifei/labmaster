@@ -53,14 +53,14 @@
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="book.type.label" default="Type" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: bookInstance, field: "type")}</td>
+                            <td valign="top" class="value">${Book.typeMap.getAt(bookInstance.type)}</td>
                             
                         </tr>
                     
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="book.status.label" default="Status" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: bookInstance, field: "status")}</td>
+                            <td valign="top" class="value">${Book.statusMap.getAt(bookInstance.status)}</td>
                             
                         </tr>
                     

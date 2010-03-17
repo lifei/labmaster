@@ -48,9 +48,9 @@
                         
                             <td>${fieldValue(bean: bookInstance, field: "press")}</td>
                         
-                            <td>${fieldValue(bean: bookInstance, field: "type")}</td>
+                            <td>${Book.typeMap.getAt(bookInstance.type)}</td>
                         
-                            <td>${fieldValue(bean: bookInstance, field: "status")}</td>
+                            <td>${Book.statusMap.getAt(bookInstance.status)}</td>
                         
                         </tr>
                     </g:each>

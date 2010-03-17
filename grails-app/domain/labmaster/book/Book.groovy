@@ -1,35 +1,43 @@
 package labmaster.book
 
 class Book {
-	
-	String name
-	String author
-	String press
-	Date dateCreated
-	Date lastUpdated
-	Integer type
-	Integer status
-	String location
-	
-	/** 支持全文检索 */
-	static searchable = true
-	
-	/** 录入者 */
-	static belongsTo = [user: labmaster.auth.Member]
+    
+    String name
+    String author
+    String press
+    Date dateCreated
+    Date lastUpdated
+    Integer type
+    Integer status
+    String location
+
+    static typeMap = [0:'书籍', 1:'杂志', 2:'博士论文', 3:'硕士论文', 4:'报刊']
+    static statusMap = [0:'存', 1:'借', 2:'还', 3:'评', 4:'论']
+    
+    /** 支持全文检索 */
+    static searchable = true
+    
+    /** 录入者 */
+    static belongsTo = [user: labmaster.auth.Member]
 
     static constraints = {
-		name(length:0..20)
-		author(length:0..30)
-		press(length:0..40)
-		type(range:0..5)
-		status(range:0..5)
-		location(length:0..40)
-		user()
-		dateCreated(nullable:true)
-		lastUpdated(nullable:true)
+        name(length:0..20)
+        author(length:0..30)
+        press(length:0..40)
+        type(range:0..5)
+        status(range:0..5)
+        location(length:0..40)
+        user()
+        dateCreated(nullable:true)
+        lastUpdated(nullable:true)
     }
-	
-	String toString() {
-		"《${name}》(${author}) - ${press}"
-	}
+    
+    String toString() {
+        "《${name}》(${author}) - ${press}"
+    }
 }
+
+//vim600: ts=4 st=4 foldmethod=marker foldmarker={{{,}}} syn=groovy 
+//vim600: encoding=utf8 fileenc=utf8 
+
+
