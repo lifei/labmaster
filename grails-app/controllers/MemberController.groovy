@@ -1,3 +1,4 @@
+import org.codehaus.groovy.grails.plugins.springsecurity.Secured
 import labmaster.auth.Member
 import labmaster.auth.Role
 
@@ -12,9 +13,14 @@ class MemberController {
 	static Map allowedMethods = [delete: 'POST', save: 'POST', update: 'POST']
 
 	def index = {
+            def user  = authenticateService.userDomain()
+            if(user.doesInAdminRole())
 		redirect action: list, params: params
+            else
+                redirect action: show, params: params, id: user.id
 	}
 
+        @Secured(['ROLE_ADMIN'])
 	def list = {
 		if (!params.max) {
 			params.max = 10
@@ -23,6 +29,9 @@ class MemberController {
 	}
 
 	def show = {
+            def u = authenticateService.userDomain()
+
+            if(u.doesInAdminRole() || u.doesUserSelf(params.int('id'))) {
 		def person = Member.get(params.id)
 		if (!person) {
 			flash.message = "没有找到对应的用户"
@@ -37,13 +46,16 @@ class MemberController {
 			n1 <=> n2
 		}
 		[person: person, roleNames: roleNames]
+            } else 
+                redirect controller:'login', action:'denied'
 	}
 
 	/**
 	 * 删除用户--禁止删除用户，改为禁用
 	 */
+        @Secured(['ROLE_ADMIN'])
 	def delete = {	
-		/*
+		/* {{{
 		def person = Member.get(params.id)
 		if (person) {
 			def authPrincipal = authenticateService.principal()
@@ -61,7 +73,7 @@ class MemberController {
 		else {
 			flash.message = "Member not found with id $params.id"
 		}
-		*/
+                }}} */
 		
 		def person = Member.get(params.id)
 		if (person) {
@@ -84,55 +96,66 @@ class MemberController {
 		redirect action: list
 	}
 
+    @Secured(['IS_AUTHENTICATED_FULLY'])
 	def edit = {
+        def u = authenticateService.userDomain()
+        if(u.doesInAdminRole() || u.doesUserSelf(params.int('id'))) {
 
-		def person = Member.get(params.id)
-		if (!person) {
-			flash.message = "没有找到对应的用户"
-			redirect action: list
-			return
-		}
+            def person = Member.get(params.id)
+            if (!person) {
+                flash.message = "没有找到对应的用户"
+                    redirect action: index
+                    return
+            }
 
-		return buildPersonModel(person)
-	}
+            return buildPersonModel(person)
+        } else 
+            redirect action: index
+    }
 
 	/**
 	 * Person update action.
 	 */
+    @Secured(['IS_AUTHENTICATED_FULLY'])
 	def update = {
+        def u = authenticateService.userDomain()
+        if(u.doesInAdminRole() || u.doesUserSelf(params.int('id'))) {
 
-		def person = Member.get(params.id)
-		if (!person) {
-			flash.message = "Member not found with id $params.id"
-			redirect action: edit, id: params.id
-			return
-		}
+            def person = Member.get(params.id)
+            if (!person) {
+                flash.message = "Member not found with id $params.id"
+                redirect action: edit, id: params.id
+                return
+            }
 
-		long version = params.version.toLong()
-		if (person.version > version) {
-			person.errors.rejectValue 'version', "person.optimistic.locking.failure",
-				"Another user has updated this Member while you were editing."
-				render view: 'edit', model: buildPersonModel(person)
-			return
-		}
+            long version = params.version.toLong()
+            if (person.version > version) {
+                person.errors.rejectValue 'version', "person.optimistic.locking.failure",
+                    "Another user has updated this Member while you were editing."
+                    render view: 'edit', model: buildPersonModel(person)
+                return
+            }
 
-		def oldPassword = person.passwd
-		person.properties = params
-		
-		// 密码不在update里面处理
-		if (params.passwd && !params.passwd.equals(oldPassword)) {
-			person.passwd = authenticateService.encodePassword(params.passwd)
-		}
-		if (person.save()) {
-			Role.findAll().each { it.removeFromPeople(person) }
-			addRoles(person)
-			redirect action: show, id: person.id
-		}
-		else {
-			render view: 'edit', model: buildPersonModel(person)
-		}
+            def oldPassword = person.passwd
+            person.properties = params
+            
+            // 密码不在update里面处理
+            if (params.passwd && !params.passwd.equals(oldPassword)) {
+                person.passwd = authenticateService.encodePassword(params.passwd)
+            }
+            if (person.save()) {
+                Role.findAll().each { it.removeFromPeople(person) }
+                addRoles(person)
+                redirect action: show, id: person.id
+            }
+            else {
+                render view: 'edit', model: buildPersonModel(person)
+            }
+        } else 
+            redirect action: index
 	}
 
+    @Secured(['ROLE_ADMIN'])
 	def create = {
 		[person: new Member(params), authorityList: Role.list()]
 	}
@@ -140,6 +163,7 @@ class MemberController {
 	/**
 	 * Person save action.
 	 */
+    @Secured(['ROLE_ADMIN'])
 	def save = {
 
 		def person = new Member()
@@ -181,3 +205,8 @@ class MemberController {
 		return [person: person, roleMap: roleMap]
 	}
 }
+
+/*
+vim600: ts=4 st=4 foldmethod=marker foldmarker={{{,}}} syn=groovy 
+vim600: encoding=utf-8 
+*/
