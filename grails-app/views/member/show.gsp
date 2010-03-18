@@ -70,13 +70,23 @@
 			</table>
 		</div>
 
-		<div class="buttons">
-			<g:form>
-				<input type="hidden" name="id" value="${person.id}" />
-				<span class="button"><g:actionSubmit class="edit" value="Edit" /></span>
-				<span class="button"><g:actionSubmit class="delete" onclick="return confirm('Are you sure?');" value="Delete" /></span>
-			</g:form>
-		</div>
+<div class="buttons"><%-- {{{ --%>
+        <g:form>
+                <input type="hidden" name="id" value="${person.id}" />
+                <span class="button"><g:actionSubmit class="edit" value="Edit" /></span>
+                <g:ifAnyGranted role='ROLE_ADMIN'>
+                <span class="button"><g:actionSubmit class="delete" onclick="return confirm('Are you sure?');" value="Delete" /></span>
+                </g:ifAnyGranted>
+                <g:if test="${params.int('id')==person.id}">
+                <span class="button"><g:actionSubmit
+                class="passwd" value="Password" /></span>
+                </g:if>
+        </g:form>
+</div><%-- }}} --%>
 
 	</div>
 </body>
+<%--
+vim600: ts=4 st=4 foldmethod=marker foldmarker={{{,}}} syn=gsp 
+vim600: encoding=utf-8 commentstring=<%--\ %s\ --%>
+--%>

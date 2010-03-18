@@ -118,6 +118,11 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
   views=views {
    error.gsp
    index.gsp
+   register=register {
+    edit.gsp
+    index.gsp
+    show.gsp
+   }
    task=task {
    }
    book=book {
@@ -136,6 +141,7 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
     edit.gsp
     list.gsp
     show.gsp
+    password.gsp
    }
   }
  }
@@ -161,6 +167,12 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
   }
   unit=unit {
    labmaster=labmaster {
+    book=book {
+     BookControllerTests.groovy
+     BookTests.groovy
+     CommentControllerTests.groovy
+     CommentTests.groovy
+    }
    }
   }
  }

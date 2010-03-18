@@ -1,4 +1,5 @@
 package labmaster.book
+import org.codehaus.groovy.grails.plugins.springsecurity.Secured
 
 class BookController {
 
@@ -13,12 +14,14 @@ class BookController {
         [bookInstanceList: Book.list(params), bookInstanceTotal: Book.count()]
     }
 
+    @Secured(['ROLE_BOOKADMIN'])
     def create = {
         def bookInstance = new Book()
         bookInstance.properties = params
         return [bookInstance: bookInstance]
     }
 
+    @Secured(['ROLE_BOOKADMIN'])
     def save = {
         def bookInstance = new Book(params)
         if (bookInstance.save(flush: true)) {
@@ -41,6 +44,7 @@ class BookController {
         }
     }
 
+    @Secured(['ROLE_BOOKADMIN'])
     def edit = {
         def bookInstance = Book.get(params.id)
         if (!bookInstance) {
@@ -52,6 +56,7 @@ class BookController {
         }
     }
 
+    @Secured(['ROLE_BOOKADMIN'])
     def update = {
         def bookInstance = Book.get(params.id)
         if (bookInstance) {
@@ -79,6 +84,7 @@ class BookController {
         }
     }
 
+    @Secured(['ROLE_BOOKADMIN'])
     def delete = {
         def bookInstance = Book.get(params.id)
         if (bookInstance) {

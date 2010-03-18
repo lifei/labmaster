@@ -119,7 +119,8 @@ class MemberController {
     @Secured(['IS_AUTHENTICATED_FULLY'])
 	def update = {
         def u = authenticateService.userDomain()
-        if(u.doesInAdminRole() || u.doesUserSelf(params.int('id'))) {
+        boolean isAdmin = u.doesInAdminRole()
+        if(isAdmin || u.doesUserSelf(params.int('id'))) {
 
             def person = Member.get(params.id)
             if (!person) {
@@ -137,15 +138,15 @@ class MemberController {
             }
 
             def oldPassword = person.passwd
-            person.properties = params
+
+            bindData(person, params, ['id', 'username', 'password'])
             
-            // 密码不在update里面处理
-            if (params.passwd && !params.passwd.equals(oldPassword)) {
-                person.passwd = authenticateService.encodePassword(params.passwd)
-            }
             if (person.save()) {
-                Role.findAll().each { it.removeFromPeople(person) }
-                addRoles(person)
+                // 管理员的修改才修改权限
+                if(isAdmin) {
+                    Role.findAll().each { it.removeFromPeople(person) }
+                    addRoles(person)
+                }
                 redirect action: show, id: person.id
             }
             else {
@@ -160,6 +161,53 @@ class MemberController {
 		[person: new Member(params), authorityList: Role.list()]
 	}
 
+    @Secured(['IS_AUTHENTICATED_FULLY'])
+	def password = {
+        def person = Member.get(params.id)
+        if(!person)
+            redirect action: index
+        else
+            [person: person]
+	}
+
+    @Secured(['IS_AUTHENTICATED_FULLY'])
+	def updatePasswd = {PasswordCommand cmd ->
+        def u = authenticateService.userDomain()
+
+        // 只有自己才能修改自己的密码
+        if(u.doesUserSelf(params.int('id')))
+        {
+            def person = Member.get(params.int('id')) 
+            if(person) {
+                String oldPassword = person.passwd
+
+                cmd.oldPassword = authenticateService.encodePassword(params.oldPassword)
+                if(cmd.oldPassword != oldPassword) {
+                    println "${cmd.oldPassword} ${oldPassword}"
+                    cmd.errors.rejectValue 'oldPassword', "passwordCommand.oldPassword.wrongPassword" 
+                }
+
+                params.passwd = authenticateService.encodePassword(params.passwd)
+                bindData(person, params, [include:['passwd']])
+
+                boolean valid = true
+                valid = valid && person.validate()
+                valid = valid && !person.hasErrors()
+                valid = valid && !cmd.hasErrors()
+
+                if(valid) {
+                    if(person.save(flush:true)) {
+                        flash.message = '成功修改了密码'
+                            redirect action:show, params:params
+                            return
+                    } 
+                } else {
+                    person.discard()
+                }
+            }
+            render view: 'password', model: [person:person,cmd:cmd]
+        }
+	}
 	/**
 	 * Person save action.
 	 */
@@ -204,6 +252,21 @@ class MemberController {
 
 		return [person: person, roleMap: roleMap]
 	}
+}
+
+class PasswordCommand {
+    String oldPassword
+    String passwordAgain
+    String passwd
+
+    static constraints = {
+        passwd(length:6..32,blank:false)
+        passwordAgain(validator: {
+            val, obj->
+            if(!val || !obj.passwd || obj.passwd != val)
+                return 'differentPassword'
+        })
+    }
 }
 
 /*

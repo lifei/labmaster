@@ -12,6 +12,10 @@ class BookControllerTests extends ControllerUnitTestCase {
     }
 
     void testSomething() {
+        def p = new BookController()
+        p.params.name = '你好'
+        p.params.id = 1
+        p.update()
 
     }
 }

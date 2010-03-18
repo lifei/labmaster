@@ -22,7 +22,7 @@ class RegisterController {
 
                 // skip if already logged in
                 if (authenticateService.isLoggedIn()) {
-                        redirect action: show
+                        redirect controller:'member', params:params
                         return
                 }
 

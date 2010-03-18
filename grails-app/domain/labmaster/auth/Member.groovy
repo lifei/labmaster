@@ -17,7 +17,7 @@ class Member {
 	/** MD5 Password */
 	String passwd
 	/** enabled */
-	boolean enabled
+	boolean enabled = false
 
 	String email
 	boolean emailShow
@@ -29,9 +29,9 @@ class Member {
 	String pass = '[secret]'
 
 	static constraints = {
-		username(blank: false, unique: true)
+		username(length:4..32,blank: false, unique: true)
 		userRealName(blank: false)
-		passwd(blank: false)
+		passwd(length:6..32,blank: false)
 		enabled()
 	}
 	
@@ -51,6 +51,18 @@ class Member {
         }
     }
     
+    boolean doesInAdminRole() {
+        return this.doesInRole('ROLE_ADMIN')
+    }
+
+    boolean doesInRole(String role) {
+        return this.authorities.any{it.authority == role}
+    }
+
+    boolean doesUserSelf(def id) {
+        return this.id == Integer.valueOf(id)
+    }
+
     boolean equals(Member m) {
     	m.id == this.id
     }
