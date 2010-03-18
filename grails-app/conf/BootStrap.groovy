@@ -134,49 +134,6 @@ class BootStrap {
                         description: "财务管理员，拥有与财务管理相关的操作的权限").save()
             }
             
-            // 增加权限
-            try {
-                
-                // 查看会员的列表
-                try {
-                        def list = ['ADMIN', 'LEADER', 'PROF', 'ASS_PROF', 'TEACHER', 'PHD', "MASTER", 'BACHOLAR', 'ASSISTANT', 'LEAVE']
-                        def map = list.collect {"ROLE_$it"}.join(',')			
-                        new RequestMap(url:"/member/list/**", configAttribute:map).save()
-                } catch (e) {
-                        println e
-                }
-                
-                // 会员修改        	
-                try {
-                        def list = ['ADMIN', 'LEADER', 'PROF', 'ASS_PROF', 'TEACHER', 'LECTURER']
-                        def map = list.collect {"ROLE_$it"}.join(',')				
-                        new RequestMap(url:"/member/edit/**", configAttribute:map).save()
-                } catch (e) {
-                        println e
-                }
-                
-                // 未注册用户可以注册
-                try {
-                	new RequestMap(url:"/register/**", configAttribute:'IS_AUTHENTICATED_ANONYMOUSLY').save()
-                	new RequestMap(url:"/login/**", configAttribute:'IS_AUTHENTICATED_ANONYMOUSLY').save()
-                	new RequestMap(url:"/captcha/**", configAttribute:'IS_AUTHENTICATED_ANONYMOUSLY').save()
-                	new RequestMap(url:"/images/**", configAttribute:'IS_AUTHENTICATED_ANONYMOUSLY').save()
-                	new RequestMap(url:"/js/**", configAttribute:'IS_AUTHENTICATED_ANONYMOUSLY').save()
-                	new RequestMap(url:"/css/**", configAttribute:'IS_AUTHENTICATED_ANONYMOUSLY').save()
-                	new RequestMap(url:"/", configAttribute:'IS_AUTHENTICATED_FULLY').save()
-
-                	new RequestMap(url:"/testType/create/**",   configAttribute:'ROLE_ADMIN').save()
-                	
-                    // 只有图书管理员有增删改图书的权限
-                	new RequestMap(url:"/book/create/**", configAttribute:'ROLE_BOOKADMIN').save()
-                }
-                catch (e) {
-                	println e
-                }
-                
-               
-            } catch(e) {
-            }
             // }}}*/
 
             /*{{{*/
