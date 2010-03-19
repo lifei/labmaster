@@ -183,8 +183,11 @@ class MemberController {
 
                 cmd.oldPassword = authenticateService.encodePassword(params.oldPassword)
                 if(cmd.oldPassword != oldPassword) {
-                    println "${cmd.oldPassword} ${oldPassword}"
                     cmd.errors.rejectValue 'oldPassword', "passwordCommand.oldPassword.wrongPassword" 
+                }
+
+                if(params.captcha.toUpperCase() != session.captcha) {
+                    cmd.errors.rejectValue 'captcha', "passwordCommand.captcha.differentCapcha" 
                 }
 
                 params.passwd = authenticateService.encodePassword(params.passwd)
@@ -206,6 +209,9 @@ class MemberController {
                 }
             }
             render view: 'password', model: [person:person,cmd:cmd]
+        } else {
+            flash.message = '只能修改本人的密码！'
+            redirect action:show, params:params
         }
 	}
 	/**
@@ -258,6 +264,7 @@ class PasswordCommand {
     String oldPassword
     String passwordAgain
     String passwd
+    String captcha
 
     static constraints = {
         passwd(length:6..32,blank:false)

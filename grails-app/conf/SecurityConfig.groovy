@@ -30,4 +30,10 @@ security {
        '/member/create/**': ['ROLE_ADMIN'],
        '/**': ['IS_AUTHENTICATED_FULLY']
        ]
+
+    filterInvocationDefinitionSourceMap = [
+        //'/j_spring_security_check': 'httpSessionContextIntegrationFilter,logoutFilter,authenticationProcessingFilter,captchaAuthenticationFilter,securityContextHolderAwareRequestFilter,rememberMeProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor',
+        '/j_spring_security_check': 'httpSessionContextIntegrationFilter,captchaAuthenticationFilter,securityContextHolderAwareRequestFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor',
+        '/**': 'httpSessionContextIntegrationFilter,logoutFilter,authenticationProcessingFilter,securityContextHolderAwareRequestFilter,rememberMeProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor'
+    ]
 }

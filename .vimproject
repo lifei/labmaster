@@ -10,6 +10,7 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
    DataSource.groovy
    ForbidFilters.groovy
    InformationHistoryFilters.groovy
+   LoginCapchaFilters.groovy
    SecurityConfig.groovy
    TaskProjectFilters.groovy
    UrlMappings.groovy
@@ -143,6 +144,11 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
     show.gsp
     password.gsp
    }
+   login=login {
+    auth.gsp
+    denied.gsp
+    openIdAuth.gsp
+   }
   }
  }
  lib=lib {
@@ -154,6 +160,14 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
  }
  src=src {
   groovy=groovy {
+   labmaster=labmaster {
+    acegi=acegi {
+     captcha=captcha {
+      CaptchaAuthenticationProcessingFilter.groovy
+      WrongCaptchaException.groovy
+     }
+    }
+   }
   }
   java=java {
   }

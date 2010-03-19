@@ -6,6 +6,7 @@ import org.springframework.security.DisabledException
 import org.springframework.security.context.SecurityContextHolder as SCH
 import org.springframework.security.ui.AbstractProcessingFilter
 import org.springframework.security.ui.webapp.AuthenticationProcessingFilter
+import labmaster.acegi.captcha.WrongCaptchaException
 
 /**
  * Login Controller (Example).
@@ -66,7 +67,7 @@ class LoginController {
 			postUrl = "${request.contextPath}${config.filterProcessesUrl}"
 		}
 
-		render view: view, model: [postUrl: postUrl]
+		render view: view, model: [postUrl: postUrl, cmd:flash.cmd]
 	}
 
 	/**
@@ -134,17 +135,30 @@ class LoginController {
 	/**
 	 * login failed
 	 */
-	def authfail = {
+	def authfail = { LoginCommand cmd ->
 
 		def username = session[AuthenticationProcessingFilter.SPRING_SECURITY_LAST_USERNAME_KEY]
 		def msg = ''
 		def exception = session[AbstractProcessingFilter.SPRING_SECURITY_LAST_EXCEPTION_KEY]
+
+                cmd.username = username
+                cmd.captcha = session.captcha
+
+                cmd.validate()
+
 		if (exception) {
+                        
 			if (exception instanceof DisabledException) {
-				msg = "[$username] 已经被禁用，请联系相关人员."
+                            msg = message(code:'loginCommand.username.usernameDisabled')
+                            cmd.errors.rejectValue 'username', 'loginCommand.username.usernameDisabled'
 			}
-			else {
-				msg = "[$username] 的用户名或密码错误."
+                        else if(exception instanceof WrongCaptchaException) {
+                            msg = message(code:'loginCommand.captcha.wrongCaptcha')
+                            cmd.errors.rejectValue 'captcha', 'loginCommand.captcha.wrongCaptcha'
+                        } 
+                        else {
+                            msg = message(code:'loginCommand.password.noPasswordUsernameMatch')
+                            cmd.errors.rejectValue 'password', 'loginCommand.password.noPasswordUsernameMatch'
 			}
 		}
 
@@ -152,8 +166,8 @@ class LoginController {
 			render "{error: '${msg}'}"
 		}
 		else {
-			flash.message = msg
-			redirect action: auth, params: params
+                    flash.cmd = cmd
+                    redirect action:auth, params:params
 		}
 	}
 
@@ -176,4 +190,17 @@ class LoginController {
 		response.setIntHeader ('Expires', -1) //prevents caching at the proxy server
 		response.addHeader('cache-Control', 'private') //IE5.x only
 	}
+}
+
+class LoginCommand 
+{
+    String username
+    String password
+    String captcha
+
+    static constraints = {
+        username(length:6..32, blank:false)
+        password(length:6..32, blank:false)
+        captcha(length:8..8, blank:false)
+    }
 }
