@@ -191,6 +191,23 @@ class RegisterController {
 
                         person.save(flush: true)
 
+                        def xml = new StringWriter()
+                        def member = new groovy.xml.MarkupBuilder(xml)
+                        member.member(id:person.id){
+                            userRealName(person.userRealName)
+                            enabled(person.enabled)
+                            email(person.email)
+                            emailShow(person.emailShow)
+                            authorities{
+                                person.authorities.each{
+                                    authority(it.authority)
+                                }
+                            }
+                        }
+
+                        def history = new labmaster.information.History(user:Member.findByUsername('admin'),
+                            controller:'register', action:'save', content:xml.toString())
+                        history.save(flush:true)
                         flash.person = person
                         redirect action: 'success'
                 }

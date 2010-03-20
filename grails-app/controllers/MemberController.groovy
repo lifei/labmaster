@@ -92,6 +92,9 @@ class MemberController {
 				//first, delete this person from People_Authorities table.
 				person.enabled = 0
 				person.save()
+                def history = new labmaster.information.History(user:authenticateService.userDomain(),
+                    controller:'member', action:'delete', content:"${params.id}")
+                history.save(flush:true)
 				flash.message = "为了保证数据的完整性，系统不允许删除用户，但是该用户已被禁用!"
 			}
 		}
@@ -160,6 +163,24 @@ class MemberController {
                         flash.message = '您已经成功修改了自己的信息, 将会在下一次登陆时生效!'
                     }
                 }
+
+                def xml = new StringWriter()
+                def member = new groovy.xml.MarkupBuilder(xml)
+                member.member(id:person.id){
+                    userRealName(person.userRealName)
+                    enabled(person.enabled)
+                    email(person.email)
+                    emailShow(person.emailShow)
+                    authorities{
+                        person.authorities.each{
+                            authority(it.authority)
+                        }
+                    }
+                }
+
+                def history = new labmaster.information.History(user:authenticateService.userDomain(),
+                    controller:'member', action:'update', content:xml.toString())
+                history.save(flush:true)
                 
                 redirect action: show, id: person.id
             }
@@ -215,6 +236,9 @@ class MemberController {
                 if(valid) {
                     if(person.save(flush:true)) {
                         flash.message = '成功修改了密码'
+                            def history = new labmaster.information.History(user:authenticateService.userDomain(),
+                                controller:'member', action:'updatePassword')
+                            history.save(flush:true)
                             redirect action:show, id:params.id
                             return
                     } 
