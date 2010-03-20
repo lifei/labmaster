@@ -21,12 +21,12 @@ class Book {
     static belongsTo = [user: labmaster.auth.Member]
 
     static constraints = {
-        name(length:0..20)
-        author(length:0..30)
-        press(length:0..40)
+        name(length:1..20, blank:false, unique:true)
+        author(length:2..30, blank:false)
+        press(length:1..40, blank:false)
         type(range:0..5)
         status(range:0..5)
-        location(length:0..40)
+        location(length:1..40, blank:false)
         user()
         dateCreated(nullable:true)
         lastUpdated(nullable:true)

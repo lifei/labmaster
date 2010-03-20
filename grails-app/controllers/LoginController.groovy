@@ -199,8 +199,8 @@ class LoginCommand
     String captcha
 
     static constraints = {
-        username(length:6..32, blank:false)
-        password(length:6..32, blank:false)
-        captcha(length:8..8, blank:false)
+        username(blank:false)
+        password(blank:false)
+        captcha(blank:false)
     }
 }

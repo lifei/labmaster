@@ -5,11 +5,7 @@
 
 <body>
 
-	<div class="nav">
-		<span class="menuButton"><a class="home" href="${createLinkTo(dir:'')}">Home</a></span>
-		<span class="menuButton"><g:link class="list" action="list">Member List</g:link></span>
-		<span class="menuButton"><g:link class="create" action="create">New Member</g:link></span>
-	</div>
+    <g:render template="top" />
 
 	<div class="body">
 		<h1>Show Member</h1>
@@ -77,9 +73,9 @@
                 <g:ifAnyGranted role='ROLE_ADMIN'>
                 <span class="button"><g:actionSubmit class="delete" onclick="return confirm('Are you sure?');" value="Delete" /></span>
                 </g:ifAnyGranted>
-                <g:if test="${params.int('id')==person.id}">
-                <span class="button"><g:actionSubmit
-                class="passwd" value="Password" /></span>
+                <g:if test="${params.int('id')==user.id}">
+                <span class="button"><input type='submit' name='_action_password'
+                class="edit" value="修改密码" /></span>
                 </g:if>
         </g:form>
 </div><%-- }}} --%>

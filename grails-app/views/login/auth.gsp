@@ -59,7 +59,8 @@
             <form action='${postUrl}' method='POST' id='loginForm' class='cssform'>
                 <p>
                     <label for='j_username'>Login ID</label>
-                    <input type='text' name='j_username' id='j_username' value='${cmd.username}'
+                    <input type='text' name='j_username' id='j_username'
+                    value='${cmd?cmd.username:''}'
                     class='text_ ${hasErrors(bean:cmd,field:'username','errors')}'   
                     />
                 </p>

@@ -1,7 +1,10 @@
 package labmaster.book
 import org.codehaus.groovy.grails.plugins.springsecurity.Secured
+import labmaster.information.History
 
 class BookController {
+
+    def authenticateService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -23,9 +26,29 @@ class BookController {
 
     @Secured(['ROLE_BOOKADMIN'])
     def save = {
+        def u = authenticateService.userDomain()
+        if(!u) {
+            redirect action:list
+            return
+        }
         def bookInstance = new Book(params)
+        bookInstance.user = u
         if (bookInstance.save(flush: true)) {
-            flash.message = "${message(code: 'default.created.message', args: [message(code: 'book.label', default: 'Book'), bookInstance.id])}"
+            flash.message = "${message(code: 'book.created.message', args: [message(code: 'book.label', default: 'Book'), bookInstance.name])}"
+            def xml = new StringWriter()
+            def book = new groovy.xml.MarkupBuilder(xml)
+            book.book(){
+                id(bookInstance.id)
+                name(bookInstance.name)
+                location(bookInstance.location)
+                author(bookInstance.author)
+                type(bookInstance.type)
+                status(bookInstance.status)
+            }
+
+            def history = new History(user:u, controller:'book', action:'save',
+                    content:xml.toString())
+            history.save(flush:true)
             redirect(action: "show", id: bookInstance.id)
         }
         else {
@@ -58,6 +81,7 @@ class BookController {
 
     @Secured(['ROLE_BOOKADMIN'])
     def update = {
+        def u = authenticateService.userDomain()
         def bookInstance = Book.get(params.id)
         if (bookInstance) {
             if (params.version) {
@@ -72,6 +96,21 @@ class BookController {
             bookInstance.properties = params
             if (!bookInstance.hasErrors() && bookInstance.save(flush: true)) {
                 flash.message = "${message(code: 'default.updated.message', args: [message(code: 'book.label', default: 'Book'), bookInstance.id])}"
+
+                def xml = new StringWriter()
+                def book = new groovy.xml.MarkupBuilder(xml)
+                book.book(){
+                    id(bookInstance.id)
+                    name(bookInstance.name)
+                    location(bookInstance.location)
+                    author(bookInstance.author)
+                    type(bookInstance.type)
+                    status(bookInstance.status)
+                }
+
+                def history = new History(user:u, controller:'book', action:'update',
+                        content:xml.toString())
+                history.save(flush: true)
                 redirect(action: "show", id: bookInstance.id)
             }
             else {
@@ -89,6 +128,20 @@ class BookController {
         def bookInstance = Book.get(params.id)
         if (bookInstance) {
             try {
+                def xml = new StringWriter()
+                def book = new groovy.xml.MarkupBuilder(xml)
+                book.book(){
+                    id(bookInstance.id)
+                    name(bookInstance.name)
+                    location(bookInstance.location)
+                    author(bookInstance.author)
+                    type(bookInstance.type)
+                    status(bookInstance.status)
+                }
+
+                def history = new History(user:authenticateService.userDomain(),
+                        controller:'book', action:'delete', content:xml.toString())
+                history.save(flush:true)
                 bookInstance.delete(flush: true)
                 flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'book.label', default: 'Book'), params.id])}"
                 redirect(action: "list")

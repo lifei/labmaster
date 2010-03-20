@@ -5,11 +5,7 @@
 
 <body>
 
-	<div class="nav">
-		<span class="menuButton"><a class="home" href="${createLinkTo(dir:'')}">Home</a></span>
-		<span class="menuButton"><g:link class="list" action="list">Member List</g:link></span>
-		<span class="menuButton"><g:link class="create" action="create">New Member</g:link></span>
-	</div>
+    <g:render template="top" />
 
 	<div class="body">
 		<h1>Edit Member</h1>
@@ -48,12 +44,16 @@
     </td>
 </tr><%-- }}} --%>
 
-					<tr class="prop"><%-- {{{ --%>
-						<td valign="top" class="name"><label for="enabled">Enabled:</label></td>
-						<td valign="top" class="value ${hasErrors(bean:person,field:'enabled','errors')}">
-							<g:checkBox name="enabled" value="${person.enabled}"/>
-						</td>
-					</tr><%-- }}} --%>
+<%-- {{{Enabled --%>
+<g:ifAnyGranted role='ROLE_ADMIN'>
+<tr class="prop">
+    <td valign="top" class="name"><label for="enabled">Enabled:</label></td>
+    <td valign="top" class="value ${hasErrors(bean:person,field:'enabled','errors')}">
+        <g:checkBox name="enabled" value="${person.enabled}"/>
+    </td>
+</tr>
+</g:ifAnyGranted>
+<%-- }}} --%>
 
 					<tr class="prop"><%-- {{{ --%>
 						<td valign="top" class="name"><label for="description">Description:</label></td>

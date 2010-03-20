@@ -1,6 +1,8 @@
 import org.codehaus.groovy.grails.plugins.springsecurity.Secured
 import labmaster.auth.Member
 import labmaster.auth.Role
+import org.springframework.security.providers.UsernamePasswordAuthenticationToken as AuthToken
+import org.springframework.security.context.SecurityContextHolder as SCH
 
 /**
  * User controller.
@@ -14,6 +16,10 @@ class MemberController {
 
 	def index = {
             def user  = authenticateService.userDomain()
+            if(!user) {
+                redirect controller:'login'
+                return
+            }
             if(user.doesInAdminRole())
 		redirect action: list, params: params
             else
@@ -29,25 +35,25 @@ class MemberController {
 	}
 
 	def show = {
-            def u = authenticateService.userDomain()
+        def u = authenticateService.userDomain()
 
-            if(u.doesInAdminRole() || u.doesUserSelf(params.int('id'))) {
-		def person = Member.get(params.id)
-		if (!person) {
-			flash.message = "没有找到对应的用户"
-			redirect action: list
-			return
-		}
-		List roleNames = []
-		for (role in person.authorities) {
-			roleNames << role.description
-		}
-		roleNames.sort { n1, n2 ->
-			n1 <=> n2
-		}
-		[person: person, roleNames: roleNames]
-            } else 
-                redirect controller:'login', action:'denied'
+        if(u.doesInAdminRole() || u.doesUserSelf(params.int('id'))) {
+            def person = Member.get(params.id)
+            if (!person) {
+                flash.message = "没有找到对应的用户"
+                    redirect action: list
+                    return
+            }
+            List roleNames = []
+            for (role in person.authorities) {
+                roleNames << role.description
+            }
+            roleNames.sort { n1, n2 ->
+                n1 <=> n2
+            }
+            [person: person, roleNames: roleNames, user:u]
+        } else 
+            redirect controller:'login', action:'denied'
 	}
 
 	/**
@@ -139,14 +145,22 @@ class MemberController {
 
             def oldPassword = person.passwd
 
-            bindData(person, params, ['id', 'username', 'password'])
+                // 管理员可以对enabled进行操作
+            if(isAdmin)
+                bindData(person, params, ['id', 'username', 'password'])
+            else
+                bindData(person, params, ['id', 'username', 'password', 'enabled'])
             
             if (person.save()) {
-                // 管理员的修改才修改权限
+                // 管理员的修改才修改Role
                 if(isAdmin) {
                     Role.findAll().each { it.removeFromPeople(person) }
                     addRoles(person)
+                    if(u.doesUserSelf(params.int('id'))) {
+                        flash.message = '您已经成功修改了自己的信息, 将会在下一次登陆时生效!'
+                    }
                 }
+                
                 redirect action: show, id: person.id
             }
             else {
@@ -201,7 +215,7 @@ class MemberController {
                 if(valid) {
                     if(person.save(flush:true)) {
                         flash.message = '成功修改了密码'
-                            redirect action:show, params:params
+                            redirect action:show, id:params.id
                             return
                     } 
                 } else {
@@ -211,7 +225,7 @@ class MemberController {
             render view: 'password', model: [person:person,cmd:cmd]
         } else {
             flash.message = '只能修改本人的密码！'
-            redirect action:show, params:params
+            redirect action:show, id:params.id
         }
 	}
 	/**
@@ -267,6 +281,8 @@ class PasswordCommand {
     String captcha
 
     static constraints = {
+        oldPassword(length:6..32, blank:false)
+        captcha(length:8..8, blank:false)
         passwd(length:6..32,blank:false)
         passwordAgain(validator: {
             val, obj->

@@ -64,6 +64,10 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
     record=record {
      Attendance.groovy
     }
+    information=information {
+     Comment.groovy
+     History.groovy
+    }
     book=book {
      Book.groovy
      BookComment.groovy
@@ -123,10 +127,12 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
     edit.gsp
     index.gsp
     show.gsp
+    success.gsp
    }
    task=task {
    }
    book=book {
+    _top.gsp
     create.gsp
     edit.gsp
     list.gsp
@@ -138,6 +144,7 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
    user=user {
    }
    member=member {
+    _top.gsp
     create.gsp
     edit.gsp
     list.gsp

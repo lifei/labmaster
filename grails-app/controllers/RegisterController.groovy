@@ -163,7 +163,7 @@ class RegisterController {
 
                 def pass = authenticateService.encodePassword(params.passwd)
                 person.passwd = pass
-                person.enabled = true
+                person.enabled = false
                 person.emailShow = true
                 person.description = ''
                 if (person.save()) {
@@ -191,14 +191,19 @@ class RegisterController {
 
                         person.save(flush: true)
 
-                        def auth = new AuthToken(person.username, params.passwd)
-                        def authtoken = daoAuthenticationProvider.authenticate(auth)
-                        SCH.context.authentication = authtoken
-                        redirect uri: '/'
+                        flash.person = person
+                        redirect action: 'success'
                 }
                 else {
                         person.passwd = ''
                         render view: 'index', model: [person: person]
                 }
+        }
+
+        def success = {
+            if(flash.person) {
+                return [person:flash.person]
+            }
+            redirect uri:'/'
         }
 }
