@@ -6,55 +6,9 @@
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'task.label', default: 'Task')}" />
         <title><g:message code="default.list.label" args="[entityName]" /></title>
-        <style>
-        .filter {
-            background: #fff url(../images/skin/shadow.jpg) bottom repeat-x;
-            border: 1px solid #ccc;
-            color: #666;
-            font-size: 12px;
-            overflow: hidden;
-            padding: 3px 3px;
-            margin: 0 0 5 0;
-            height:29px;
-        }
-        .filter .findByHint {
-            background:url("../images/skin/filter-title.gif") no-repeat scroll left
-               center transparent;
-            color:#333333;
-            padding-left:20px;
-        }
-
-        .filter .subCategoryBox  {
-            border-bottom:1px dashed #CCCCCC !important;
-            margin-bottom:5px;
-            padding-top:5px;
-            padding-left:5px;
-            overflow:hidden;
-            padding-bottom:5px;
-            position:relative;
-            width:100%;
-        }
-        .filter .subCategoryBox .radioBox input  {
-            margin-left:15px;
-        }
-        .filter .subCategoryBox .radioBox  {
-            display:block;
-            width:100px;
-            float:left;
-        }
-        .filter-title {
-            color:#48802C;
-            font-size:14px;
-            font-weight:normal;
-            margin:5px;
-        }
-        .filter-title a{
-            color:#999999;
-            font-size:10px;
-            font-weight:normal;
-        }
-        </style>
         <g:javascript library="jquery/jquery-1.4.1.min" />
+        <link rel="stylesheet" href="${resource(dir:'css',file:'task.filter.css')}" />
+        <g:javascript library="labmaster/task/filter" />
     </head>
     <body>
     <g:render template='top' />
@@ -68,21 +22,6 @@
                     筛选 
                     <a id="fold" href="javascript:void(0);">[展开]</a>
                     <script>
-                        var $j = jQuery.noConflict();
-                        $j(document).ready(function() {
-                            $j('#fold').click(function() {
-                                if($j(this).text() != '[展开]') {
-                                    $j(this).text('[展开]');
-                                    $j('#filter').height('29px');
-                                } else {
-                                    $j(this).text('[折叠]');
-                                    var button = $j('#filter-button');
-                                    var h = button.offset().top +
-                                    button.height() + 15 - $j('#filter').offset().top
-                                    $j('#filter').height(h + 'px');
-                                }
-                            });
-                        });
                     </script>
                 </div>
                 <g:form action="filter" method="get">

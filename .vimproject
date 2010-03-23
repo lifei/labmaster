@@ -222,6 +222,56 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
   }
  }
  web-app=web-app {
+  css=css {
+    main.css
+    task.filter.css
+  }
+  images=images {
+    favicon.ico
+    grails_logo.jpg
+    grails_logo.png
+    grails_logo.rename.png
+    leftnav_btm.png
+    leftnav_midstretch.png
+    leftnav_top.png
+    spinner.gif
+    springsource.png
+    skin=skin {
+     database_add.png
+     database_delete.png
+     database_edit.png
+     database_save.png
+     database_table.png
+     exclamation.png
+     filter-title.gif
+     house.png
+     information.png
+     shadow.jpg
+     sorted_asc.gif
+     sorted_desc.gif
+    }
+  }
+  js=js {
+    application.js
+    prototype=prototype {
+     animation.js
+     builder.js
+     controls.js
+     dragdrop.js
+     effects.js
+     prototype.js
+     rico.js
+     scriptaculous.js
+     slider.js
+     sound.js
+     unittest.js
+    }
+    labmaster=labmaster {
+     task=task {
+      filter.js
+     }
+    }
+  }
   META-INF=META-INF {
   }
   WEB-INF=WEB-INF {
@@ -238,16 +288,6 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
   }
   tld=tld {
   }
- }
- css=css {
- }
- images=images {
-   skin=skin {
-   }
- }
- js=js {
-   prototype=prototype {
-   }
  }
 }
 labmaster.windows=D:\Workspace\labmaster CD=. {
