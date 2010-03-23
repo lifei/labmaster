@@ -31,15 +31,17 @@ class PlanController extends AccessControlController {
         	def projects = Project.executeQuery("select a from Project as a inner join a.members as b where :user=b or a.leader=:user group by a",
          		   [user:user])
          		   
-     		results = Plan.withCriteria {
-                        'in'('project', projects)
-                        firstResult(Integer.valueOf(params.offset?params.offset:0))
-                        maxResults(Integer.valueOf(params.max?params.max:10))
+                if(projects.size() > 0) {
+                    results = Plan.withCriteria {
+                            'in'('project', projects)
+                            firstResult(Integer.valueOf(params.offset?params.offset:0))
+                            maxResults(Integer.valueOf(params.max?params.max:10))
+                    }
+                               
+                    count = Plan.withCriteria {
+                            'in'('project', projects)
+                    }.size()
                 }
-         		   
-                count = Plan.withCriteria {
-                        'in'('project', projects)
-                }.size()
         }
         
         [planInstanceList: results, planInstanceTotal: count]

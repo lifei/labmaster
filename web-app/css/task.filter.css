@@ -1,0 +1,58 @@
+.filter {
+    background: #fff url(../images/skin/shadow.jpg) bottom repeat-x;
+    border: 1px solid #ccc;
+    color: #666;
+    font-size: 12px;
+    overflow: hidden;
+    padding: 3px 3px;
+    margin: 0 0 5 0;
+}
+.filter form {
+    display:none;
+}
+.filter .findByHint {
+    background:url("../images/skin/filter-title.gif") no-repeat scroll left
+       center transparent;
+    color:#333333;
+    padding-left:20px;
+}
+.filter .subCategoryBox  {
+    border-bottom:1px dashed #CCCCCC !important;
+    margin-bottom:5px;
+    padding-top:5px;
+    padding-left:5px;
+    overflow:hidden;
+    padding-bottom:5px;
+    position:relative;
+    width:100%;
+}
+.filter .subCategoryBox .radioBox input  {
+    margin-left:15px;
+}
+.filter .subCategoryBox .radioBox  {
+    display:block;
+    width:100px;
+    float:left;
+}
+.filter-title {
+    color:#48802C;
+    font-size:14px;
+    font-weight:normal;
+    margin:5px;
+}
+.filter-title a{
+    color:#999999;
+    font-size:10px;
+    font-weight:normal;
+}
+
+#filter-tip a {
+    display:block;
+    border:1px dashed lightblue;
+    width:80px;
+    height:18px;
+    float:left;
+    line-height:20px;
+    text-align:center;
+    margin:5px;
+}

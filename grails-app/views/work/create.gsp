@@ -92,7 +92,13 @@
         <label for="progress"><g:message code="work.progress.label" default="Progress" /></label>
     </td>
     <td valign="top" class="value ${hasErrors(bean: workInstance, field: 'progress', 'errors')}">
-        <g:select from="${1..100}" name="progress" value="${fieldValue(bean: workInstance, field: 'progress')}" />%
+        <g:if test="${workInstance.plan}">
+            <g:select from="${workInstance.plan.complete..100}" name="progress" value="${fieldValue(bean: workInstance, field: 'progress')}" />%
+            <b style="color:red;padding-left:20px;">应&gt;${workInstance.plan.complete}%</b>
+        </g:if>
+        <g:else>
+            <g:select from="${1..100}" name="progress" value="${fieldValue(bean: workInstance, field: 'progress')}" />%
+        </g:else>
     </td>
 </tr>
                         </tbody>

@@ -28,19 +28,23 @@ class WorkController extends labmaster.auth.AccessControlController {
         	def projects = Project.executeQuery("select a from Project as a inner join a.members as b where :user=b or a.leader=:user group by a",
          		   [user:user])
 
-                def plans = Plan.withCriteria {
-                    'in'('project', projects) 
-                }
+                if(projects.size() > 0) {
+                    def plans = Plan.withCriteria {
+                        'in'('project', projects) 
+                    }
 
-                results = Work.withCriteria {
-                    'in'('plan', plans)
-                    firstResult(Integer.valueOf(params.offset?params.offset:0))
-                    maxResults(Integer.valueOf(params.max?params.max:10))
+                    if(plans.size() > 0) {
+                        results = Work.withCriteria {
+                            'in'('plan', plans)
+                            firstResult(Integer.valueOf(params.offset?params.offset:0))
+                            maxResults(Integer.valueOf(params.max?params.max:10))
+                        }
+                                   
+                        count = Work.withCriteria {
+                                'in'('plan', plans)
+                        }.size()
+                    }
                 }
-         		   
-                count = Work.withCriteria {
-                        'in'('plan', plans)
-                }.size()
         }
         
         [workInstanceList: results, workInstanceTotal: count]
