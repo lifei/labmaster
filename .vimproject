@@ -49,13 +49,18 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
      BookController.groovy
      }
      finance=finance{
-     PurchaseController.groovy
-     ReimbursementController.groovy
+      PurchaseController.groovy
+      ReimbursementController.groovy
+      SubPurchaseController.groovy
      }
      device=device {
      ApparatusController.groovy
      MaintenanceController.groovy
      ScheduleController.groovy
+     }
+     item=item {
+     ReagentController.groovy
+     StandardItemController.groovy
      }
     }
   }
@@ -89,6 +94,7 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
     finance=finance{
      Purchase.groovy
      Reimbursement.groovy
+     SubPurchase.groovy
     }
     auth=auth {
      Member.groovy
@@ -132,6 +138,12 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
   views=views {
    error.gsp
    index.gsp
+   standardItem=standardItem {
+    create.gsp
+    edit.gsp
+    list.gsp
+    show.gsp
+   }
    register=register {
     edit.gsp
     index.gsp

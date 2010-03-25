@@ -15,17 +15,17 @@ class Reimbursement {
 	
 	static belongsTo = [assignFrom:labmaster.auth.Member, assignTo:labmaster.auth.Member]
 
-    static constraints = {
-		assignFrom()
-		assignTo()
-		money(min:(0.0 as float))
-		date()
-		purchase()
-        dateCreated(nullable:true)
-        lastUpdated(nullable:true)
-    }
+        static constraints = {
+            assignFrom()
+            assignTo(nullable:false, blank:false)
+            money(min:(0.0 as float))
+            date()
+            purchase()
+            dateCreated(nullable:true)
+            lastUpdated(nullable:true)
+        }
 	
 	String toString() {
-		"[${date}]${assignFrom}让${assignTo}去报账"
+            "[${date}]${assignTo}(${money}元)"
 	}
 }

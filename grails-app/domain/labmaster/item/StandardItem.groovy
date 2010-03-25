@@ -20,7 +20,7 @@ class StandardItem {
 
     static constraints = {
         name(blank:false, maxSize:128)
-        name(blank:false, maxSize:128, url:true)
+        pic(blank:false, maxSize:128)
         note(blank:true, maxSize:1000)
         tags(blank:true, maxSize:128)
         dateCreated(nullable:true)

@@ -44,7 +44,7 @@ class BootStrap {
                                     description: "课题组的组长，拥有所有的操作权限").save()
             }
                 
-            if(!Group.findByAuthority("ROLE_PROF")) {
+            if(!Group.findByAuthority("ROLE_PROF")) {/*{{{*/
                     println "增加教授组"
                 new Group(name:"教授", authority: "ROLE_PROF",
                             description: "教授组，拥有与教授相关的操作的权限").save()
@@ -120,7 +120,7 @@ class BootStrap {
                     println "未激活组"
                 new Group(name:"未激活用户", authority: "ROLE_UNAVAILABLE",
                             description: "未激活用户组，拥有与未激活用户人员相关的操作的权限").save()
-            }
+            }/*}}}*/
             
             if(!Group.findByAuthority("ROLE_BOOKADMIN")){        	
                 println "图书管理员组"
@@ -134,6 +134,12 @@ class BootStrap {
                         description: "财务管理员，拥有与财务管理相关的操作的权限").save()
             }
             
+            if(!Group.findByAuthority("ROLE_ITEMADMIN")){        	
+                println "物品管理员"
+                new Group(name:"物品管理员", authority: "ROLE_ITEMADMIN",
+                        description: "物品管理员，拥有与物品管理相关的操作的权限").save()
+            }
+
             // }}}*/
 
             /*{{{*/

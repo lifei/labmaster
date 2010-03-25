@@ -56,28 +56,11 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="dateCreated"><g:message code="standardItem.dateCreated.label" default="Date Created" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: standardItemInstance, field: 'dateCreated', 'errors')}">
-                                    <g:datePicker name="dateCreated" precision="day" value="${standardItemInstance?.dateCreated}" noSelection="['': '']" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="lastUpdated"><g:message code="standardItem.lastUpdated.label" default="Last Updated" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: standardItemInstance, field: 'lastUpdated', 'errors')}">
-                                    <g:datePicker name="lastUpdated" precision="day" value="${standardItemInstance?.lastUpdated}" noSelection="['': '']" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
                                     <label for="pic"><g:message code="standardItem.pic.label" default="Pic" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: standardItemInstance, field: 'pic', 'errors')}">
                                     <g:textField name="pic" value="${standardItemInstance?.pic}" />
+                                    <img src="../${standardItemInstance?.pic}" style="width:150px;" />
                                 </td>
                             </tr>
                         

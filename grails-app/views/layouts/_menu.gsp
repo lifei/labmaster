@@ -19,15 +19,41 @@
         <li><g:link controller="book">查看所有图书</g:link> </li>
     </div>
     <div class="dialog">
+        <h2>测样:</h2>
+        <li><g:link controller="test" action="create">测样登记 </g:link> </li>
+        <li><g:link controller="test"            >测样浏览</g:link> </li>
+    </div>
+    <div class="dialog">
+        <h2>仪器设备:</h2>
+        <li><g:link controller="device" action="create">仪器设备登记 </g:link> </li>
+        <li><g:link controller="device"            >仪器设备列表</g:link> </li>
+    </div>
+    <div class="dialog">
+        <h2>采购:</h2>
+        <li><g:link controller="finance" action="create">采购登记 </g:link> </li>
+        <li><g:link controller="finance"            >采购历史</g:link> </li>
+    </div>
+    <div class="dialog">
+        <h2>财务:</h2>
+        <li><g:link controller="reimbursement" action="create">指派报账
+        <strong>(需要财务管理员)</strong>
+        </g:link> </li>
+        <li><g:link controller="reimbursement"            >报账列表</g:link> </li>
+        <li><g:link controller="reimbursement" action="create">新建发票
+        <strong>(需要财务管理员)</strong>
+        </g:link> </li>
+        <li><g:link controller="reimbursement"            >发票列表</g:link> </li>
+    </div>
+    <div class="dialog">
         <h2>物品:</h2>
-        <li><g:link controller="project" action="create">创建课题</g:link> </li>
-        <li><g:link controller="project"                >查看课题</g:link> </li>
-        <li><g:link controller="plan" action="create">创建计划</g:link> </li>
-        <li><g:link controller="plan">查看计划</g:link> </li>
-        <li><g:link controller="work" action="create">工作记录</g:link> </li>
-        <li><g:link controller="work">查看工作</g:link> </li>
-        <li><g:link controller="task" action="create">指派任务</g:link> </li>
-        <li><g:link controller="task">查看任务</g:link> </li>
+        <li><g:link controller="standardItem" action="create">新物品信息
+            <strong>(需要物品管理员权限)</strong></g:link> </li>
+        <li><g:link controller="standardItem"            >浏览物品库</g:link> </li>
+    </div>
+    <div class="dialog">
+        <h2>文献:</h2>
+        <li><g:link controller="standardItem" action="create">新阅读文献 </g:link> </li>
+        <li><g:link controller="standardItem"            >文献库</g:link> </li>
     </div>
     <div class="dialog">
         <h2>任务:</h2>

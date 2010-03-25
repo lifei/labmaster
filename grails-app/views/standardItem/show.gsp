@@ -67,7 +67,9 @@
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="standardItem.pic.label" default="Pic" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: standardItemInstance, field: "pic")}</td>
+                            <td valign="top" class="value">
+                               <img style="width:200px" src="../../${fieldValue(bean: standardItemInstance, field: "pic")}" />
+                            </td>
                             
                         </tr>
                     

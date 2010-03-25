@@ -1,4 +1,5 @@
 package labmaster.item
+import org.codehaus.groovy.grails.plugins.springsecurity.Secured
 
 class StandardItemController {
 
@@ -13,12 +14,14 @@ class StandardItemController {
         [standardItemInstanceList: StandardItem.list(params), standardItemInstanceTotal: StandardItem.count()]
     }
 
+    @Secured(['ROLE_ITEMADMIN'])
     def create = {
         def standardItemInstance = new StandardItem()
         standardItemInstance.properties = params
         return [standardItemInstance: standardItemInstance]
     }
 
+    @Secured(['ROLE_ITEMADMIN'])
     def save = {
         def standardItemInstance = new StandardItem(params)
         if (standardItemInstance.save(flush: true)) {
@@ -41,6 +44,7 @@ class StandardItemController {
         }
     }
 
+    @Secured(['ROLE_ITEMADMIN'])
     def edit = {
         def standardItemInstance = StandardItem.get(params.id)
         if (!standardItemInstance) {
@@ -52,6 +56,7 @@ class StandardItemController {
         }
     }
 
+    @Secured(['ROLE_ITEMADMIN'])
     def update = {
         def standardItemInstance = StandardItem.get(params.id)
         if (standardItemInstance) {
@@ -79,7 +84,9 @@ class StandardItemController {
         }
     }
 
+    @Secured(['ROLE_ITEMADMIN'])
     def delete = {
+        // 确保所有的条目都不相关方可删除
         def standardItemInstance = StandardItem.get(params.id)
         if (standardItemInstance) {
             try {

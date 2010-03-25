@@ -8,8 +8,6 @@ security {
     authorityDomainClass = "labmaster.auth.Role"
     requestMapClass = "labmaster.auth.RequestMap"
 
-    enabled=false
-
     useRequestMapDomainClass = false
     useControllerAnnotations = true
     //controllerAnnotationsRejectIfNoRule = true
