@@ -28,8 +28,8 @@ class SubPurchase {
         name(nullable:true,blank:true)
         item(nullable:true,blank:true)
         reagent(nullable:true,blank:true)
-        money(min:0.0)
-        amount(min:0.0)
+        money(min:0.0 as Float)
+        amount(min:0.0 as Float)
         purchase(nullable:false, blank:false)
         type(validator:{
             val, obj ->
