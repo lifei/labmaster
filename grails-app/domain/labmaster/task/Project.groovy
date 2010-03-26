@@ -14,8 +14,8 @@ class Project {
 	Date lastUpdated
 
 	static constraints = {
-	      name(length:2..20)
-	      description(length:2..200, widget:"textarea")
+	      name(length:2..20,blank:false)
+	      description(length:2..200, widget:"textarea",blank:false)
 	      leader()
 	      members()
 	      plans()

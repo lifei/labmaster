@@ -11,7 +11,6 @@ class AccessControlController {
 
 	def getLoginedUser() {
             if(authenticateService && user == null) {
-            println(authenticateService && user == null)
 		user = authenticateService.userDomain()
             }
 

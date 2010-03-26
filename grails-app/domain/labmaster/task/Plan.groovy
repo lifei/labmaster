@@ -14,11 +14,11 @@ class Plan {
         /** 起始日期 */
         Date startDate = new Date()
         
-        /** 完成日期 */
-        Date endDate
-        
         /** 截止日期 */
-        Date deadline
+        Date deadline = startDate + 7
+        
+        /** 完成日期 */
+        Date endDate = deadline
         
         /** 完成度 */
         Integer complete = 0
@@ -34,12 +34,18 @@ class Plan {
         static hasMany = [works:Work]
 
         static constraints = {
-                name(length:2..20)
-                content(length:2..100, widget:"textarea")
-                object(length:0..100, widget:"textarea")
-                project()
-                user()
-                complete(range:0..100)
+                name(length:2..20,blank:false)
+                content(length:2..100, widget:"textarea",blank:false)
+                object(length:0..100, widget:"textarea",blank:false)
+                project(blank:false)
+                user(blank:false)
+                complete(range:0..100, blank:false)
+                deadline(validator:{
+                    val, obj->
+                    if(!val || obj.startDate >= val) {
+                        return 'wrongDeadline'
+                    }
+                })
                 lastUpdated(nullable:true)
                 dateCreated(nullable:true)
         }

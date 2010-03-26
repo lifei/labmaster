@@ -61,8 +61,7 @@
                                 <td valign="top" class="name">
                                   <label for="project"><g:message code="plan.project.label" default="Project" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: planInstance, field: 'project', 'errors')}">
-                                    <g:hiddenField name="project.id" value="${planInstance?.project?.id}"  />
+                                <td valign="top" class="value">
                                     ${planInstance?.project}
                                 </td>
                             </tr>
@@ -71,8 +70,7 @@
                                 <td valign="top" class="name">
                                   <label for="user"><g:message code="plan.user.label" default="User" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: planInstance, field: 'user', 'errors')}">
-                                    <g:hiddenField name="user.id" value="${planInstance?.user?.id}"  />
+                                <td valign="top" class="value">
                                     ${planInstance?.user}
                                 </td>
                             </tr>
@@ -93,30 +91,6 @@
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: planInstance, field: 'startDate', 'errors')}">
                                     <g:datePicker name="startDate" precision="day" value="${planInstance?.startDate}"  />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="endDate"><g:message code="plan.endDate.label" default="End Date" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: planInstance, field: 'endDate', 'errors')}">
-                                    <g:datePicker name="endDate" precision="day" value="${planInstance?.endDate}"  />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="works"><g:message code="plan.works.label" default="Works" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: planInstance, field: 'works', 'errors')}">
-                                    
-<ul>
-<g:each in="${planInstance?.works?}" var="w">
-    <li><g:link controller="work" action="show" id="${w.id}">${w?.encodeAsHTML()}</g:link></li>
-</g:each>
-</ul>
-
                                 </td>
                             </tr>
                         

@@ -60,7 +60,15 @@ class Member {
     }
 
     boolean doesUserSelf(def id) {
-        return this.id == Integer.valueOf(id)
+        try {
+            if(id) {
+                if(id instanceof String)
+                    return this.id == Integer.valueOf(id)
+                return this.id == (id as Integer)
+            }
+        } catch(e) { }
+
+        return false
     }
 
     boolean equals(Member m) {

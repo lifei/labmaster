@@ -117,6 +117,11 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
    EmailerService.groovy
   }
   taglib=taglib {
+   labmaster=labmaster {
+    tag=tag {
+     ExceptionTagLib.groovy
+    }
+   }
   }
   utils=utils {
   }
@@ -143,6 +148,12 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
    }
    user=user {
    }
+   plan=plan {
+    create.gsp
+    edit.gsp
+    list.gsp
+    show.gsp
+   }
    member=member {
     _top.gsp
     create.gsp
@@ -155,6 +166,13 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
     auth.gsp
     denied.gsp
     openIdAuth.gsp
+   }
+   work=work {
+    _top.gsp
+    create.gsp
+    edit.gsp
+    list.gsp
+    show.gsp
    }
   }
  }
