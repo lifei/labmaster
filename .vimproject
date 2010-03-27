@@ -135,6 +135,11 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
     success.gsp
    }
    task=task {
+    _top.gsp
+    create.gsp
+    edit.gsp
+    list.gsp
+    show.gsp
    }
    book=book {
     _top.gsp
