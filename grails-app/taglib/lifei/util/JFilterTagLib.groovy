@@ -116,7 +116,7 @@ class JFilterTagLib {
         int fieldCount = attr.field.size()
 
         attr.field.each {
-            if(!params."${it}" || params."${it}" == 'disable') {
+            if(!params."${it}" || !(params[it] instanceof String) || params."${it}" == 'disable') {
                 fieldCount--
             }
         }
@@ -148,8 +148,13 @@ class JFilterTagLib {
 
         attr.field.each {
             if(params."${it}" && params."${it}" != 'disable') {
-                def p = [:]+params
-                p.remove(it)
+                def p = [:]
+                params.each { k,v ->
+                    if(!k.startsWith(it)) {
+                        p += [(k):v]
+                    }
+                }
+
                 if(params."${it}" == 'customize') {
                     if(attr.customize && attr.customize."${it}") {
                         out << link(action:actionName, params:p,
@@ -162,10 +167,10 @@ class JFilterTagLib {
                             '错误的过滤条件')
                     }
                 }
-                else
+                else if(params[it] instanceof String)
                     out << link(action:actionName, params:p,
                         message(code:"${controllerName}.filter.${it}.${params[it]}",
-                        default:params."${it}"))
+                        default:"${params[it]}"))
             }
         }
 
