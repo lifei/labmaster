@@ -127,11 +127,11 @@
                     <div class="findByHint">按期限:</div>
                     <div class="subCategoryBox">
                         <div class="radioBox">
-                            <g:radio name="deadline" value="yes" checked="true"/>
+                            <g:radio name="deadline" value="yes"/>
                             <label> 超期 </label>
                         </div>
                         <div class="radioBox">
-                            <g:radio name="deadline" value="no" />
+                            <g:radio name="deadline" value="no" checked="true" />
                             <label> 未超期 </label>
                         </div>
                         <div class="radioBox">

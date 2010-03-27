@@ -97,7 +97,7 @@
                             <label> 指派给我 </label>
                         </div>
                         <div class="radioBox">
-                            <g:radio name="assign" value="nothing" />
+                            <g:radio name="assign" value="none" />
                             <label> 与我无关 </label>
                         </div>
                         <div class="radioBox">
@@ -127,11 +127,11 @@
                     <div class="findByHint">按期限:</div>
                     <div class="subCategoryBox">
                         <div class="radioBox">
-                            <g:radio name="deadline" value="yes" checked="true"/>
+                            <g:radio name="deadline" value="yes"/>
                             <label> 超期 </label>
                         </div>
                         <div class="radioBox">
-                            <g:radio name="deadline" value="no" />
+                            <g:radio name="deadline" value="no" checked="true" />
                             <label> 未超期 </label>
                         </div>
                         <div class="radioBox">
@@ -185,3 +185,8 @@
         </div>
     </body>
 </html>
+<%--
+vim600: ts=4 st=4 foldmethod=marker foldmarker={{{,}}} syn=gsp textwidth=1000
+vim600: encoding=utf-8 commentstring=<%--\ %s\ --%>
+--%>
+
