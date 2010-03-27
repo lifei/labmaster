@@ -22,7 +22,193 @@ class PlanController extends AccessControlController {
         def count = 0
         
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
+
+        def queryField = []
+        def queryValue = []
+
+        def isTeacher = user.doesInRole('ROLE_TEACHER')
+
+// {{{
+        switch(params.user) {
+            case 'me':
+                queryField << 'user=?'
+                queryValue << user
+                break
+            case 'other':
+                if(isTeacher) {
+                    queryField << 'user!=?'
+                    queryValue << user
+                }
+                break
+            case 'customize':
+                if(isTeacher && params."user.id") {
+                    queryField << 'user=?'
+                    queryValue << labmaster.auth.Member.read(params."user.id")
+                }
+        }
+
+        switch(params.complete) {
+            case 'yes':
+                queryField << 'complete=?'
+                queryValue << 100
+                break
+            case 'no':
+                queryField << 'complete<?'
+                queryValue << 100
+                break
+            case 'almost':
+                queryField += ['complete<?','complete>?']
+                queryValue += [100,50]
+        }// }}}
+
+        def today = new Date()// {{{
+        switch(params.startDate) {
+            case 'today':
+                queryField << 'startDate between ? and ?'
+                queryValue += [today - 1, today]
+                break
+            case 'yesterday':
+                queryField << 'startDate between ? and ?'
+                queryValue += [today - 2, today - 1]
+                break
+            case 'thisWeek':
+                def c= new GregorianCalendar()
+                def days = c.get(Calendar.DAY_OF_WEEK)
+                if(days == 1)
+                    days = 7
+                else
+                    days--
+                queryField << 'startDate between ? and ?'
+                queryValue += [today - days, today]
+                break
+            case 'lastWeek':
+                def c= new GregorianCalendar()
+                def days = c.get(Calendar.DAY_OF_WEEK)
+                if(days == 1)
+                    days = 7
+                else
+                    days--
+                queryField << 'startDate between ? and ?'
+                queryValue += [today - days - 7, today - 7]
+                break
+            case 'thisMonth':
+                def c= new GregorianCalendar()
+                def days = c.get(Calendar.DAY_OF_MONTH)
+                queryField << 'startDate between ? and ?'
+                queryValue += [today - days, today]
+        }
+
+        switch(params.deadline) {
+            case 'today':
+                queryField << 'deadline between ? and ?'
+                queryValue += [today - 1, today]
+                break
+            case 'nextWeek':
+                def c= new GregorianCalendar()
+                def days = c.get(Calendar.DAY_OF_WEEK)
+                if(days == 1)
+                    days = 7
+                else
+                    days--
+                queryField << 'deadline between ? and ?'
+                queryValue += [today - days + 7, today -days + 14]
+                break
+            case 'thisWeek':
+                def c= new GregorianCalendar()
+                def days = c.get(Calendar.DAY_OF_WEEK)
+                if(days == 1)
+                    days = 7
+                else
+                    days--
+                queryField << 'deadline between ? and ?'
+                queryValue += [today - days, today]
+                break
+            case 'lastWeek':
+                def c= new GregorianCalendar()
+                def days = c.get(Calendar.DAY_OF_WEEK)
+                if(days == 1)
+                    days = 7
+                else
+                    days--
+                queryField << 'deadline between ? and ?'
+                queryValue += [today - days - 7, today - 7]
+                break
+            case 'thisMonth':
+                def c= new GregorianCalendar()
+                def days = c.get(Calendar.DAY_OF_MONTH)
+                queryField << 'deadline between ? and ?'
+                queryValue += [today - days, today + 31]
+        }
+// }}}
+
+        def projects = []
+            
+        switch(params.project) {
+            case 'mine':
+                projects = Project.findAllByLeader(user)
+                if(projects.size() > 0) {
+                    queryField << "project in (${projects.collect{'?'}.join(',')})"
+                    queryValue += projects
+                } else {
+                    queryField << "1=2"
+                }
+                break
+            case 'in':
+                projects = Project.executeQuery("select a from Project as a inner join a.members as b where :user=b group by a", [user:user])
+                if(projects.size() > 0) {
+                    queryField << "project in (${projects.collect{'?'}.join(',')})"
+                    queryValue += projects
+                } else {
+                    queryField << "1=2"
+                }
+                break
+            case 'none':
+                if(isTeacher) {
+                projects = Project.executeQuery("select a from Project as a inner join a.members as b where :user!=b and a.leader!=:user group by a", [user:user])
+                    if(projects.size() > 0) {
+                        queryField << "project in (${projects.collect{'?'}.join(',')})"
+                        queryValue += projects
+                    } else {
+                        queryField << "1=2"
+                    }
+                } else {
+                    queryField << "1=2"
+                }
+                break
+            default:
+                if(!isTeacher) {
+                    projects = Project.executeQuery(
+                    "select a from Project as a inner join a.members as b where :user=b or a.leader=:user group by a",
+                    [user:user])
+                    if(projects.size() > 0) {
+                        queryField << "project in (${projects.collect{'?'}.join(',')})"
+                        queryValue += projects
+                    } else {
+                        queryField << "1=2"
+                    }
+                } else {
+                    projects << 'xx'
+                }
+        }
+
+        // 拼凑sql语句
+        if(projects.size() > 0) {
+            def hql = 'from Plan'
+            if(queryField.size() > 0)
+                hql += ' where ' + queryField.join(' and ')
+
+            if(params.sort && ['id','name','complete', 'startDate','deadline'].contains(params.sort)) {
+                hql += " order by ${params.sort}"
+
+                if(params.order && ['desc', 'asc'].contains(params.order))
+                    hql += " ${params.order}"
+            }
+            
+            results = Plan.findAll(hql, queryValue, params)
+            count = Plan.findAll(hql, queryValue).size()
+        }    
         
+        /*
         if(user.doesInRole('ROLE_TEACHER')) {
         	results = Plan.list(params)
         	count = Plan.count()
@@ -43,6 +229,7 @@ class PlanController extends AccessControlController {
                     }.size()
                 }
         }
+        */
         
         [planInstanceList: results, planInstanceTotal: count]
     }
@@ -241,3 +428,8 @@ class PlanController extends AccessControlController {
         }
     }
 }
+
+/*
+vim600: ts=4 st=4 foldmethod=marker foldmarker={{{,}}} syn=groovy textwidth=1000
+vim600: encoding=utf-8 commentstring=//\ %s
+ */

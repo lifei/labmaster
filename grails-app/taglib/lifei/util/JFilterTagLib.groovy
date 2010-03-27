@@ -30,16 +30,8 @@ class JFilterTagLib {
                     <a id="filter-help-button" href="javascript:void(0);" onmouseover="javascript:$j('#filter-help').show();" onmouseout="javascript:$j('#filter-help').hide();">[?]</a>
                     <div style="display: none;" id="filter-help" class="filter-help">
                         <ul>
-                            <li>鼠标点击<input name="null" value="null" id="null" type="radio">后，再点击
-                            <input name="fr" value="过滤" id="fr" type="submit">
-                            </li>
-
-                            <li>鼠标点击<input name="null" value="null" id="null" type="radio">
-                            <strong>后面的文字</strong>直接过滤。</li>
-                            <li>多项条件过滤只需重复多次过滤过程。</li>
-                            <li>选好3个<input name="null" value="null" id="null" type="radio">后可以点击
-                            <input name="fr" value="过滤" id="fr" type="submit">
-一次完成。</li>
+                            <li>鼠标点击<strong>文字</strong>过滤。</li>
+                            <li>多项条件过滤只需<strong>重复多次</strong>过滤过程。</li>
                         </ul>
                     </div>
                 </div>
@@ -156,20 +148,22 @@ class JFilterTagLib {
 
         attr.field.each {
             if(params."${it}" && params."${it}" != 'disable') {
+                def p = [:]+params
+                p.remove(it)
                 if(params."${it}" == 'customize') {
                     if(attr.customize && attr.customize."${it}") {
-                        out << link(action:actionName, params:[:]+params+[(it):'disable'],
+                        out << link(action:actionName, params:p,
                             message(code:"${controllerName}.filter.${it}.${params[it]}",
                             args:[attr.customize."${it}"],
                             default:params."${it}"))
                     }
                     else {
-                        out << link(action:actionName, params:[:]+params+[(it):'disable'],
+                        out << link(action:actionName, params:p,
                             '错误的过滤条件')
                     }
                 }
                 else
-                    out << link(action:actionName, params:[:]+params+[(it):'disable'],
+                    out << link(action:actionName, params:p,
                         message(code:"${controllerName}.filter.${it}.${params[it]}",
                         default:params."${it}"))
             }

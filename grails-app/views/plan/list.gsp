@@ -34,8 +34,8 @@
             </g:fieldFitler>
             <g:fieldFitler field="startDate" value="${['today','yesterday','thisWeek','lastWeek','thisMonth']}" />
             <g:fieldFitler field="deadline" value="${['today','nextWeek','thisWeek','lastWeek','thisMonth']}" />
-            <g:fieldFitler field="complete" value="${['100','80','50']}" />
-            <g:fieldFitler field="project" value="${['my','other','none']}" />
+            <g:fieldFitler field="complete" value="${['yes','no','almost']}" />
+            <g:fieldFitler field="project" value="${['mine','in','none']}" />
             </g:showFilterBox>
             <g:filterTipBox field="${filterFields}"
             customize="${[user:labmaster.auth.Member.read(params['user.id'])]}">

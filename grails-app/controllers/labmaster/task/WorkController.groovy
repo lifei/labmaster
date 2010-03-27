@@ -102,6 +102,13 @@ class WorkController extends labmaster.auth.AccessControlController {
         if(queryField.size() > 0)
             hql += ' where ' + queryField.join(' and ')
 
+        if(params.sort && ['note','content', 'date'].contains(params.sort)) {
+            hql += " order by ${params.sort}"
+
+            if(params.order && ['desc', 'asc'].contains(params.order))
+                hql += " ${params.order}"
+        }
+
         // 处理排序
         results = Work.findAll(hql, queryValue, params)
         totalCount = Work.findAll(hql, queryValue).size()
