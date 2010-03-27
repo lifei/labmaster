@@ -6,6 +6,8 @@
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'plan.label', default: 'Plan')}" />
         <title><g:message code="default.list.label" args="[entityName]" /></title>
+        <g:set var="filterFields" value="${['user','complete','startDate','deadline','project']}" />
+        <g:filterCssAndJavascript field="${filterFields}" />
     </head>
     <body>
         <div class="nav">
@@ -17,6 +19,28 @@
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
+            <g:showFilterBox field="${filterFields}">
+            <g:fieldFitler field="user" value="${['me','other', 'customize']}">
+                <g:select style="width:120px;float:left;" name="user-id" from="${labmaster.auth.Member.list()}" optionKey="id" value="${workInstance?.assignTo?.id}" />
+                <script>
+                $j('#user-id').change(function() {
+                    <%
+                    def p = [:]+params+[user:'customize']
+                    p.remove('user.id')
+                    %>
+                    window.location='${createLink(action:"list",params:p)}&user.id='+$j(this).val();
+                });
+                </script>
+            </g:fieldFitler>
+            <g:fieldFitler field="startDate" value="${['today','yesterday','thisWeek','lastWeek','thisMonth']}" />
+            <g:fieldFitler field="deadline" value="${['today','nextWeek','thisWeek','lastWeek','thisMonth']}" />
+            <g:fieldFitler field="complete" value="${['100','80','50']}" />
+            <g:fieldFitler field="project" value="${['my','other','none']}" />
+            </g:showFilterBox>
+            <g:filterTipBox field="${filterFields}"
+            customize="${[user:labmaster.auth.Member.read(params['user.id'])]}">
+            
+            </g:filterTipBox>
             <div class="list">
                 <table>
                     <thead>
@@ -26,9 +50,10 @@
                         
                             <g:sortableColumn property="name" title="${message(code: 'plan.name.label', default: 'Name')}" />
                         
-                            <g:sortableColumn property="content" title="${message(code: 'plan.content.label', default: 'Content')}" />
+                            <g:sortableColumn property="complete" title="${message(code: 'plan.complete.label', default: 'Complete')}" />
                         
-                            <g:sortableColumn property="object" title="${message(code: 'plan.object.label', default: 'Object')}" />
+                            <g:sortableColumn property="startDate" title="${message(code: 'plan.startDate.label', default: 'Start Date')}" />
+                            <g:sortableColumn property="deadline" title="${message(code: 'plan.deadline.label', default: 'Deadline')}" />
                         
                             <th><g:message code="plan.project.label" default="Project" /></th>
                    	    
@@ -44,9 +69,11 @@
                         
                             <td>${fieldValue(bean: planInstance, field: "name")}</td>
                         
-                            <td>${fieldValue(bean: planInstance, field: "content")}</td>
+                            <td>${fieldValue(bean: planInstance, field: "complete")} %</td>
                         
-                            <td>${fieldValue(bean: planInstance, field: "object")}</td>
+                            <td>${formatDate(date: planInstance?.startDate)}</td>
+
+                            <td>${formatDate(date: planInstance?.deadline)}</td>
                         
                             <td>${fieldValue(bean: planInstance, field: "project")}</td>
                             <td>
@@ -66,3 +93,9 @@
         </div>
     </body>
 </html>
+
+<%--
+vim600: ts=4 st=4 foldmethod=marker foldmarker={{{,}}} syn=gsp 
+vim600: encoding=utf-8 commentstring=<%--\ %s\ --%>
+--%>
+

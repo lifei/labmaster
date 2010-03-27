@@ -77,16 +77,6 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                  <label for="complete"><g:message code="plan.complete.label" default="Complete" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: planInstance, field: 'complete', 'errors')}">
-                                    <g:select name="complete" from="${0..100}" value="${fieldValue(bean: planInstance, field: 'complete')}"  />
-                                    %
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
                                   <label for="startDate"><g:message code="plan.startDate.label" default="Start Date" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: planInstance, field: 'startDate', 'errors')}">

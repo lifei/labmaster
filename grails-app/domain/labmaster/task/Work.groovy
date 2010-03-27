@@ -39,7 +39,7 @@ class Work {
         hour(range:1..30)
         progress(range:1..100, validator:{
             val, obj->
-            if(!val || !obj.plan || obj.plan.complete > val) {
+            if(!val || !obj.plan || (!obj.dateCreated && obj.plan.complete > val)) {
                 return 'smallProgress'
                 }
         })

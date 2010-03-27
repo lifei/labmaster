@@ -6,6 +6,8 @@
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'work.label', default: 'Work')}" />
         <title><g:message code="default.list.label" args="[entityName]" /></title>
+        <g:set var="filterFields" value="${['user', 'date']}" />
+        <g:filterCssAndJavascript field="${filterFields}" />
     </head>
     <body>
         <div class="nav">
@@ -17,6 +19,25 @@
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
+            <g:showFilterBox field="${filterFields}">
+            <g:fieldFitler field="user" value="${['me','other', 'customize']}">
+                <g:select style="width:120px;float:left;" name="user-id" from="${labmaster.auth.Member.list()}" optionKey="id" value="${workInstance?.assignTo?.id}" />
+                <script>
+                $j('#user-id').change(function() {
+                    <%
+                    def p = [:]+params+[user:'customize']
+                    p.remove('user.id')
+                    %>
+                    window.location='${createLink(action:"list",params:p)}&user.id='+$j(this).val();
+                });
+                </script>
+            </g:fieldFitler>
+            <g:fieldFitler field="date" value="${['today','yesterday','thisWeek','lastWeek','thisMonth']}" />
+            </g:showFilterBox>
+            <g:filterTipBox field="${filterFields}"
+            customize="${[user:labmaster.auth.Member.read(params['user.id'])]}">
+            
+            </g:filterTipBox>
             <div class="list">
                 <table>
                     <thead>

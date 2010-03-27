@@ -132,6 +132,11 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
      ExceptionTagLib.groovy
     }
    }
+   lifei=lifei {
+    util=util {
+     JFilterTagLib.groovy
+    }
+   }
   }
   utils=utils {
   }
@@ -287,6 +292,9 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
      task=task {
       filter.js
      }
+    }
+    util=util {
+    filter.js
     }
   }
   META-INF=META-INF {

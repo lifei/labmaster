@@ -9,6 +9,108 @@ class WorkController extends labmaster.auth.AccessControlController {
     }
 
     def list = {
+        
+        def user = getLoginedUser();
+        if(!user) {
+            flash.message = "您没有登陆，请先登陆系统";
+            redirect controller:'login';
+            return;
+        } 
+
+        def results = []
+        def totalCount = 0
+        params.max = Math.min(params.max ? params.int('max') : 10, 100)
+
+        def queryField = []
+        def queryValue = []
+
+        def isTeacher = user.doesInRole('ROLE_TEACHER')
+
+        // 处理assign
+        switch(params.user) {
+            case 'me':
+                queryField << 'user=?'
+                queryValue << user
+                break
+            case 'other':
+                if(isTeacher) {
+                    queryField << 'user!=?'
+                    queryValue << user
+                }
+                break
+            case 'customize':
+                if(isTeacher && params."user.id") {
+                    queryField << 'user=?'
+                    queryValue << labmaster.auth.Member.read(params."user.id")
+                }
+        }
+
+        switch(params.complete) {
+            case 'yes':
+                queryField << 'complete=?'
+                queryValue << 100
+                break
+            case 'no':
+                queryField << 'complete<?'
+                queryValue << 100
+                break
+            case 'almost':
+                queryField += ['complete<?','complete>?']
+                queryValue += [100,50]
+        }
+
+        def today = new Date()
+
+        switch(params.date) {
+            case 'today':
+                queryField << 'date between ? and ?'
+                queryValue += [today - 1, today]
+                break
+            case 'yesterday':
+                queryField << 'date between ? and ?'
+                queryValue += [today - 2, today - 1]
+                break
+            case 'thisWeek':
+                def c= new GregorianCalendar()
+                def days = c.get(Calendar.DAY_OF_WEEK)
+                if(days == 1)
+                    days = 7
+                else
+                    days--
+                queryField << 'date between ? and ?'
+                queryValue += [today - days, today]
+                break
+            case 'lastWeek':
+                def c= new GregorianCalendar()
+                def days = c.get(Calendar.DAY_OF_WEEK)
+                if(days == 1)
+                    days = 7
+                else
+                    days--
+                queryField << 'date between ? and ?'
+                queryValue += [today - days - 7, today - 7]
+                break
+            case 'thisMonth':
+                def c= new GregorianCalendar()
+                def days = c.get(Calendar.DAY_OF_MONTH)
+                queryField << 'date between ? and ?'
+                queryValue += [today - days, today]
+        }
+
+        // 拼凑sql语句
+        def hql = 'from Work'
+        if(queryField.size() > 0)
+            hql += ' where ' + queryField.join(' and ')
+
+        // 处理排序
+        results = Work.findAll(hql, queryValue, params)
+        totalCount = Work.findAll(hql, queryValue).size()
+
+        [workInstanceList: results, workInstanceTotal: totalCount]
+    }
+
+    /**
+    def list = {// {{{
         def user = getLoginedUser()
         if(!user) {
                 redirect controller:'login'
@@ -48,7 +150,8 @@ class WorkController extends labmaster.auth.AccessControlController {
         }
         
         [workInstanceList: results, workInstanceTotal: count]
-    }
+    }// }}}
+    */
 
     def create = {
         def user = getLoginedUser()
@@ -207,7 +310,8 @@ class WorkController extends labmaster.auth.AccessControlController {
             }
 
             // 不可修改的字段
-            bindData workInstance, params, ['id', 'user', 'plan', 'dateCreated', 'lastUpdated']
+            bindData workInstance, params, ['id', 'user', 'plan',
+                     'dateCreated', 'lastUpdated', 'progress']
 
             if (!workInstance.hasErrors() && workInstance.save(flush: true)) {
                 flash.message = "${message(code: 'default.updated.message', args: [message(code: 'work.label', default: 'Work'), workInstance.id])}"
@@ -264,3 +368,8 @@ class WorkController extends labmaster.auth.AccessControlController {
         }
     }
 }
+
+/*
+vim600: ts=4 st=4 foldmethod=marker foldmarker={{{,}}} syn=groovy
+vim600: encoding=utf-8 commentstring=//\ %s
+ */
