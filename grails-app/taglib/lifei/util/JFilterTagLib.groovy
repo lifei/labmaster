@@ -84,7 +84,7 @@ class JFilterTagLib {
     def filterCssAndJavascript = { attr ->
 
 
-        out << javascript(library:"jquery/jquery-1.4.1.min")
+        out << javascript(library:"jquery/jquery-1.3.2.min")
         out << "<link rel=\"stylesheet\" href=\"${resource(dir:'css',file:'filter.css')}\" />"
 
         if(attr.field && attr.field.size() > 0) {

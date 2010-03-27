@@ -275,6 +275,10 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
   }
   js=js {
     application.js
+    jquery=jquery {
+     jquery-1.4.1.js
+     jquery-1.4.1.min.js
+    }
     prototype=prototype {
      animation.js
      builder.js

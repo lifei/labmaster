@@ -279,9 +279,20 @@ h2 {
 #leftMenu {
     margin-left:20px;
     margin-right:20px;
+    width:200px;
     float:left;
 }
 
 strong {
     color:red;
 }
+
+#mainMenu h2 {
+    display:block;
+    width:100%;
+    cursor:pointer;
+}
+#mainMenu div {
+    display:none;
+}
+
