@@ -139,6 +139,7 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
     create.gsp
     edit.gsp
     list.gsp
+    filter.gsp
     show.gsp
    }
    book=book {

@@ -8,6 +8,87 @@ class TaskController extends labmaster.auth.AccessControlController {
         redirect(action: "list", params: params)
     }
 
+    def filter = {
+        def user = getLoginedUser();
+        if(!user) {
+            flash.message = "您没有登陆，请先登陆系统"
+            redirect controller:'login'
+            return
+        } 
+
+        def results = []
+        def totalCount = 0
+        params.max = Math.min(params.max ? params.int('max') : 10, 100)
+
+        def queryField = []
+        def queryValue = []
+
+        def isTeacher = user.doesInRole('ROLE_TEACHER')
+
+        // 学生用户有assign过滤时做特殊处理
+        def noAssign = true
+
+        // 处理assign
+        switch(params.assign) {
+            case 'from':
+                queryField << 'assignFrom=?'
+                queryValue << user
+                noAssign = false
+                break
+            case 'to':
+                queryField << 'assignTo=?'
+                queryValue << user
+                noAssign = false
+                break
+            case 'none':
+                if(isTeacher) {
+                    queryField += ['assignTo!=?','assignFrom!=?']
+                    queryValue += [user, user]
+                }
+        }
+
+        // 学生用户没有任何过滤条目
+        if(!isTeacher && noAssign) {
+            queryField << '(assignTo=? or assignFrom=?)'
+            queryValue += [user, user]
+        }
+
+        switch(params.complete) {
+            case 'yes':
+                queryField << 'complete=?'
+                queryValue << 100
+                break
+            case 'no':
+                queryField << 'complete<?'
+                queryValue << 100
+                break
+            case 'almost':
+                queryField += ['complete<?','complete>?']
+                queryValue += [100,50]
+        }
+
+        switch(params.deadline) {
+            case 'yes':
+                queryField << 'deadline<?'
+                queryValue << new Date()
+                break
+            case 'no':
+                queryField << 'deadline>=?'
+                queryValue << new Date()
+        }
+
+        // 拼凑sql语句
+        def hql = 'from Task'
+        if(queryField.size() > 0)
+            hql += ' where ' + queryField.join(' and ')
+
+        // 处理排序
+        results = Task.findAll(hql, queryValue, params)
+        totalCount = Task.findAll(hql, queryValue).size()
+
+        [taskInstanceList: results, taskInstanceTotal: totalCount]
+    }
+
     def list = {
         def user = getLoginedUser();
         if(!user) {

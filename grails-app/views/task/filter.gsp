@@ -97,7 +97,7 @@
                             <label> 指派给我 </label>
                         </div>
                         <div class="radioBox">
-                            <g:radio name="assign" value="nothing" />
+                            <g:radio name="assign" value="none" />
                             <label> 与我无关 </label>
                         </div>
                         <div class="radioBox">
@@ -144,6 +144,23 @@
                     </p>
                 </g:form>
             </div>
+            <%-- {{{ filter-tip --%>
+            <g:if test="${(params.assign&&params.assign!='disable')||
+                (params.complete&&params.complete!='disable')||
+                (params.deadline&&params.deadline!='disable')}">
+            <div id="filter-tip">
+                <h1>筛选条件:</h1>
+                <g:link params="${[assign:params.assign]}" action="filter">
+                <g:message code="task.filter.assign.${params.assign}" default="" />
+                </g:link>
+                <g:link params="${[complete:params.complete]}" action="filter">
+                <g:message code="task.filter.complete.${params.complete}" default="" />
+                </g:link>
+                <g:link params="${[deadline:params.deadline]}" action="filter">
+                <g:message code="task.filter.deadline.${params.deadline}" default="" />
+                </g:link>
+            </div>
+            </g:if><%-- }}} --%>
             <div class="list">
                 <table>
                     <thead>
@@ -185,3 +202,8 @@
         </div>
     </body>
 </html>
+<%--
+vim600: ts=4 st=4 foldmethod=marker foldmarker={{{,}}} syn=gsp textwidth=1000
+vim600: encoding=utf-8 commentstring=<%--\ %s\ --%>
+--%>
+
