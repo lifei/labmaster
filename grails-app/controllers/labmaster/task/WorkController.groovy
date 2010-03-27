@@ -78,7 +78,7 @@ class WorkController extends labmaster.auth.AccessControlController {
             def plan = workInstance.plan
             plan.complete = workInstance.progress
             plan.endDate = workInstance.date
-            plan.save()
+            plan.save(flush:true)
 
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'work.label', default: 'Work'), workInstance.id])}"
             redirect(action: "show", id: workInstance.id)

@@ -38,7 +38,6 @@
                     </thead>
                     <tbody>
                     <g:each in="${planInstanceList}" status="i" var="planInstance">
-                    <g:safeOutput var="planInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
                             <td><g:link action="show" id="${planInstance.id}">${fieldValue(bean: planInstance, field: "id")}</g:link></td>
@@ -50,11 +49,13 @@
                             <td>${fieldValue(bean: planInstance, field: "object")}</td>
                         
                             <td>${fieldValue(bean: planInstance, field: "project")}</td>
-                        
-                            <td>${fieldValue(bean: planInstance, field: "user")}</td>
-                        
+                            <td>
+                            <g:safeOutput var="planInstance">
+                                ${fieldValue(bean: planInstance, field: "user")}
+                           </g:safeOutput>    
+                           </td> 
                         </tr>
-                    </g:safeOutput>
+                    
                     </g:each>
                     </tbody>
                 </table>

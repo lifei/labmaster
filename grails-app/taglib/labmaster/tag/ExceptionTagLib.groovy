@@ -6,7 +6,7 @@ class ExceptionTagLib {
             def var = attr.var?attr.var:'bean'
             out << body([(var):var])
         } catch(e) {
-            println e
+            out << message(code:"default.error.misdata",default:"Bad Data")
         }
     }
 }

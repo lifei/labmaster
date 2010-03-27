@@ -60,7 +60,11 @@
 <tr class="prop">
     <td valign="top" class="name"><g:message code="plan.user.label" default="User" /></td>
     
-    <td valign="top" class="value"><g:link controller="member" action="show" id="${planInstance?.user?.id}">${planInstance?.user?.encodeAsHTML()}</g:link></td>
+    <td valign="top" class="value">
+    <g:safeOutput var="${planInstance}">
+    <g:link controller="member" action="show" id="${planInstance?.user?.id}">${planInstance?.user?.encodeAsHTML()}</g:link>
+    </g:safeOutput>
+    </td>
     
 </tr>
 
@@ -135,7 +139,7 @@
             </li>
         </g:each>
         </ul>
-            <div class="paginateButtons">
+            <div class="paginate">
                 <g:paginate total="${planInstance.works.size()}"
                 id="${planInstance.id}" />
             </div>

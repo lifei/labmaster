@@ -154,7 +154,7 @@ class PlanController extends AccessControlController {
                 if (planInstance.version > version) {
                     
                     planInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'plan.label', default: 'Plan')] as Object[], "Another user has updated this Plan while you were editing")
-                    render(view: "edit", model: [planInstance: planInstance, projects:projects, user: user])
+                    render(view: "edit", model: [planInstance: planInstance, user: user])
                     return
                 }
             }
@@ -198,8 +198,8 @@ class PlanController extends AccessControlController {
             def user = getLoginedUser();
             if(!user) {
                 flash.message = "您没有登陆，请先登陆系统"
-                    redirect controller:'login'
-                    return
+                redirect controller:'login'
+                return
             } 
 
             // 验证用户
