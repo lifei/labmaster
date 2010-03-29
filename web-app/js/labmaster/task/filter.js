@@ -14,5 +14,9 @@ $j(document).ready(function() {
             $j('#filter').height(h + 'px');
         }
     });
+    try {
+    if(fold == 'open')
+        $j('#fold').click();
+        } catch(e) {}
 });
 

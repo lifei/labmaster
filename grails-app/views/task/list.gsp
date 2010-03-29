@@ -21,63 +21,88 @@
                 <div class="filter-title">
                     筛选 
                     <a id="fold" href="javascript:void(0);">[展开]</a>
-                    <script>
-                    </script>
+                    <a id="filter-help-button" href="javascript:void(0);"
+                    onmouseover="javascript:$j('#filter-help').show();"
+                    onmouseout ="javascript:$j('#filter-help').hide();"
+                    >[?]</a>
+                    <div id="filter-help" class="filter-help">
+                        <ul>
+                            <li>鼠标点击<g:radio />后，再点击
+                            <g:submitButton name="fr" value="过滤" />
+                            </li>
+                            <li>鼠标点击<g:radio />
+                            <strong>后面的文字</strong>直接过滤。</li>
+                            <li>多项条件过滤只需重复多次过滤过程。</li>
+                            <li>选好3个<g:radio />后可以点击
+                            <g:submitButton name="fr" value="过滤" />
+一次完成。</li>
+                        </ul>
+                    </div>
                 </div>
                 <g:form action="filter" method="get">
+                    <g:if test="${!params.assign||params.assign=='disable'}">
                     <div class="findByHint">按指派人:</div>
                     <div class="subCategoryBox">
                         <div class="radioBox">
                             <g:radio name="assign" value="from" checked="true"/>
-                            <label> 我指派的 </label>
+                            <g:link params="${([:]+params)+[assign:'from']}" action="filter">由我指派</g:link>
                         </div>
                         <div class="radioBox">
                             <g:radio name="assign" value="to" />
-                            <label> 指派给我 </label>
+                            <g:link params="${([:]+params)+[assign:'to']}" action="filter">指派给我</g:link>
                         </div>
-                        <div class="radioBox">
+                        <g:ifAnyGranted role="ROLE_TEACHER">
+                        <div class="radioBox" style="width:150px;">
                             <g:radio name="assign" value="none" />
-                            <label> 与我无关 </label>
+                            <g:link params="${([:]+params)+[assign:'none']}" action="filter">
+                                与我无关<b style="color:red;">(管理员)</b></g:link>
                         </div>
+                        </g:ifAnyGranted>
                         <div class="radioBox">
                             <g:radio name="assign" value="disable" />
                             <label> 都行 </label>
                         </div>
                     </div>
+                    </g:if>
+                    <g:if test="${!params.complete||params.complete=='disable'}">
                     <div class="findByHint">按完成度:</div>
                     <div class="subCategoryBox">
                         <div class="radioBox">
                             <g:radio name="complete" value="no" checked="true" />
-                            <label> 未完成 </label>
+                            <g:link params="${([:]+params)+[complete:'no']}" action="filter">未完成</g:link>
                         </div>
                         <div class="radioBox">
                             <g:radio name="complete" value="yes"/>
-                            <label> 已完成 </label>
+                            <g:link params="${([:]+params)+[complete:'yes']}" action="filter">已完成</g:link>
                         </div>
                         <div class="radioBox">
                             <g:radio name="complete" value="almost" />
-                            <label> 将要完成 </label>
+                            <g:link params="${([:]+params)+[complete:'almost']}" action="filter">将要完成</g:link>
                         </div>
                         <div class="radioBox">
                             <g:radio name="complete" value="disable" />
                             <label> 都行 </label>
                         </div>
                     </div>
+                    </g:if>
+                    <g:if test="${!params.deadline||params.deadline=='disable'}">
+                    <g:set var="tmpparams" value="${params}" />
                     <div class="findByHint">按期限:</div>
                     <div class="subCategoryBox">
                         <div class="radioBox">
                             <g:radio name="deadline" value="yes"/>
-                            <label> 超期 </label>
+                            <g:link params="${([:]+params)+[deadline:'yes']}" action="filter">超期</g:link>
                         </div>
                         <div class="radioBox">
                             <g:radio name="deadline" value="no" checked="true" />
-                            <label> 未超期 </label>
+                            <g:link params="${([:]+params)+[deadline:'no']}" action="filter">未超期</g:link>
                         </div>
                         <div class="radioBox">
                             <g:radio name="deadline" value="disable" />
                             <label> 都行 </label>
                         </div>
                     </div>
+                    </g:if>
                     <p align="center">
                         <g:submitButton id='filter-button' name="filter" value="过滤" />
                     </p>
@@ -115,11 +140,13 @@
                         
                         </tr>
                     </g:each>
+                    <tr>
+                        <td class="paginateButtons" colspan="5">
+                            <g:paginate params="${params}" total="${taskInstanceTotal}" />
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
-            </div>
-            <div class="paginateButtons">
-                <g:paginate total="${taskInstanceTotal}" />
             </div>
         </div>
     </body>
