@@ -19,6 +19,17 @@
         <li><g:link controller="book">查看所有图书</g:link> </li>
     </div>
     <div class="dialog">
+        <h2>物品:</h2>
+        <li><g:link controller="project" action="create">创建课题</g:link> </li>
+        <li><g:link controller="project"                >查看课题</g:link> </li>
+        <li><g:link controller="plan" action="create">创建计划</g:link> </li>
+        <li><g:link controller="plan">查看计划</g:link> </li>
+        <li><g:link controller="work" action="create">工作记录</g:link> </li>
+        <li><g:link controller="work">查看工作</g:link> </li>
+        <li><g:link controller="task" action="create">指派任务</g:link> </li>
+        <li><g:link controller="task">查看任务</g:link> </li>
+    </div>
+    <div class="dialog">
         <h2>任务:</h2>
         <li><g:link controller="project" action="create">创建课题</g:link> </li>
         <li><g:link controller="project"                >查看课题</g:link> </li>
