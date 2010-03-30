@@ -11,6 +11,9 @@
             <img src="${resource(dir:'images',file:'spinner.gif')}" alt="Spinner" />
         </div>
         <div id="grailsLogo" class="logo"><a href="http://grails.org"><img src="${resource(dir:'images',file:'grails_logo.png')}" alt="Grails" border="0" /></a></div>
+        <g:isLoggedIn>
+        <g:render template="/layouts/menu"/>
+        </g:isLoggedIn>
         <g:layoutBody />
     </body>
 </html>

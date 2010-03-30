@@ -150,6 +150,7 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
     show.gsp
    }
    layouts=layouts {
+    _menu.gsp
     main.gsp
    }
    user=user {
