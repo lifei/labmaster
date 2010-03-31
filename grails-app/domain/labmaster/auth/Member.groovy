@@ -29,9 +29,9 @@ class Member {
 	String pass = '[secret]'
 
 	static constraints = {
-		username(length:4..32,blank: false, unique: true)
+		username(size:4..32,blank: false, unique: true)
 		userRealName(blank: false)
-		passwd(length:6..32,blank: false)
+		passwd(size:6..32,blank: false)
 		enabled()
 	}
 	

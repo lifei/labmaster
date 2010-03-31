@@ -18,7 +18,7 @@ class TestType {
     Date lastUpdated
 
     static constraints = {
-        name(length:0..20, blank:false)
+        name(size:0..20, blank:false)
         description(blank:true, widget:"textarea")
         note(blank:true, widget:"textarea")
         price(range:0..1000)
