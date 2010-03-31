@@ -6,6 +6,12 @@
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'standardItem.label', default: 'StandardItem')}" />
         <title><g:message code="default.list.label" args="[entityName]" /></title>
+        <% flash.field = ['user', 'date'] %>
+        <link  type="text/css"
+        href="${resource(dir:'css/smoothness',file:'jquery-ui-1.7.2.custom.css')}" rel="stylesheet" />
+
+        <g:filterCssAndJavascript />
+        <g:javascript library="jquery/jquery-ui-1.7.2.custom.min" />
     </head>
     <body>
         <div class="nav">
@@ -17,6 +23,24 @@
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
+            <g:showFilterBox>
+            <g:fieldFitler field="tags" value="${['glass','reagent', 'office', 'other', 'customize']}">
+            <div style="width:120px;">
+            <input  id="search-tags=text" size="10" type="text" /> &nbsp;
+            <g:link url="javascript:void(0);">搜索</g:link>
+            </div>
+            </g:fieldFitler>
+
+            <g:fieldFitler field="name" value="${['customize']}">
+            <div style="width:200px;">
+            <input id="search-name=text" size="20" type="text" /> &nbsp;
+            <g:link url="javascript:void(0);">搜索</g:link>
+            </div>
+            </g:fieldFitler>
+            </g:showFilterBox>
+            <g:filterTipBox customize="${[user:labmaster.auth.Member.read(params['user.id']), date:date]}">
+            
+            </g:filterTipBox>
             <div class="list">
                 <table>
                     <thead>

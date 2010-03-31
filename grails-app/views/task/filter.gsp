@@ -6,7 +6,7 @@
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'task.label', default: 'Task')}" />
         <title><g:message code="default.list.label" args="[entityName]" /></title>
-        <g:javascript library="jquery/jquery-1.4.1.min" />
+        <g:javascript library="jquery/jquery-1.3.2.min" />
         <link rel="stylesheet" href="${resource(dir:'css',file:'task.filter.css')}" />
         <g:if test="${params.filter||(!params.assign||params.assign=='disable')||(!params.complete||params.complete=='disable')||(!params.deadline||params.deadline=='disable')}">
         <script>
