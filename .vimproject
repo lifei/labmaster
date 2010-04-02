@@ -45,8 +45,8 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
      TestTypeController.groovy
      }
      book=book{
-     BookCommentController.groovy
-     BookController.groovy
+      BookCommentController.groovy
+      BookController.groovy
      }
      finance=finance{
       PurchaseController.groovy
@@ -149,12 +149,6 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
     list.gsp
     show.gsp
    }
-   register=register {
-    edit.gsp
-    index.gsp
-    show.gsp
-    success.gsp
-   }
    task=task {
     _top.gsp
     create.gsp
@@ -163,8 +157,7 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
     filter.gsp
     show.gsp
    }
-   book=book {
-    _top.gsp
+   test=test {
     create.gsp
     edit.gsp
     list.gsp
@@ -173,6 +166,12 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
    layouts=layouts {
     _menu.gsp
     main.gsp
+   }
+   register=register {
+    edit.gsp
+    index.gsp
+    show.gsp
+    success.gsp
    }
    user=user {
    }

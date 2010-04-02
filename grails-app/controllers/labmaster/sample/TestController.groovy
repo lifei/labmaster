@@ -41,7 +41,8 @@ class TestController extends labmaster.auth.AccessControlController{
         def testInstance = new Test(params)
         // 用户验证
         def user = getLoginedUser()
-        if(testInstance.user.id != user.id) {
+        println testInstance?.user
+        if(testInstance?.user?.id != user.id) {
             flash.message = '只有登记人才能删除本测试！'
             redirect(action: "list")
             return 
@@ -77,19 +78,28 @@ class TestController extends labmaster.auth.AccessControlController{
         else {
 
             // 用户验证
-            def user = getLoginedUser()
-            if(testInstance.user.id != user.id) {
-                flash.message = '只有登记人才能修改本测试！'
-                redirect(action: "list")
-                return 
-            }
+            def user = getLoginedUser();
+            if(!user) {
+                flash.message = "您没有登陆，请先登陆系统";
+                redirect controller:'login';
+                return;
+            } 
 
-            // 失效判断
-            def today = new Date()
-            if(today - testInstance.dateCreated > 7) {
-                flash.message = '本测试已经登记超过7天了，不能再进行修改！'
-                redirect(action: "show", id: params.id)
-                return 
+            // 无主用户可以随便编辑
+            if(testInstance?.user?.id) {
+                if(testInstance?.user?.id != user.id) {
+                    flash.message = '只有登记人才能修改本测试！'
+                    redirect(action: "list")
+                    return 
+                }
+
+                // 失效判断
+                def today = new Date()
+                if(today - testInstance.dateCreated > 7) {
+                    flash.message = '本测试已经登记超过7天了，不能再进行修改！'
+                    redirect(action: "show", id: params.id)
+                    return 
+                }
             }
             return [testInstance: testInstance]
         }
@@ -107,23 +117,26 @@ class TestController extends labmaster.auth.AccessControlController{
                     return
                 }
             }
-            testInstance.properties = params
 
             // 用户验证
             def user = getLoginedUser()
-            if(testInstance.user.id != user.id) {
-                flash.message = '只有登记人才能修改本测试！'
-                redirect(action: "list")
-                return 
+            if(testInstance?.user?.id) {
+                if(testInstance.user?.id != user.id) {
+                    flash.message = '只有登记人才能修改本测试！'
+                    redirect(action: "list")
+                    return 
+                }
+
+                // 失效判断
+                def today = new Date()
+                if(today - testInstance.dateCreated > 7) {
+                    flash.message = '本测试登记超过7天了，已经不能被修改！'
+                    redirect(action: "show", id: params.id)
+                    return 
+                }
             }
 
-            // 失效判断
-            def today = new Date()
-            if(today - testInstance.dateCreated > 7) {
-                flash.message = '本测试登记超过7天了，已经不能被修改！'
-                redirect(action: "show", id: params.id)
-                return 
-            }
+            testInstance.properties = params
 
             if (!testInstance.hasErrors() && testInstance.save(flush: true)) {
                 flash.message = "${message(code: 'default.updated.message', args: [message(code: 'test.label', default: 'Test'), testInstance.id])}"
@@ -143,19 +156,41 @@ class TestController extends labmaster.auth.AccessControlController{
         def testInstance = Test.get(params.id)
         if (testInstance) {
             // 用户验证
-            def user = getLoginedUser()
-            if(testInstance.user.id != user.id) {
-                flash.message = '只有登记人才能删除本测试！'
-                redirect(action: "list")
-                return 
-            }
+            def user = getLoginedUser();
+            if(!user) {
+                flash.message = "您没有登陆，请先登陆系统";
+                redirect controller:'login';
+                return;
+            } 
 
-            // 失效判断
-            def today = new Date()
-            if(today - testInstance.dateCreated > 7) {
-                flash.message = '本测试已经登记超过7天了，不能被删除！'
-                redirect(action: "show", id: params.id)
-                return 
+            // 保证能删除坏的数据
+            try {
+                testInstance?.user?.id 
+            } catch(e) {
+                testInstance.user = null 
+            } 
+
+            try {
+                testInstance?.type?.id 
+            } catch(e) {
+                testInstance.type = null 
+            } 
+
+            // 如果登记者和测试类型都合法
+            if(testInstance?.user?.id && testInstance?.type?.id) {
+                if(testInstance.user.id != user.id) {
+                    flash.message = '只有登记人才能删除本测试！'
+                    redirect(action: "list")
+                    return 
+                }
+
+                // 失效判断
+                def today = new Date()
+                if(today - testInstance.dateCreated > 7) {
+                    flash.message = '本测试已经登记超过7天了，不能被删除！'
+                    redirect(action: "show", id: params.id)
+                    return 
+                }
             }
 
             try {

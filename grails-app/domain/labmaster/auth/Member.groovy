@@ -31,7 +31,7 @@ class Member {
 	static constraints = {
 		username(size:4..32,blank: false, unique: true)
 		userRealName(blank: false)
-		passwd(size:6..32,blank: false)
+		passwd(blank: false)
 		enabled()
 	}
 	

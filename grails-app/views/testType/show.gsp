@@ -1,10 +1,10 @@
 
-<%@ page import="labmaster.sample.Test" %>
+<%@ page import="labmaster.sample.TestType" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'test.label', default: 'Test')}" />
+        <g:set var="entityName" value="${message(code: 'testType.label', default: 'TestType')}" />
         <title><g:message code="default.show.label" args="[entityName]" /></title>
     </head>
     <body>
@@ -23,45 +23,44 @@
                     <tbody>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="test.id.label" default="Id" /></td>
+                            <td valign="top" class="name"><g:message code="testType.id.label" default="Id" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: testInstance, field: "id")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="test.user.label" default="User" /></td>
-                            
-                            <td valign="top" class="value">
-                            <g:safeOutput>
-                            <g:link controller="member" action="show" id="${testInstance?.user?.id}">${testInstance?.user?.encodeAsHTML()}</g:link>
-                            </g:safeOutput>
-                            </td>
+                            <td valign="top" class="value">${fieldValue(bean: testTypeInstance, field: "id")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="test.type.label" default="Type" /></td>
+                            <td valign="top" class="name"><g:message code="testType.name.label" default="Name" /></td>
                             
-                            <td valign="top" class="value">
-                            <g:safeOutput>
-                            <g:link controller="testType" action="show" id="${testInstance?.type?.id}">${testInstance?.type?.encodeAsHTML()}</g:link>
-                            </g:safeOutput>
-                            </td>
+                            <td valign="top" class="value">${fieldValue(bean: testTypeInstance, field: "name")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="test.dateCreated.label" default="Date Created" /></td>
+                            <td valign="top" class="name"><g:message code="testType.description.label" default="Description" /></td>
                             
-                            <td valign="top" class="value"><g:formatDate date="${testInstance?.dateCreated}" /></td>
+                            <td valign="top" class="value">${fieldValue(bean: testTypeInstance, field: "description")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="test.count.label" default="Count" /></td>
+                            <td valign="top" class="name"><g:message code="testType.note.label" default="Note" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: testInstance, field: "count")}</td>
+                            <td valign="top" class="value">${fieldValue(bean: testTypeInstance, field: "note")}</td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="testType.price.label" default="Price" /></td>
+                            
+                            <td valign="top" class="value">${fieldValue(bean: testTypeInstance, field: "price")}</td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="testType.lastUpdated.label" default="Last Updated" /></td>
+                            
+                            <td valign="top" class="value"><g:formatDate date="${testTypeInstance?.lastUpdated}" /></td>
                             
                         </tr>
                     
@@ -70,7 +69,7 @@
             </div>
             <div class="buttons">
                 <g:form>
-                    <g:hiddenField name="id" value="${testInstance?.id}" />
+                    <g:hiddenField name="id" value="${testTypeInstance?.id}" />
                     <span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
                     <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
                 </g:form>

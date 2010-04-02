@@ -140,6 +140,11 @@ class BootStrap {
                         description: "物品管理员，拥有与物品管理相关的操作的权限").save()
             }
 
+            if(!Group.findByAuthority("ROLE_TESTADMIN")){        	
+                println "测试管理员"
+                new Group(name:"测试管理员", authority: "ROLE_TESTADMIN",
+                        description: "测试管理员，拥有与测试管理相关的操作的权限").save()
+            }
             // }}}*/
 
             /*{{{*/
