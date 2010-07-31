@@ -11,7 +11,7 @@ class Attendance {
     static belongsTo = [user: labmaster.auth.Member]
 
     /** 活跃度 */
-    Integer count = 0
+    Integer _count = 0
 
     /** 日期 */
     Date date

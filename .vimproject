@@ -1,4 +1,4 @@
-labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
+labmaster.linux=/home/lifei/env/labmaster CD=. {
   application.properties
   init.sh
   stacktrace.log
@@ -205,6 +205,7 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
   }
   lib=lib {
     activation-1.1.jar
+    commons-lang-2.5.jar
     mail-1.4.jar
     mysql-connector-java-5.1.10-bin.jar
   }

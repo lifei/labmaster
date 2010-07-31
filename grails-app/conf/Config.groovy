@@ -86,4 +86,4 @@ log4j = {
 
 //log4j.logger.org.springframework.security='off,stdout'
 
-hibernate.show_sql=true
+//hibernate.show_sql=true

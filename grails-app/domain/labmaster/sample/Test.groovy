@@ -12,7 +12,7 @@ class Test {
     Date dateCreated
     
     /** 数量 */
-    Integer count
+    Integer _count
 
     static belongsTo = [user: labmaster.auth.Member, type: TestType]
 

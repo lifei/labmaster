@@ -1,36 +1,36 @@
 package labmaster.task
 
 class Plan {
-        
+        /* 实体定义 {{{*/
         /** 标题 */
         String name
-        
+
         /** 内容 */
         String content        
-        
+
         /** 目标 */
         String object
-        
+
         /** 起始日期 */
         Date startDate = new Date()
-        
+
         /** 截止日期 */
         Date deadline = startDate + 7
-        
+
         /** 完成日期 */
         Date endDate = deadline
-        
+
         /** 完成度 */
         Integer complete = 0
-        
+
         /** 更新时间 */
         Date dateCreated
         Date lastUpdated
 
-        labmaster.auth.Member user = labmaster.auth.Member.getLoginedUser()
-        
+        labmaster.auth.Member user = labmaster.auth.Member.getCurrentUser()
+
         static belongsTo = [user:labmaster.auth.Member, project:Project]
-                            
+
         static hasMany = [works:Work]
 
         static constraints = {
@@ -41,15 +41,16 @@ class Plan {
                 user(blank:false)
                 complete(range:0..100, blank:false)
                 deadline(validator:{
-                    val, obj->
-                    if(!val || obj.startDate >= val) {
-                        return 'wrongDeadline'
-                    }
+                        val, obj->
+                        if(!val || obj.startDate >= val) {
+                                return 'wrongDeadline'
+                        }
                 })
                 lastUpdated(nullable:true)
                 dateCreated(nullable:true)
         }
-        
+        /*}}}*/
+
         String toString() {
                 "${name}"
         }

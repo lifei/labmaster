@@ -177,15 +177,13 @@ class PlanController extends AccessControlController {
                 break
             default:
                 if(!isTeacher) {
-                    projects = Project.executeQuery(
-                    "select a from Project as a inner join a.members as b where :user=b or a.leader=:user group by a",
-                    [user:user])
-                    if(projects.size() > 0) {
-                        queryField << "project in (${projects.collect{'?'}.join(',')})"
-                        queryValue += projects
-                    } else {
-                        queryField << "1=2"
-                    }
+                    projects = Project.getAllByUser(user)
+                        if(projects.size() > 0) {
+                            queryField << "project in (${projects.collect{'?'}.join(',')})"
+                            queryValue += projects
+                        } else {
+                            queryField << "1=2"
+                        }
                 } else {
                     projects << 'xx'
                 }
@@ -242,7 +240,7 @@ class PlanController extends AccessControlController {
         }
 
         // 得到当前用户的Project
-        def projects = Project.getProjectBelongsToUser(user)
+        def projects = Project.getAllByUser(user)
 
         def planInstance = new Plan(params)
         return [planInstance: planInstance, projects: projects, user:user]
@@ -257,7 +255,7 @@ class PlanController extends AccessControlController {
         } 
 
         // 得到当前用户的Project
-        def projects = Project.getProjectBelongsToUser(user)
+        def projects = Project.getAllByUser(user)
             
         def planInstance = new Plan()
         
