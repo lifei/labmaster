@@ -1,4 +1,4 @@
-labmaster.linux=/home/lifei/env/labmaster CD=. {
+labmaster.linux=/home/lifei/env/grails/labmaster2 CD=. {
   application.properties
   init.sh
   stacktrace.log
@@ -21,13 +21,6 @@ labmaster.linux=/home/lifei/env/labmaster CD=. {
       }
     }
     controllers=controllers {
-      CaptchaController.groovy
-      LoginController.groovy
-      LogoutController.groovy
-      MemberController.groovy
-      RegisterController.groovy
-      RequestMapController.groovy
-      RoleController.groovy
       labmaster=labmaster {
         auth=auth {
           AccessControlController.groovy
@@ -63,9 +56,20 @@ labmaster.linux=/home/lifei/env/labmaster CD=. {
           StandardItemController.groovy
         }
       }
+      CaptchaController.groovy
+      LoginController.groovy
+      LogoutController.groovy
+      MemberController.groovy
+      RegisterController.groovy
+      RequestMapController.groovy
+      RoleController.groovy
     }
     domain=domain {
       labmaster=labmaster {
+        book=book {
+          Book.groovy
+          BookComment.groovy
+        }
         item=item {
           Reagent.groovy
           StandardItem.groovy
@@ -77,14 +81,10 @@ labmaster.linux=/home/lifei/env/labmaster CD=. {
           Comment.groovy
           History.groovy
         }
-        book=book {
-          Book.groovy
-          BookComment.groovy
-        }
         task=task {
           Plan.groovy
-          Project.groovy
           Task.groovy
+          Project.groovy
           Work.groovy
         }
         sample=sample {

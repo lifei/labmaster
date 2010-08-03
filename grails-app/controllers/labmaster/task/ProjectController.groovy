@@ -32,19 +32,18 @@ class ProjectController {
                         
         // 无交集说明不是老师
         def results = []
-        def count = 0
+        def cnt = 0
         if(roleList.intersect(userRoles).size() == 0) {
-            
-            results = Project.executeQuery("select b from Project as b inner join b.members as c where :user=c or b.leader=:user group by b",
-               [user:user], params)
-            count = Project.executeQuery("select count(*) from Project as b inner join b.members as c where :user=c or b.leader=:user group by b",
-               [user:user]).size()
+
+            results = Project.getAllByUser(user,params)
+            cnt = Project.getProjectCountByUser(user)
+            println cnt
         }
         else {
             results = Project.list(params)
-            count = Project.count()
+            cnt = Project.count()
         }
-        [projectInstanceList: results, projectInstanceTotal: count]
+        [projectInstanceList: results, projectInstanceTotal: cnt]
     }
 
     def create = {
@@ -89,8 +88,8 @@ class ProjectController {
             if(user.equals(projectInstance.leader) || projectInstance.members.collect{it.id}.contains(user.id))
                 [projectInstance: projectInstance]
             else {
-                flash.message = "请不要破解本系统或者同时开启多个账号或窗口！"
-                        redirect(action: "list")
+                flash.message = "只有课题的成员才可以查看！"
+                redirect(action: "list")
             }
         }
     }
@@ -135,12 +134,17 @@ class ProjectController {
         if (projectInstance) {
             
             // 正常的流程不应该走到这一步
+            // 用户不是课题的Leader却正在提交修改内容
+            // 说明：
+            // 1) 他在伪造请求；2）他在修改过程中登陆了多个账号
+            // {{{
             if(user != projectInstance.leader){
                 flash.message = "${message(code:'project.doNotCrack.message', default:'请不要破解本系统或者同时登陆多个账号！')}"
                 redirect action:'show', id:params.id
                 return
             }
-            
+            // }}}
+
             if (params.version) {
                 def version = params.version.toLong()
                 if (projectInstance.version > version) {

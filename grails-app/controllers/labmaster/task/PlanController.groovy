@@ -154,7 +154,7 @@ class PlanController extends AccessControlController {
                 }
                 break
             case 'in':
-                projects = Project.executeQuery("select a from Project as a inner join a.members as b where :user=b group by a", [user:user])
+                projects = Project.getListByMembers(user)
                 if(projects.size() > 0) {
                     queryField << "project in (${projects.collect{'?'}.join(',')})"
                     queryValue += projects
@@ -164,7 +164,7 @@ class PlanController extends AccessControlController {
                 break
             case 'none':
                 if(isTeacher) {
-                projects = Project.executeQuery("select a from Project as a inner join a.members as b where :user!=b and a.leader!=:user group by a", [user:user])
+                    projects = Project.getListWithoutUser(user:user)
                     if(projects.size() > 0) {
                         queryField << "project in (${projects.collect{'?'}.join(',')})"
                         queryValue += projects
@@ -178,12 +178,12 @@ class PlanController extends AccessControlController {
             default:
                 if(!isTeacher) {
                     projects = Project.getAllByUser(user)
-                        if(projects.size() > 0) {
-                            queryField << "project in (${projects.collect{'?'}.join(',')})"
-                            queryValue += projects
-                        } else {
-                            queryField << "1=2"
-                        }
+                    if(projects.size() > 0) {
+                        queryField << "project in (${projects.collect{'?'}.join(',')})"
+                        queryValue += projects
+                    } else {
+                        queryField << "1=2"
+                    }
                 } else {
                     projects << 'xx'
                 }
