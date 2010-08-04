@@ -1,17 +1,21 @@
 package labmaster.task
 
 class Project {
-    // 实体 {{{
+    // 实体 <++>
     /** 名称 */
     String name
     String description
 
-    static belongsTo = [leader: labmaster.auth.Member]
-    static hasMany = [members: labmaster.auth.Member, plans: Plan]
-
     /** 更新时间 */
     Date dateCreated
     Date lastUpdated
+
+    Boolean open = true
+
+    // belongsTo 和 hasMany <++>
+    static belongsTo = [leader: labmaster.auth.Member]
+    static hasMany = [members: labmaster.auth.Member, plans: Plan]
+    // <-->
     static constraints = {
         name(length:2..20,blank:false)
         description(length:2..200, widget:"textarea",blank:false)
@@ -21,9 +25,9 @@ class Project {
         dateCreated(nullable:true)	
         lastUpdated(nullable:true)
     }
-    // }}}
-    // 静态函数接口 {{{
-    // getListByMembers() {{{
+    // <-->
+    // 静态函数接口 <++>
+    // getListByMembers() <++>
     static def getListByMembers(def user) {
         return getAllByMembers(user)
     }
@@ -39,8 +43,8 @@ class Project {
             proj.members.any{ it.id==user.id }
         }
     }
-    // }}}
-    // getListByUser() {{{
+    // <-->
+    // getListByUser() <++>
     static def getListByUser(def user) {
         return getAllByUser(user)
     }
@@ -60,7 +64,7 @@ class Project {
             [user:user])
 
             return list.unique()
-            // 使用面向对象的思想实现的，但是效率较差{{{
+            // 使用面向对象的思想实现的，但是效率较差<++>
             /* 面向对象的实现方法
             def projectsOfMember = Project.getAllByMembers(user);
             def projectsOfAdmin = Project.findAllByLeader(user);
@@ -83,7 +87,7 @@ class Project {
 
             return list
              */
-            // }}}
+            // <-->
     }
 
     static def getAllByUser(def user, def params) {
@@ -93,16 +97,16 @@ class Project {
 
             return list.unique()
     }
-    // }}}
-    // getListByLeader() {{{
-    // }}}
-    // {{{
+    // <-->
+    // getListByLeader() <++>
+    // <-->
+    // <++>
     static def getListWithoutUser(def user) {
         def list = Project.executeQuery("select a from Project as a inner join a.members as b where :user!=b and a.leader!=:user", [user:user])
         return list
     }
-    // }}}
-    // }}}
+    // <-->
+    // <-->
 
     static def getProjectCountByUser(def user) {
         def cnt = Project.executeQuery(
@@ -116,3 +120,7 @@ class Project {
     }
 
 }
+
+// vim600: ts=4 st=4 foldmethod=marker foldmarker=<++>,<--> syn=groovy 
+// vim600: encoding=utf8 commentstring=//\ %s 
+

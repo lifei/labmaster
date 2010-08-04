@@ -1,23 +1,52 @@
-labmaster.linux=/home/lifei/env/grails/labmaster2 CD=. {
-  application.properties
-  init.sh
-  stacktrace.log
+labmaster.linux=/home/lifei/env/labmaster CD=. {
   grails-app=grails-app {
-    conf=conf {
-      BootStrap.groovy
-      BuildConfig.groovy
-      Config.groovy
-      DataSource.groovy
-      ForbidFilters.groovy
-      InformationHistoryFilters.groovy
-      LoginCapchaFilters.groovy
-      SecurityConfig.groovy
-      TaskProjectFilters.groovy
-      UrlMappings.groovy
-      hibernate=hibernate {
-      }
-      spring=spring {
-        resources.groovy
+    domain=domain {
+      labmaster=labmaster {
+        weekly=weekly {
+          WeeklyReprot.groovy
+          GroupWeeklyReport.groovy
+          PersonWeeklyReport.groovy
+        }
+        task=task {
+          Plan.groovy
+          Task.groovy
+          Project.groovy
+          Work.groovy
+        }
+        book=book {
+          Book.groovy
+          BookComment.groovy
+        }
+        item=item {
+          Reagent.groovy
+          StandardItem.groovy
+        }
+        record=record {
+          Attendance.groovy
+        }
+        information=information {
+          Comment.groovy
+          History.groovy
+        }
+        sample=sample {
+          Test.groovy
+          TestType.groovy
+        }
+        finance=finance{
+          Purchase.groovy
+          Reimbursement.groovy
+          SubPurchase.groovy
+        }
+        auth=auth {
+          Member.groovy
+          RequestMap.groovy
+          Role.groovy
+        }
+        device=device {
+          Apparatus.groovy
+          Maintenance.groovy
+          Schedule.groovy
+        }
       }
     }
     controllers=controllers {
@@ -64,48 +93,21 @@ labmaster.linux=/home/lifei/env/grails/labmaster2 CD=. {
       RequestMapController.groovy
       RoleController.groovy
     }
-    domain=domain {
-      labmaster=labmaster {
-        book=book {
-          Book.groovy
-          BookComment.groovy
-        }
-        item=item {
-          Reagent.groovy
-          StandardItem.groovy
-        }
-        record=record {
-          Attendance.groovy
-        }
-        information=information {
-          Comment.groovy
-          History.groovy
-        }
-        task=task {
-          Plan.groovy
-          Task.groovy
-          Project.groovy
-          Work.groovy
-        }
-        sample=sample {
-          Test.groovy
-          TestType.groovy
-        }
-        finance=finance{
-          Purchase.groovy
-          Reimbursement.groovy
-          SubPurchase.groovy
-        }
-        auth=auth {
-          Member.groovy
-          RequestMap.groovy
-          Role.groovy
-        }
-        device=device {
-          Apparatus.groovy
-          Maintenance.groovy
-          Schedule.groovy
-        }
+    conf=conf {
+      BootStrap.groovy
+      BuildConfig.groovy
+      Config.groovy
+      DataSource.groovy
+      ForbidFilters.groovy
+      InformationHistoryFilters.groovy
+      LoginCapchaFilters.groovy
+      SecurityConfig.groovy
+      TaskProjectFilters.groovy
+      UrlMappings.groovy
+      hibernate=hibernate {
+      }
+      spring=spring {
+        resources.groovy
       }
     }
     i18n=i18n {
@@ -318,6 +320,9 @@ labmaster.linux=/home/lifei/env/grails/labmaster2 CD=. {
     tld=tld {
     }
   }
+  init.sh
+  stacktrace.log
+  application.properties
 }
 labmaster.windows=D:\Workspace\labmaster CD=. {
  application.properties
