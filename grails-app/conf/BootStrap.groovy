@@ -12,21 +12,21 @@ class BootStrap {
             //* 初始化管理员, 用户组的数据 {{{
             // 预设分组
             Group adminGroup = Group.findByAuthority("ROLE_ADMIN");
-            User admin = User.findByUsername("admin");
             if(!adminGroup) {
 
                 println "增加系统管理员组"
                 adminGroup = new Group(id:1,name:"系统管理员", authority: "ROLE_ADMIN",
-                description: "系统管理员组")
+                    description: "系统管理员组")
                 adminGroup.save()
             } 
 
             // 预设管理员用户
+            User admin = User.findByUsername("admin");
             if(!admin) {
 
                 println "增加管理员"
                 admin = new User(username:"admin", passwd:"7c4a8d09ca3762af61e59520943dc26494f8941b", 
-                userRealName:"管理员", enabled:true, email: "admin@labmaster.info")
+                    userRealName:"管理员", enabled:true, email: "admin@labmaster.info")
                 admin.save()
             }
 
@@ -34,9 +34,9 @@ class BootStrap {
                 try {
                     println "链接"
                     admin.addToAuthorities(adminGroup)
-            } catch(e) {
-                println e
-            }
+                } catch(e) {
+                    println e
+                }
             }
 
             if(!Group.findByAuthority("ROLE_LEADER")) {        	
