@@ -1,13 +1,12 @@
 package labmaster.device
 
 
-/** ===========================
+/**
   @package labmaster
   @subpackage device
   @version 1.0
   @author lifei
   @email  lifei.job@gmail.com
-   =========================== 
   */
 class Apparatus {
 
