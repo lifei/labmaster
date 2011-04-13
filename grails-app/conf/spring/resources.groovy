@@ -9,7 +9,7 @@ beans = {
                 println '[active=false] Spring Security not loaded'
                 return
             }
-        // attributes
+            // attributes
             authenticationManager = ref('authenticationManager')
             authenticationFailureUrl = conf.authenticationFailureUrl //'/login/authfail?login_error=1'
             ajaxAuthenticationFailureUrl = conf.ajaxAuthenticationFailureUrl // /login/authfail?ajax=true

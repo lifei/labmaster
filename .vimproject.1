@@ -51,7 +51,15 @@ labmaster.linux=/home/lifei/env/labmaster CD=. {
       }
     }
     controllers=controllers {
+      CaptchaController.groovy
+      LoginController.groovy
+      LogoutController.groovy
+      MemberController.groovy
+      RegisterController.groovy
+      RequestMapController.groovy
+      RoleController.groovy
       labmaster=labmaster {
+        MainFrameController.groovy
         auth=auth {
           AccessControlController.groovy
           AcessControlController.groovy
@@ -85,14 +93,10 @@ labmaster.linux=/home/lifei/env/labmaster CD=. {
           ReagentController.groovy
           StandardItemController.groovy
         }
+        paper=paper {
+          PaperController.groovy
+        }
       }
-      CaptchaController.groovy
-      LoginController.groovy
-      LogoutController.groovy
-      MemberController.groovy
-      RegisterController.groovy
-      RequestMapController.groovy
-      RoleController.groovy
     }
     conf=conf {
       BootStrap.groovy
@@ -199,6 +203,18 @@ labmaster.linux=/home/lifei/env/labmaster CD=. {
       }
       work=work {
         _top.gsp
+        create.gsp
+        edit.gsp
+        list.gsp
+        show.gsp
+      }
+      frame=frame {
+        index.gsp
+        menu.gsp
+        main.gsp
+      }
+      paper=paper {
+        upload.gsp
         create.gsp
         edit.gsp
         list.gsp
