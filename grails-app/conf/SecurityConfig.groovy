@@ -14,21 +14,25 @@ security {
 
     defaultRole = "ROLE_UNAVAILABLE"
     cacheUsers = false
+
+    defaultTargetUrl = '/frame'
+
+    filterProcessesUrl = '/j_spring_security_check'
        
     controllerAnnotationStaticRules = [
-       '/register/**': ['IS_AUTHENTICATED_ANONYMOUSLY'],
-       '/login/**': ['IS_AUTHENTICATED_ANONYMOUSLY'],
-       '/captcha/**': ['IS_AUTHENTICATED_ANONYMOUSLY'],
-       '/images/**': ['IS_AUTHENTICATED_ANONYMOUSLY'],
-       '/js/**': ['IS_AUTHENTICATED_ANONYMOUSLY'],
-       '/css/**': ['IS_AUTHENTICATED_ANONYMOUSLY'],
        '/logout/**': ['IS_AUTHENTICATED_FULLY'],
        '/book/create/**': ['ROLE_BOOKADMIN'],
        '/book/test/**': ['IS_AUTHENTICATED_FULLY'],
        '/book/**': ['IS_AUTHENTICATED_FULLY'],
        '/testType/create/**': ['ROLE_ADMIN'],
        '/member/create/**': ['ROLE_ADMIN'],
-       '/**': ['IS_AUTHENTICATED_FULLY']
+       '/**': ['IS_AUTHENTICATED_FULLY'],
+       '/register/**': ['IS_AUTHENTICATED_ANONYMOUSLY'],
+       '/login/**': ['IS_AUTHENTICATED_ANONYMOUSLY'],
+       '/captcha/**': ['IS_AUTHENTICATED_ANONYMOUSLY'],
+       '/images/**': ['IS_AUTHENTICATED_ANONYMOUSLY'],
+       '/js/**': ['IS_AUTHENTICATED_ANONYMOUSLY'],
+       '/css/**': ['IS_AUTHENTICATED_ANONYMOUSLY']
        ]
 
     filterInvocationDefinitionSourceMap = [

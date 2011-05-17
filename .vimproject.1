@@ -1,7 +1,15 @@
-labmaster.linux=/home/lifei/env/labmaster CD=. {
+labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
   grails-app=grails-app {
     domain=domain {
       labmaster=labmaster {
+        paper=paper {
+          Paper.groovy
+          PaperCategory.groovy
+          PaperFile.groovy
+          PaperHistory.groovy
+          PaperRate.groovy
+          PaperRemark.groovy
+        }
         weekly=weekly {
           WeeklyReport.groovy
         }
@@ -45,21 +53,11 @@ labmaster.linux=/home/lifei/env/labmaster CD=. {
           Maintenance.groovy
           Schedule.groovy
         }
-        paper=paper {
-          Paper.groovy
-        }
       }
     }
     controllers=controllers {
-      CaptchaController.groovy
-      LoginController.groovy
-      LogoutController.groovy
-      MemberController.groovy
-      RegisterController.groovy
-      RequestMapController.groovy
-      RoleController.groovy
       labmaster=labmaster {
-        MainFrameController.groovy
+        FrameController.groovy
         auth=auth {
           AccessControlController.groovy
           AcessControlController.groovy
@@ -97,6 +95,13 @@ labmaster.linux=/home/lifei/env/labmaster CD=. {
           PaperController.groovy
         }
       }
+      CaptchaController.groovy
+      LoginController.groovy
+      LogoutController.groovy
+      MemberController.groovy
+      RegisterController.groovy
+      RequestMapController.groovy
+      RoleController.groovy
     }
     conf=conf {
       BootStrap.groovy
@@ -105,7 +110,6 @@ labmaster.linux=/home/lifei/env/labmaster CD=. {
       DataSource.groovy
       ForbidFilters.groovy
       InformationHistoryFilters.groovy
-      LoginCapchaFilters.groovy
       SecurityConfig.groovy
       TaskProjectFilters.groovy
       UrlMappings.groovy
@@ -216,6 +220,7 @@ labmaster.linux=/home/lifei/env/labmaster CD=. {
       paper=paper {
         upload.gsp
         create.gsp
+        addinfo.gsp
         edit.gsp
         list.gsp
         show.gsp

@@ -30,6 +30,8 @@ class Paper {
     String doi = ''
     String accessionNumber = ''
 
+    int status = 0
+
     static constraints = {
     }
 }

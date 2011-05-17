@@ -31,12 +31,13 @@ class PaperController {
                 if (paperInstance.save(flush: true)) {
                     String filename = "./${paperInstance.id}.txt"
 
-                    file.transferTo(new File(filename))  
+                    file.transferTo(new java.io.File(filename))  
                     flash.message = "${file.getOriginalFilename()}已经上传"  
 
                     paperInstance.filename = file.getOriginalFilename()
+                    paperInstance.status = 1 // 已上传文件
                     paperInstance.save(flush:true)
-                    redirect(action:'edit', id:paperInstance.id)
+                    redirect(action:'addinfo', id:paperInstance.id)
                 }
             }  
 
@@ -46,6 +47,10 @@ class PaperController {
             paperInstance.properties = params
             return [paperInstance: paperInstance]
         }
+    }
+
+    def download = {
+        def id = params.id
     }
 
     def save = {
@@ -70,6 +75,16 @@ class PaperController {
         }
     }
 
+    def addinfo = {
+        def paper = Paper.get(params.id)
+        if (!paper) {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'paper.label', default: 'Paper'), params.id])}"
+            redirect(action: "list")
+        } else {
+            return [paperInstance: paper]
+        }
+    }
+
     def edit = {
         def paperInstance = Paper.get(params.id)
         if (!paperInstance) {
@@ -81,6 +96,34 @@ class PaperController {
         }
     }
 
+    def addinfopost = {
+        def paperInstance = Paper.get(params.id)
+        if (paperInstance) {
+            if (params.version) {
+                def version = params.version.toLong()
+                if (paperInstance.version > version) {
+                    paperInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'paper.label', default: 'Paper')] as Object[], "Another user has updated this Paper while you were editing")
+                    render(view: "edit", model: [paperInstance: paperInstance])
+                    return
+                }
+            }
+            paperInstance.properties = params
+            if (!paperInstance.hasErrors() && paperInstance.save(flush: true)) {
+                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'paper.label', default: 'Paper'), paperInstance.id])}"
+                paperInstance.status = 2
+                paperInstance.save(flush:true)
+                redirect(action: "show", id: paperInstance.id)
+            }
+            else {
+                render(view: "edit", model: [paperInstance: paperInstance])
+            }
+        }
+        else {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'paper.label', default: 'Paper'), params.id])}"
+            redirect(action: "list")
+        }
+    }
+    
     def update = {
         def paperInstance = Paper.get(params.id)
         if (paperInstance) {

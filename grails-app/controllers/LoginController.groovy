@@ -32,7 +32,7 @@ class LoginController {
 
 	def index = {
 		if (isLoggedIn()) {
-			redirect uri: '/'
+			redirect uri: '/frame'
 		}
 		else {
 			redirect action: auth, params: params
@@ -47,7 +47,7 @@ class LoginController {
 		nocache response
 
 		if (isLoggedIn()) {
-			redirect uri: '/'
+			redirect uri: '/frame'
 			return
 		}
 
@@ -65,6 +65,7 @@ class LoginController {
 		else {
 			view = 'auth'
 			postUrl = "${request.contextPath}${config.filterProcessesUrl}"
+            println postUrl
 		}
 
 		render view: view, model: [postUrl: postUrl, cmd:flash.cmd]
@@ -122,8 +123,24 @@ class LoginController {
 	 * Login page for users with a remember-me cookie but accessing a IS_AUTHENTICATED_FULLY page.
 	 */
 	def full = {
+        String view
+		String postUrl
+		def config = authenticateService.securityConfig.security
+		if (config.useOpenId) {
+			view = 'openIdAuth'
+			postUrl = "${request.contextPath}/login/openIdAuthenticate"
+		}
+		else if (config.useFacebook) {
+			view = 'facebookAuth'
+			postUrl = "${request.contextPath}${config.facebook.filterProcessesUrl}"
+		}
+		else {
+			view = 'auth'
+			postUrl = "${request.contextPath}${config.filterProcessesUrl}"
+		}
+
 		render view: 'auth', params: params,
-			model: [hasCookie: authenticationTrustResolver.isRememberMe(SCH.context?.authentication)]
+			model: [view:view, postUrl:postUrl, hasCookie: authenticationTrustResolver.isRememberMe(SCH.context?.authentication)]
 	}
 
 	// Denial page (data|view|json) for Ajax access.

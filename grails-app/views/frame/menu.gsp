@@ -86,5 +86,14 @@
                 </g:link> </li>
             </ul> 
         </div> 
+
+        <script src="http://jp1.kximg.cn/js/opt/jquery.js?a47dd98575ac6d4e9c7b52023d0b4cde"></script>
+        <script>
+        $(document).ready(function() {
+            $("a").click(function() {
+                top.document.title = $(this).text() + " - 管理后台 v2.0";
+            });
+        });
+        </script>
        </body> 
 </html> 

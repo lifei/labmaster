@@ -81,7 +81,9 @@
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="paper.filename.label" default="Filename" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: paperInstance, field: "filename")}</td>
+                            <td valign="top" class="value">
+                            <g:link action="download" id="$paperInstance.id">${fieldValue(bean: paperInstance, field: "filename")}
+                            </g:link></td>
                             
                         </tr>
                     

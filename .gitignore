@@ -4,3 +4,4 @@ target
 stacktrace.log
 .vimproject
 *.bak
+*.txt
