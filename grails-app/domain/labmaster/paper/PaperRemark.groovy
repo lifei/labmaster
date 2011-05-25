@@ -1,5 +1,8 @@
 package labmaster.paper
 
+/**
+ * 评论 
+ */
 class PaperRemark {
 
     /** ID */

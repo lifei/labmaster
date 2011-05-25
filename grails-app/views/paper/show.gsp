@@ -6,6 +6,7 @@
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'paper.label', default: 'Paper')}" />
         <title><g:message code="default.show.label" args="[entityName]" /></title>
+        <g:javascript library="flexpaper/flexpaper_flash_debug" />
     </head>
     <body>
         <div class="nav">
@@ -19,6 +20,40 @@
             <div class="message">${flash.message}</div>
             </g:if>
             <div class="dialog">
+                <div>
+                <a id="viewerPlaceHolder" style="width:660px;height:480px;display:block"></a>
+                <script>
+                var fp = new FlexPaperViewer(   
+                         '${resource(dir:'swf',file:'flexpaper/viewer')}',
+                         'viewerPlaceHolder',
+                         { 
+                             config : {
+                             SwfFile : '${createLink(action:'getswf', id:paperInstance.id)}',
+                                       //'${resource(dir:'swf',file:'main.swf')}',
+                             Scale : 1, 
+                             ZoomTransition : 'easeOut',
+                             ZoomTime : 0.5,
+                             ZoomInterval : 0.2,
+                             FitPageOnLoad : false,
+                             FitWidthOnLoad : true,
+                             PrintEnabled : true,
+                             FullScreenAsMaxWindow : false,
+                             ProgressiveLoading : false,
+                             MinZoomSize : 0.2,
+                             MaxZoomSize : 5,
+                             SearchMatchAll : false,
+                             InitViewMode : 'Portrait',
+                             
+                             ViewModeToolsVisible : true,
+                             ZoomToolsVisible : true,
+                             NavToolsVisible : true,
+                             CursorToolsVisible : true,
+                             SearchToolsVisible : true,
+                            
+                             localeChain: 'zh_CN'
+                         }});
+                    </script>
+                </div>
                 <table>
                     <tbody>
                     

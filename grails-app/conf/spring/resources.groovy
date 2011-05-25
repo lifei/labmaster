@@ -2,6 +2,7 @@ import org.codehaus.groovy.grails.plugins.springsecurity.AuthorizeTools
 
 // Place your Spring DSL code here
 beans = {
+    /*
     captchaAuthenticationFilter(
         labmaster.acegi.captcha.CaptchaAuthenticationProcessingFilter) {
             def conf = AuthorizeTools.securityConfig.security
@@ -20,4 +21,5 @@ beans = {
             authenticateService = ref('authenticateService')
 
    }
+   */
 }

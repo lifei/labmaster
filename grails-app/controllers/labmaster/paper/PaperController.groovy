@@ -1,8 +1,11 @@
 package labmaster.paper
 
 import org.springframework.web.multipart.MultipartHttpServletRequest
+import java.io.File
 
 class PaperController {
+
+    com.solution51.sfu.SuperFileUploadService superFileUploadService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
@@ -19,6 +22,62 @@ class PaperController {
         def paperInstance = new Paper()
         paperInstance.properties = params
         return [paperInstance: paperInstance]
+    }
+
+    def uploadpost = {
+        String uploadFilename = params.uploadedFileId
+
+        if (uploadFilename) { 
+            // get the full path name of the file from the temp directory 
+            File file = superFileUploadService.getTempUploadFile(uploadFilename)
+
+            Paper paper = new Paper()
+            paper.filename = params.filename
+            if(paper.save(flush:true)) {
+                def id = paper.id
+                // def destFile = new File("${grailsApplication.config.paper.dir}/${id}/main.pdf")
+                def destFile = new File("E:/temp/${id}/main.pdf")
+                def dir = destFile.getParentFile()
+
+                if(dir && !dir.exists()) {
+                    dir.mkdirs();
+                }
+
+                if(file.renameTo(destFile)) {
+                    flash.message = "${paper.filename}已经上传"  
+                    paper.status = 1 // 已上传文件
+                    paper.save(flush:true)
+                    
+                    def swfFile = "E:/temp/${id}/main.swf"
+
+                    String swftools = "\"C:/Program Files/SWFTools/pdf2swf.exe\" \"${destFile}\" -o \"${swfFile}\""
+                    Process proc=Runtime.getRuntime().exec(swftools);  
+                    redirect(action:'addinfo', id:paper.id)
+                }
+            }
+
+        }else{ 
+            // file was not uploaded by flash. User might have javascript off 
+            def fileStream = request.getFile('sfuFile'); // handle normal file upload as per grails docs 
+        }
+    }
+
+    def getswf = {
+        def id = params.id
+        def swfFile = new File("E:/temp/${id}/main.swf")
+
+        byte[] bit = swfFile.readBytes()
+
+        response.setContentType("application/x-shockwave-flash")
+        response.setHeader("Content-Length", String.valueOf(bit.length))
+        response.setHeader("Accept-Ranges", "bytes")
+
+
+        def op = response.getOutputStream();
+
+        op << new FileInputStream("E:/temp/${id}/main.swf")
+
+        op.close()
     }
 
     def upload = {

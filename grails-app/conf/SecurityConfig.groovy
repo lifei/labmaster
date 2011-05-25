@@ -2,7 +2,7 @@ security {
 
     // see DefaultSecurityConfig.groovy for all settable/overridable properties
 
-    active = true
+    active = false
 
     loginUserDomainClass = "labmaster.auth.Member"
     authorityDomainClass = "labmaster.auth.Role"
