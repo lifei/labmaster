@@ -22,7 +22,7 @@
                 <g:renderErrors bean="${paperInstance}" as="list" />
             </div>
             </g:hasErrors>
-            <form id="bookForm" name="bookForm" action="uploadpost" 
+            <form id="bookForm" name="bookForm" action="${createLink(action:'uploadpost')}" 
             onsubmit="$('#filename').val($('#swfupload_text').val());return sfuSubmitForm(this);">
             <sfu:fileUploadControl/>
             <sfu:fileUploadProgressBar/>

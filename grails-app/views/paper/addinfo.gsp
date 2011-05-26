@@ -5,6 +5,7 @@
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'paper.label', default: 'Paper')}" />
         <title><g:message code="default.edit.label" args="[entityName]" /></title>
+        <sfu:generateConfiguration fileSize="30" form="bibtex" buttonImageFile="browse-button-sprite.png" buttonWidth="104" buttonHeight="30"/>
     </head>
     <body>
         <div class="nav">
@@ -22,6 +23,14 @@
                 <g:renderErrors bean="${paperInstance}" as="list" />
             </div>
             </g:hasErrors>
+            <form id="bibtex" name="bibtex" action="${createLink(action:'uploadbibtexpost')}" 
+            onsubmit="$('#filename').val($('#swfupload_text').val());return sfuSubmitForm(this);">
+            <sfu:fileUploadControl/>
+            <sfu:fileUploadProgressBar/>
+            <input type="hidden" name="filename" id="filename"/>
+            <input type="hidden" name="id" value="${paperInstance.id}"/>
+            <input type="submit" value="Save">
+            </form>
             <g:form method="post" >
                 <g:hiddenField name="id" value="${paperInstance?.id}" />
                 <g:hiddenField name="version" value="${paperInstance?.version}" />

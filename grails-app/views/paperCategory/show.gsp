@@ -65,10 +65,12 @@
                         </tr>
 
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="paperCategory.createSubCategory.label" default="新建子类" /></td>
+                            <td valign="top" class="name">
+                                <g:message code="paperCategory.createSubCategory.label" default="新建子类" />
+                            </td>
                             
                             <td valign="top" class="value">
-                            <g:link action="create" params="${[parentId:paperCategoryInstance.id]}">老总</g:link>
+                                <g:link action="create" params="${[parentId:paperCategoryInstance.id]}">老总</g:link>
                             </td>
                             
                         </tr>

@@ -2,6 +2,13 @@ package labmaster.paper
 
 import org.springframework.web.multipart.MultipartHttpServletRequest
 import java.io.File
+import net.sf.jabref.BibtexEntry;
+import net.sf.jabref.Globals;
+import net.sf.jabref.JabRefPreferences;
+import net.sf.jabref.imports.BibtexParser;
+import net.sf.jabref.imports.EndnoteImporter
+import net.sf.jabref.imports.ImportFormatReader;
+import net.sf.jabref.imports.ParserResult;
 
 class PaperController {
 
@@ -22,6 +29,50 @@ class PaperController {
         def paperInstance = new Paper()
         paperInstance.properties = params
         return [paperInstance: paperInstance]
+    }
+    
+    def uploadbibtexpost = {
+        String uploadFilename = params.uploadedFileId
+
+        if (uploadFilename) { 
+            // get the full path name of the file from the temp directory 
+            File file = superFileUploadService.getTempUploadFile(uploadFilename)
+
+            if(!file) {
+            }
+
+            def bibtex = file.getText()
+            Globals.prefs = JabRefPreferences.getInstance();
+
+            def bib = BibtexParser.singleFromString(bibtex)
+
+            println bib.getAllFields()
+
+            def keys = [ author:'author', issn:"issn", title:"title", url:'url', keywords:'keyword',
+                abstruct:'abstract', notes:'note', pages:'pages', issue:'issue', journal:'journal', 
+                year:'year', volume:'volume']
+
+            Paper paper = Paper.get(params.id)
+
+            keys.each { k, v ->
+                def value = bib.getField(v)
+                if(value) {
+                    if(paper.getAt(k) instanceof Integer) {
+                        paper.putAt(k, value as Integer)
+                    } else if(paper.getAt(k) instanceof String) {
+                        paper.putAt(k, value)
+                    }
+                }
+            }
+            if(paper.save(flush:true)) {
+                def id = paper.id
+                redirect(action:'addinfo', id:paper.id)
+            }
+
+        }else{ 
+            // file was not uploaded by flash. User might have javascript off 
+            def fileStream = request.getFile('sfuFile'); // handle normal file upload as per grails docs 
+        }
     }
 
     def uploadpost = {
@@ -53,12 +104,18 @@ class PaperController {
                     String swftools = "\"C:/Program Files/SWFTools/pdf2swf.exe\" \"${destFile}\" -o \"${swfFile}\""
                     Process proc=Runtime.getRuntime().exec(swftools);  
                     redirect(action:'addinfo', id:paper.id)
+                } else {
+                    flash.message = "${paper.filename} -> ${destFile}上传失败"  
+                    redirect(action:'upload', id:paper.id)
                 }
+            } else {
+                flash.message = "${paper.filename}上传失败2"  
+                redirect(action:'upload', id:paper.id)
             }
 
         }else{ 
-            // file was not uploaded by flash. User might have javascript off 
-            def fileStream = request.getFile('sfuFile'); // handle normal file upload as per grails docs 
+            flash.message = "上传失败2"  
+            redirect(action:'upload')
         }
     }
 
