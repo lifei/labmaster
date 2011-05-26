@@ -6,3 +6,4 @@ stacktrace.log
 *.bak
 *.txt
 classes
+db
