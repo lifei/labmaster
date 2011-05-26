@@ -93,6 +93,7 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
           StandardItemController.groovy
         }
         paper=paper {
+          PaperCategoryController.groovy
           PaperController.groovy
         }
       }
@@ -142,6 +143,9 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
       labmaster=labmaster {
         tag=tag {
           ExceptionTagLib.groovy
+        }
+        paper=paper {
+          PaperCategoryTagLib.groovy
         }
       }
       lifei=lifei {
@@ -222,6 +226,12 @@ labmaster.linux=/home/lifei/env/grails/labmaster CD=. {
         upload.gsp
         create.gsp
         addinfo.gsp
+        edit.gsp
+        list.gsp
+        show.gsp
+      }
+      paperCategory=paperCategory {
+        create.gsp
         edit.gsp
         list.gsp
         show.gsp

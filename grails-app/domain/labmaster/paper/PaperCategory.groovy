@@ -12,7 +12,7 @@ class PaperCategory {
     String name
 
     /** 父类别 */
-    Long parentId
+    Long parentId = 0
 
     Date createtime
 
@@ -22,13 +22,13 @@ class PaperCategory {
     Long userId
 
     /** 属性 */
-    int type // system, personal
+    int type = 0 // system, personal
 
     /** 状态 */
-    int status
+    int status = 0
 
     /** 是否公开 */
-    Boolean isPublic
+    Boolean isPublic = true
 
     static constraints = {
     }

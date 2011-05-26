@@ -63,9 +63,23 @@
                             <td valign="top" class="value">${fieldValue(bean: paperCategoryInstance, field: "userId")}</td>
                             
                         </tr>
+
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="paperCategory.createSubCategory.label" default="新建子类" /></td>
+                            
+                            <td valign="top" class="value">
+                            <g:link action="create" params="${[parentId:paperCategoryInstance.id]}">老总</g:link>
+                            </td>
+                            
+                        </tr>
                     
                     </tbody>
                 </table>
+                <div>
+                <g:showSubCategory id="${paperCategoryInstance.id}">
+                <g:link action="show" id="${category.id}">${fieldValue(bean: category, field: "name")}</g:link>
+                </g:showSubCategory>
+                </div>
             </div>
             <div class="buttons">
                 <g:form>

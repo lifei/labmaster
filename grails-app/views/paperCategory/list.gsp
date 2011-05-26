@@ -18,47 +18,18 @@
             <div class="message">${flash.message}</div>
             </g:if>
             <div class="list">
-                <table>
-                    <thead>
-                        <tr>
-                        
-                            <g:sortableColumn property="id" title="${message(code: 'paperCategory.id.label', default: 'Id')}" />
-                        
-                            <g:sortableColumn property="createtime" title="${message(code: 'paperCategory.createtime.label', default: 'Createtime')}" />
-                        
-                            <g:sortableColumn property="name" title="${message(code: 'paperCategory.name.label', default: 'Name')}" />
-                        
-                            <g:sortableColumn property="parentId" title="${message(code: 'paperCategory.parentId.label', default: 'Parent Id')}" />
-                        
-                            <g:sortableColumn property="updatetime" title="${message(code: 'paperCategory.updatetime.label', default: 'Updatetime')}" />
-                        
-                            <g:sortableColumn property="userId" title="${message(code: 'paperCategory.userId.label', default: 'User Id')}" />
-                        
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <g:each in="${paperCategoryInstanceList}" status="i" var="paperCategoryInstance">
-                        <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-                        
-                            <td><g:link action="show" id="${paperCategoryInstance.id}">${fieldValue(bean: paperCategoryInstance, field: "id")}</g:link></td>
-                        
-                            <td><g:formatDate date="${paperCategoryInstance.createtime}" /></td>
-                        
-                            <td>${fieldValue(bean: paperCategoryInstance, field: "name")}</td>
-                        
-                            <td>${fieldValue(bean: paperCategoryInstance, field: "parentId")}</td>
-                        
-                            <td><g:formatDate date="${paperCategoryInstance.updatetime}" /></td>
-                        
-                            <td>${fieldValue(bean: paperCategoryInstance, field: "userId")}</td>
-                        
-                        </tr>
-                    </g:each>
-                    </tbody>
-                </table>
+            <g:each in="${paperCategoryInstanceList}" status="i" var="paperCategoryInstance">
+            <div>
+            <h1>
+            <g:link action="show" id="${paperCategoryInstance.id}">${fieldValue(bean: paperCategoryInstance, field: "name")}</g:link>
+            </h1>
+            <div>
+            <g:showSubCategory id="${paperCategoryInstance.id}">
+            <g:link action="show" id="${category.id}">${fieldValue(bean: category, field: "name")}</g:link>
+            </g:showSubCategory>
             </div>
-            <div class="paginateButtons">
-                <g:paginate total="${paperCategoryInstanceTotal}" />
+            </div>
+            </g:each>
             </div>
         </div>
     </body>

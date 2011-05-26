@@ -9,8 +9,8 @@ class PaperCategoryController {
     }
 
     def list = {
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        [paperCategoryInstanceList: PaperCategory.list(params), paperCategoryInstanceTotal: PaperCategory.count()]
+        def list = PaperCategory.findAll("from PaperCategory where parentId=0")
+        [paperCategoryInstanceList: list, paperCategoryInstanceTotal: list.size()]
     }
 
     def create = {
