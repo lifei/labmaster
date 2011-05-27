@@ -271,28 +271,3 @@ th.desc a {
     background: transparent url(../images/skin/database_save.png) 5px 50% no-repeat;
     padding-left: 28px;
 }
-h2 {
-    margin-top:15px;
-    margin-bottom:15px;
-    font-size:1.2em;
-}
-#leftMenu {
-    margin-left:20px;
-    margin-right:20px;
-    width:200px;
-    float:left;
-}
-
-strong {
-    color:red;
-}
-
-#mainMenu h2 {
-    display:block;
-    width:100%;
-    cursor:pointer;
-}
-#mainMenu div {
-    display:none;
-}
-

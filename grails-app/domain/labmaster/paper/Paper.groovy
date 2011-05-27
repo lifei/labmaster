@@ -1,6 +1,7 @@
 package labmaster.paper
+import org.grails.rateable.*
 
-class Paper {
+class Paper implements Rateable {
 
     Long id
     String title = ''
@@ -9,26 +10,17 @@ class Paper {
     String label = ''
     String abstruct = ''
     String notes = ''
-    String researchNotes = ''
     String url = ''
     String filename = ''
-    String authorAddress = ''
-    String figure = ''
-    String caption = ''
-    String translatedAuthor = ''
-    String translatedTitle = ''
+    String affiliation = ''
     
     int year = 2000
     String journal = ''
     String volume = ''
     String issue = ''
-    String page = ''
     String pages = ''
-    String startPage = ''
-    Date pubDate = new Date()
     String issn = ''
     String doi = ''
-    String accessionNumber = ''
 
     int status = 0
 
