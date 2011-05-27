@@ -40,17 +40,17 @@
                     <g:each in="${paperInstanceList}" status="i" var="paperInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
-                            <td><g:link action="show" id="${paperInstance.id}">${fieldValue(bean: paperInstance, field: "id")}</g:link></td>
+                            <td><g:link action="show" id="${paperInstance.id}">${fieldValue(bean: paperInstance, field: "title")}</g:link></td>
                         
                             <td>${fieldValue(bean: paperInstance, field: "abstruct")}</td>
                         
-                            <td>${fieldValue(bean: paperInstance, field: "accessionNumber")}</td>
+                            <td>${fieldValue(bean: paperInstance, field: "keywords")}</td>
                         
                             <td>${fieldValue(bean: paperInstance, field: "author")}</td>
                         
-                            <td>${fieldValue(bean: paperInstance, field: "authorAddress")}</td>
+                            <td>${fieldValue(bean: paperInstance, field: "notes")}</td>
                         
-                            <td>${fieldValue(bean: paperInstance, field: "caption")}</td>
+                            <td>${fieldValue(bean: paperInstance, field: "url")}</td>
                         
                         </tr>
                     </g:each>

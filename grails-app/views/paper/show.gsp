@@ -7,6 +7,7 @@
         <g:set var="entityName" value="${message(code: 'paper.label', default: 'Paper')}" />
         <title><g:message code="default.show.label" args="[entityName]" /></title>
         <g:javascript library="flexpaper/flexpaper_flash_debug" />
+        <rateable:resources/>
     </head>
     <body>
         <div class="nav">
@@ -20,8 +21,9 @@
             <div class="message">${flash.message}</div>
             </g:if>
             <div class="dialog">
+            	<rateable:ratings bean='${paperInstance}'/>
                 <div>
-                <a id="viewerPlaceHolder" style="width:660px;height:480px;display:block"></a>
+                <a id="viewerPlaceHolder" style="width:100%;height:600px;display:block"></a>
                 <script>
                 var fp = new FlexPaperViewer(   
                          '${resource(dir:'swf',file:'flexpaper/viewer')}',
@@ -58,6 +60,13 @@
                     <tbody>
                     
                         <tr class="prop">
+                            <td valign="top" class="name"><g:message code="paper.title.label" default="Title" /></td>
+                            
+                            <td valign="top" class="value">${fieldValue(bean: paperInstance, field: "title")}</td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
                             <td valign="top" class="name"><g:message code="paper.id.label" default="Id" /></td>
                             
                             <td valign="top" class="value">${fieldValue(bean: paperInstance, field: "id")}</td>
@@ -65,16 +74,9 @@
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="paper.abstruct.label" default="Abstruct" /></td>
+                            <td valign="top" class="name"><g:message code="paper.keywords.label" default="Keywords" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: paperInstance, field: "abstruct")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="paper.accessionNumber.label" default="Accession Number" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: paperInstance, field: "accessionNumber")}</td>
+                            <td valign="top" class="value">${fieldValue(bean: paperInstance, field: "keywords")}</td>
                             
                         </tr>
                     
@@ -86,16 +88,23 @@
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="paper.authorAddress.label" default="Author Address" /></td>
+                            <td valign="top" class="name"><g:message code="paper.affiliation.label" default="Author Address" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: paperInstance, field: "authorAddress")}</td>
+                            <td valign="top" class="value">${fieldValue(bean: paperInstance, field: "affiliation")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="paper.caption.label" default="Caption" /></td>
+                            <td valign="top" class="name"><g:message code="paper.abstruct.label" default="Abstruct" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: paperInstance, field: "caption")}</td>
+                            <td valign="top" class="value">${fieldValue(bean: paperInstance, field: "abstruct")}</td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="paper.journal.label" default="Journal" /></td>
+                            
+                            <td valign="top" class="value">${fieldValue(bean: paperInstance, field: "journal")}</td>
                             
                         </tr>
                     
@@ -103,13 +112,6 @@
                             <td valign="top" class="name"><g:message code="paper.doi.label" default="Doi" /></td>
                             
                             <td valign="top" class="value">${fieldValue(bean: paperInstance, field: "doi")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="paper.figure.label" default="Figure" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: paperInstance, field: "figure")}</td>
                             
                         </tr>
                     
@@ -137,20 +139,6 @@
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="paper.journal.label" default="Journal" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: paperInstance, field: "journal")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="paper.keywords.label" default="Keywords" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: paperInstance, field: "keywords")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
                             <td valign="top" class="name"><g:message code="paper.label.label" default="Label" /></td>
                             
                             <td valign="top" class="value">${fieldValue(bean: paperInstance, field: "label")}</td>
@@ -165,58 +153,9 @@
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="paper.page.label" default="Page" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: paperInstance, field: "page")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
                             <td valign="top" class="name"><g:message code="paper.pages.label" default="Pages" /></td>
                             
                             <td valign="top" class="value">${fieldValue(bean: paperInstance, field: "pages")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="paper.pubDate.label" default="Pub Date" /></td>
-                            
-                            <td valign="top" class="value"><g:formatDate date="${paperInstance?.pubDate}" /></td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="paper.researchNotes.label" default="Research Notes" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: paperInstance, field: "researchNotes")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="paper.startPage.label" default="Start Page" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: paperInstance, field: "startPage")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="paper.title.label" default="Title" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: paperInstance, field: "title")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="paper.translatedAuthor.label" default="Translated Author" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: paperInstance, field: "translatedAuthor")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="paper.translatedTitle.label" default="Translated Title" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: paperInstance, field: "translatedTitle")}</td>
                             
                         </tr>
                     

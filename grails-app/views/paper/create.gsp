@@ -5,11 +5,6 @@
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'paper.label', default: 'Paper')}" />
         <title><g:message code="default.create.label" args="[entityName]" /></title>
-        <script type="text/javascript" src="/js/swfupload/swfupload.js"></script>
-        <script type="text/javascript" src="/js/swfupload/swfupload.swfobject.js"></script>
-        <script type="text/javascript" src="/js/swfupload/fileprogress.js"></script>
-        <script type="text/javascript" src="/js/swfupload/handlers.js"></script>
-
     </head>
     <body>
         <div class="nav">
