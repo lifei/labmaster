@@ -1,7 +1,8 @@
 package labmaster.paper
+import org.grails.comments.*;
 import org.grails.rateable.*
 
-class Paper implements Rateable {
+class Paper implements Rateable, Commentable {
 
     Long id
     String title = ''
@@ -23,6 +24,8 @@ class Paper implements Rateable {
     String doi = ''
 
     int status = 0
+	
+	static searchable = true
 
     static constraints = {
     }

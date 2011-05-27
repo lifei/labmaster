@@ -6,6 +6,8 @@ import java.util.Date;
 
 import javax.activation.CommandObject;
 
+import labmaster.auth.Member;
+
 import net.sf.jabref.BibtexEntry;
 import net.sf.jabref.Globals;
 import net.sf.jabref.JabRefPreferences;
@@ -115,6 +117,10 @@ class PaperController {
                 id = paper.id
                 // def destFile = new File("${grailsApplication.config.paper.dir}/${id}/main.pdf")
                 def destFile = new File("E:/temp/${id}/main.pdf")
+				if(destFile.exists()) {
+					destFile.delete()
+				}
+				
                 def dir = destFile.getParentFile()
 
                 if(dir && !dir.exists()) {
@@ -215,6 +221,9 @@ class PaperController {
     }
 
     def show = {
+		if(!session.user) {
+			session.user = Member.get(1)
+		}
         def paperInstance = Paper.get(params.id)
         if (!paperInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'paper.label', default: 'Paper'), params.id])}"

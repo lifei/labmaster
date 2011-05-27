@@ -1,7 +1,7 @@
 import grails.util.GrailsUtil
 import labmaster.auth.Role as Group;
 import labmaster.auth.Member as User;
-import labmaster.auth.RequestMap;
+// import labmaster.auth.RequestMap;
 import labmaster.sample.TestType;
 
 class BootStrap {

@@ -10,6 +10,9 @@
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
 // }
 
+grails.rateable.rater.evaluator = {session.user}
+grails.commentable.poster.evaluator = {session.user}
+
 // 插件配置项
 sfu.tempUploadDirectory="E:/"
 

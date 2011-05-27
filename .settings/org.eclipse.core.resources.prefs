@@ -1,4 +1,4 @@
-#Sun Mar 14 22:33:17 CST 2010
+#Sat May 28 01:45:33 CST 2011
 eclipse.preferences.version=1
 encoding//grails-app/conf/BootStrap.groovy=UTF-8
 encoding//grails-app/controllers/labmaster/device/ScheduleController.groovy=UTF-8
@@ -7,4 +7,6 @@ encoding//grails-app/domain/labmaster/device/Maintenance.groovy=UTF-8
 encoding//grails-app/domain/labmaster/finance/Purchase.groovy=UTF-8
 encoding//grails-app/domain/labmaster/finance/Reimbursement.groovy=UTF-8
 encoding//grails-app/i18n/messages.properties=UTF-8
+encoding//grails-app/views/paper/show.gsp=UTF-8
+encoding//grails-app/views/paperCategory/list.gsp=UTF-8
 encoding/<project>=UTF-8
